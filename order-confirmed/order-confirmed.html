@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Order Confirmed!</h1>
+        <p>Thank you for your order. We will send you a confirmation email shortly.</p>
+        <p>Order Number: {{orderNumber}}</p>
+        <p>Order Date: {{orderDate}}</p>
+        <p>Order Total: {{orderTotal}}</p>
+        <p>Order Status: {{orderStatus}}</p>
+        <p>Order Items:</p>
+        <ul>
+            {{#each orderItems}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+</body>
+</html>
