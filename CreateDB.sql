@@ -4,6 +4,6 @@ CREATE TABLE menu (
     ingredients varchar(255),
     calories int,
     category varchar(255),
-    available boolean
+    available boolean,
     primary key (id)
     );
