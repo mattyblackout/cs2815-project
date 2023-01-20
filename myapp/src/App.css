@@ -12,6 +12,16 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
 }
+.menu-categories-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.menu-category-container {
+    flex: 1;
+    width: 25%;
+    box-sizing: border-box;
+}
 
 
 .App-link {

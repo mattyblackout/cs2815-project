@@ -14,41 +14,51 @@ function App() {
       </header>
       <div className="menu-container">
         <h2>Menu</h2>
-        <button onClick={() => setMainOpen(!mainOpen)}>Main Dishes</button>
-        {mainOpen && (
-          <ul>
-            <li>Taco al Pastor - $5.99</li>
-            <li>Mole Poblano - $12.99</li>
-            <li>Tamales Oaxaqueños - $8.99</li>
-            <li>Enchiladas de Mole - $10.99</li>
-          </ul>
-        )}
-        <button onClick={() => setSidesOpen(!sidesOpen)}>Sides</button>
-        {sidesOpen && (
-          <ul>
-            <li>Refried Beans - $2.99</li>
-            <li>Rice - $2.99</li>
-            <li>Guacamole - $4.99</li>
-          </ul>
-        )}
-        <button onClick={() => setDessertsOpen(!dessertsOpen)}>Desserts</button>
-        {dessertsOpen && (
-          <ul>
-            <li>Churros con Chocolate - $6.99</li>
-            <li>Flan - $5.99</li>
-          </ul>
-        )}
-        <button onClick={() => setDrinksOpen(!drinksOpen)}>Drinks</button>
-        {drinksOpen && (
-          <ul>
-            <li>Horchata - $2.99</li>
-            <li>Agua Fresca - $2.99</li>
-            <li>Margarita - $7.99</li>
-          </ul>
-        )}
+        <div className="menu-categories-container">
+          <div className="menu-category-container" onClick={() => setMainOpen(!mainOpen)}>
+            <button>Main Dishes</button>
+            {mainOpen && (
+              <ul>
+                <li>Taco al Pastor - $5.99</li>
+                <li>Mole Poblano - $12.99</li>
+                <li>Tamales Oaxaqueños - $8.99</li>
+                <li>Enchiladas de Mole - $10.99</li>
+              </ul>
+            )}
+          </div>
+          <div className="menu-category-container" onClick={() => setSidesOpen(!sidesOpen)}>
+            <button>Sides</button>
+            {sidesOpen && (
+              <ul>
+                <li>Refried Beans - $2.99</li>
+                <li>Rice - $2.99</li>
+                <li>Guacamole - $4.99</li>
+              </ul>
+            )}
+          </div>
+          <div className="menu-category-container" onClick={() => setDessertsOpen(!dessertsOpen)}>
+            <button>Desserts</button>
+            {dessertsOpen && (
+              <ul>
+                <li>Churros con Chocolate - $6.99</li>
+                <li>Flan - $5.99</li>
+              </ul>
+            )}
+          </div>
+          <div className="menu-category-container" onClick={() => setDrinksOpen(!drinksOpen)}>
+            <button>Drinks</button>
+            {drinksOpen && (
+              <ul>
+                <li>Horchata - $2.99</li>
+                <li>Agua Fresca - $2.99</li>
+                <li>Margarita - $7.99</li>
+              </ul>
+            )}
+          </div>
+        </div>
       </div>
     </div>
-  );
+    );
 }
 
 export default App;
