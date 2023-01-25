@@ -1,7 +1,7 @@
 CREATE TABLE Menu (
   item_id VARCHAR(255) NOT NULL,
   item_name VARCHAR(255),
-  allergies VARCHAR(255),
+  ingredients VARCHAR(255),
   calories int,
   price DECIMAL(12, 2),
   currently_avaliable BOOLEAN,
