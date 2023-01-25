@@ -1,3 +1,5 @@
+// Code adapted from https://blog.logrocket.com/crud-rest-api-node-js-express-postgresql/#creating-routes-crud-operations
+
 const Pool = require('pg').Pool
 const pool = new Pool({
     user: 'postgres',
