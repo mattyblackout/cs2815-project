@@ -11,14 +11,16 @@ button {
     height: 100px;
     font-family: "Bayon";
 }
+
 button:hover {
     background-color: black;
     color: #F8CB2D;
 }
 
-.splash-image{
-    width: 1440px;
+.splash-image {
+    width: 1385px;
 }
+
 .header-image {
     height: 64px;
     position: absolute;
@@ -36,6 +38,7 @@ button:hover {
     height: 100px;
 
 }
+
 .menu-categories-container {
     display: flex;
     width: 70%;
@@ -45,16 +48,46 @@ button:hover {
 
 .menu-category-container {
     flex: 1;
+}
+
+.separate{
+    height: 20px;
+}
+
+li{
+    justify-content: left;
+    font-size: 30px;
+    font-family: "Bayon";
+}
+
+.order-container{
+    position: absolute;
+    right: 20px;
+    justify-content: left;
+    border: 5px solid black;
+    background-color: #F8CB2D;
+    height: 200px;
     width: 25%;
-    box-sizing: border-box;
+    font-family: "Bayon";
+    font-size: 32px;
+    top: 350px;
+}
 
-
+.expanded-div {
+    justify-content: left;
+    position: absolute;
+    height: fit-content;
+    width: 70%;
+    border: 5px solid #f8cb2e;
 }
 
 .App-link {
     color: #61dafb;
 }
-@font-face{
+
+
+
+@font-face {
     font-family: "Bayon";
     src: local(Bayon-Regular),
     url("./fonts/Bayon-Regular.ttf") format("truetype");
