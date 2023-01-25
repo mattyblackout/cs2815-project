@@ -3,6 +3,7 @@ CREATE TABLE Menu (
   item_name VARCHAR(255),
   allergies VARCHAR(255),
   calories int,
+  price DECIMAL(12, 2),
   currently_avaliable BOOLEAN,
   est_wait_time int,
   PRIMARY KEY (item_id)
