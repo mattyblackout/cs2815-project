@@ -4,12 +4,12 @@ import logo from './logo.png';
 import './fonts/Bayon-Regular.ttf';
 import splash from './splash-image.jpg';
 
+let show = true;
+
 function App() {
     const [expanded, setExpanded] = useState("");
     const [tableNumber, setTableNumber] = useState("");
-    const [showPrompt, setShowPrompt] = useState(true);
     const [mains, setMains] = useState([]);
-
 
     const handleButtonClick = (item) => {
         if (item === 'mains') {
@@ -27,11 +27,11 @@ function App() {
     };
 
     useEffect(() => {
-        if (showPrompt) {
+        if (show) {
             setTableNumber(window.prompt('What is your table number?'));
-            setShowPrompt(false);
+            show = false;
         }
-    }, [showPrompt]);
+    },[]);
   return (
 
     <div className="App">
@@ -67,11 +67,11 @@ function App() {
         </div>
         {expanded === "mains" && (
                 <div className='expanded-div'>
-                    <ul>
+                    <p>
                         {mains.map((item) => (
-                                <li key={item.id}>{item.name} - ${item.calories/20}</li>
+                                <p key={item.id}>{item.name} - ${item.calories/20}</p>
                                 ))}
-                    </ul>
+                    </p>
                 </div>
                 )}
         {expanded === "sides" && (
