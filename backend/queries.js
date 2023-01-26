@@ -18,11 +18,24 @@ const getMenu = (request, response) => {
     })
 }
 
-
+let range
 const getMenuByType = (request, response) => {
     const id = parseInt(request.params.id)
+    if (id === 11){
+        range = 0
+    }
+    if (id === 23){
+        range = 11
+    }
+    if (id === 30){
+        range = 23
+    }
+    if (id === 35){
+        range = 30
+    }
 
-    pool.query('SELECT * FROM menu WHERE id < $1', [id], (error, results) => {
+
+    pool.query('SELECT * FROM menu WHERE id < $1 and id >= $2', [id, range], (error, results) => {
         if (error) {
             throw error
         }

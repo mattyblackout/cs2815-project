@@ -18,7 +18,7 @@ button:hover {
 }
 
 .splash-image {
-    width: 1385px;
+    width: 100%;
 }
 
 .header-image {
@@ -40,13 +40,15 @@ button:hover {
 }
 
 .menu-categories-container {
+    margin-top: -200px;
+    margin-left: 10px;
     display: flex;
     width: 70%;
     justify-content: space-between;
-
 }
 
 .menu-category-container {
+    display: flex;
     flex: 1;
 }
 
@@ -54,15 +56,16 @@ button:hover {
     height: 20px;
 }
 
-p{
+.menu-items{ /* This is for the menu items shown when a button is clicked */
     justify-content: left;
-    margin-left: -30%;
     font-size: 30px;
     font-family: "Bayon";
+    text-align: left;
+    margin-left: 10px;
 }
 
-.order-container{
-    position: absolute;
+.order-container{ /* This is for the box in which a current order is displayed */
+    position: sticky;
     right: 20px;
     justify-content: left;
     border: 5px solid black;
@@ -71,8 +74,11 @@ p{
     width: 25%;
     font-family: "Bayon";
     font-size: 32px;
-    top: 350px;
+    top: 0;
+    left: 72%;
+    z-index: 100;
 }
+
 
 .expanded-div {
     justify-content: left;
@@ -85,7 +91,6 @@ p{
 .App-link {
     color: #61dafb;
 }
-
 
 
 @font-face {
