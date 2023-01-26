@@ -2,11 +2,11 @@
 
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'postgres',
+    user: 'admin',
     host: 'localhost',
-    database: 'damanarora',
+    database: 'juan',
     password: 'postgres',
-    port: 5433,
+    port: 5432,
 })
 
 const getMenu = (request, response) => {
@@ -24,14 +24,14 @@ const getMenuByType = (request, response) => {
     if (id === 11){
         range = 0
     }
-    if (id === 23){
+    if (id === 21){
         range = 11
     }
-    if (id === 30){
-        range = 23
+    if (id === 31){
+        range = 21
     }
-    if (id === 35){
-        range = 30
+    if (id === 41){
+        range = 31
     }
 
 

@@ -2,6 +2,11 @@
     text-align: center;
 }
 
+.order-items-container{
+    font-family: 'Bayon';
+    color: black;
+}
+
 button {
     border: 5px solid black;
     background-color: white;
@@ -56,6 +61,15 @@ button:hover {
     height: 20px;
 }
 
+.description{
+    color: #555555;
+    margin-left: 10px;
+    justify-content: right;
+    font-size: 24px;
+    font-family: "Bayon";
+    width: 75%;
+}
+
 .menu-items{ /* This is for the menu items shown when a button is clicked */
     justify-content: left;
     font-size: 30px;
@@ -79,6 +93,18 @@ button:hover {
     z-index: 100;
 }
 
+.add-button{
+    position: absolute;
+    left: 78%;
+    margin-top: -50px;
+    height: 60px;
+    border: 4px solid black;
+}
+
+.menu-items-container{
+    text-align: left;
+    justify-content: left;
+}
 
 .expanded-div {
     justify-content: left;
