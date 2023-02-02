@@ -1,0 +1,35 @@
+INSERT INTO Menu(item_id, item_name, calories, category, currently_avaliable, price, description, est_wait_time) VALUES
+('M-01', 'Taco al Pastor', 500, 'mains', true, 5.99, 'A popular street food in Mexico, made with marinated pork cooked on a spit and topped with pineapple, onions, and cilantro', 10),
+('M-02', 'Mole Poblano', 800, 'mains', true, 12.99, 'A traditional Mexican dish made with a complex sauce made from chili peppers and various spices, served over chicken', 15),
+('M-03', 'Tamales Oaxaquenos', 600, 'mains', true, 8.99, 'A traditional tamale from the Oaxaca region of Mexico, made with masa dough filled with pork and red mole sauce, wrapped in banana leaves', 20),
+('M-04', 'Enchiladas de Mole', 700, 'mains', true, 10.99, 'A traditional Mexican dish made with corn tortillas filled with chicken and topped with mole sauce and cheese, served with sour cream', 15),
+('M-05', 'Chiles Rellenos', 600, 'mains', true, 12.99, 'A traditional Mexican dish made with poblano peppers stuffed with ground beef and cheddar cheese, coated in egg batter and fried, topped with tomato sauce, cilantro, and onions.', 20),
+('M-06', 'Carne Asada', 800, 'mains', true, 14.99, 'A traditional Mexican dish made with grilled beef, served with cilantro, onions, lime, and corn tortillas.', 15),
+('M-07', 'Barbacoa', 800, 'mains', true, 15.99, 'A traditional Mexican dish of slow-cooked lamb, often served with cilantro, onions, and lime', 10),
+('M-08', 'Tostadas', 500, 'mains', true, 8.99, 'A popular Mexican dish consisting of a fried corn tortilla topped with beans, lettuce, cheese, and meat', 10),
+('M-09', 'Chimichangas', 800, 'mains', true, 9.99, 'A deep-fried burrito filled with meat, cheese, lettuce, and sour cream', 10),
+('M-10', 'Carnitas', 700, 'mains', true, 12.99, 'A traditional Mexican dish of slow-cooked pork, often served with cilantro, onions, and lime', 10);
+
+INSERT INTO Menu(item_id, item_name, calories, category, currently_avaliable, price, description, est_wait_time) VALUES
+('S-01', 'Elote', 150, 'sides', true, 3.99, 'Grilled corn on the cob, coated in mayonnaise, cotija cheese and chili powder', 5),
+('S-02', 'Totopos con Salsa', 300, 'sides', true, 5.99, 'Crispy tortilla chips served with a side of homemade salsa', 5),
+('S-03', 'Frijoles Refritos', 250, 'sides', true, 2.99, 'Traditional Mexican refried pinto beans', 5),
+('S-04', 'Arroz Rojo', 200, 'sides', true, 2.99, 'Traditional Mexican red rice', 10),
+('S-05', 'Guacamole', 200, 'sides', true, 4.99, 'Homemade guacamole made fresh daily', 5),
+('S-06', 'Pico de Gallo', 50, 'sides', true, 3.99, 'Fresh salsa made with diced tomatoes, onions, cilantro, and lime juice', 5),
+('S-07', 'Queso Fundido', 400, 'sides', true, 7.99, 'Melted Chihuahua cheese mixed with chorizo, served with warm tortillas', 10),
+('S-08', 'Nachos', 500, 'sides', true, 7.99, 'Crispy tortilla chips topped with refried beans, cheese, jalapenos, and sour cream', 10),
+('S-09', 'Sopa de Fideo', 200, 'sides', true, 3.99, 'Soup made with thin vermicelli-like pasta, tomato sauce, chicken broth, onions and garlic', 10),
+('S-10', 'Tortillas', 150, 'sides', true, 2.99, 'Traditional warm handmade corn tortillas', 5);
+
+INSERT INTO Menu(item_id, item_name, calories, category, currently_avaliable, price, description, est_wait_time) VALUES
+('D-01', 'Michelada', 150, 'drinks', true, 4.99, 'A traditional Mexican beer cocktail made with tomato juice, lime juice, and various spices', 5),
+('D-02', 'Agua de Jamaica', 50, 'drinks', true, 2.99, 'A sweet and tangy drink made from hibiscus flowers', 5),
+('D-03', 'Horchata', 150, 'drinks', true, 2.99, 'A sweet, creamy and refreshing drink made from ground rice, cinnamon, vanilla, and milk', 5),
+('D-04', 'Agua Fresca', 50, 'drinks', true, 2.99, 'A refreshing, non-alcoholic drink made from water and fresh fruit', 5),
+('D-05', 'Tequila Sunrise', 150, 'drinks', true, 7.99, 'A popular cocktail made with tequila, orange juice, and grenadine', 5),
+('D-06', 'Paloma', 150, 'drinks', true, 7.99, 'A traditional Mexican cocktail made with tequila, grapefruit soda, and lime juice', 5),
+('D-07', 'Margarita', 150, 'drinks', true, 7.99, 'A classic cocktail made with tequila, lime juice, and triple sec', 5),
+('D-08', 'Sangrita', 150, 'drinks', true, 4.99, 'A traditional Mexican non-alcoholic drink typically served as a chaser to tequila', 5),
+('D-09', 'Cerveza', 150, 'drinks', true, 4.99, 'Beer', 5),
+('D-10', 'Vampiro', 150, 'drinks', true, 7.99, 'A traditional Mexican cocktail made with tequila, orange juice and grenadine', 5);
