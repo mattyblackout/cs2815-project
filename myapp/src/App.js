@@ -13,15 +13,10 @@ function App() {
     const [sides, setSides] = useState([]);
     const [desserts, setDesserts] = useState([]);
     const [drinks, setDrinks] = useState([]);
-    let order = [];
-    let index = 0;
+    const [order, setOrder] = useState([]);
 
     const addToOrder = (item) => {
-        order.push({
-            index: index, 
-            name: item.name, 
-            price: item.price});
-        index++;
+        setOrder([...order, item.name + "  " + item.price]);
         console.log(order);
     }
 
@@ -38,7 +33,7 @@ const handleButtonClick = (item) => {
             });
     }
     if (item === 'sides') {
-        fetch('http://localhost:3000/menu/23')
+        fetch('http://localhost:3000/menu/21')
             .then((response) => response.json())
             .then((data) => {
                 setSides(data);
@@ -48,7 +43,7 @@ const handleButtonClick = (item) => {
             });
     }
     if (item === 'desserts') {
-        fetch('http://localhost:3000/menu/30')
+        fetch('http://localhost:3000/menu/31')
             .then((response) => response.json())
             .then((data) => {
                 setDesserts(data);
@@ -58,7 +53,7 @@ const handleButtonClick = (item) => {
             });
     }
     if (item === 'mains') {
-        fetch('http://localhost:3000/menu/35')
+        fetch('http://localhost:3000/menu/41')
             .then((response) => response.json())
             .then((data) => {
                 setDrinks(data);
@@ -85,16 +80,6 @@ return (
         <div className="splash-div">
             <img src={splash} alt="splash" className={"splash-image"} />
         </div>
-        <div className="order-container">
-            <p> Table {tableNumber}</p>
-            <div className='order-items-container'>
-                    {order.map((order) => (
-                        <>
-                            <div className='menu-items' key={order.index}>{order.name} - {order.price} </div>
-                        </>
-                    ))}
-                </div>
-        </div>
         <div className="menu-container">
 
             <div className="menu-categories-container">
@@ -120,8 +105,8 @@ return (
                     {mains.map((item) => (
                         <>
                             <div className='food-item-container'>
-                                <div className='menu-items' key={item.id}>{item.name} - ${item.calories / 20} </div>
-                                <div className='description' key={item.id}>{item.description} <br /></div>
+                                <div className='menu-items' key={item.id}>{item.name} - ${item.calories / 20}<br/></div>
+                                <div className='description' key={item.id}>{item.description} <br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
                             </div>
                         </>
@@ -134,8 +119,9 @@ return (
                 <div className='menu-items-container'>
                     {sides.map((item) => (
                         <>
-                            <text className='menu-items' key={item.id}>{item.name} - ${item.calories / 20} </text>
-                            <text className='description' key={item.id}>{item.description} <br /></text>
+                            <div className='menu-items' key={item.id}>{item.name} - ${item.calories / 20}<br/></div>
+                            <div className='description' key={item.id}>{item.description} <br/></div>
+                            <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
                         </>
                     ))}
                 </div>
@@ -146,8 +132,9 @@ return (
                 <div className='menu-items-container'>
                     {desserts.map((item) => (
                         <>
-                            <text className='menu-items' key={item.id}>{item.name} - ${item.calories / 20} </text>
-                            <text className='description' key={item.id}>{item.description}<br /></text>
+                            <div className='menu-items' key={item.id}>{item.name} - ${item.calories / 20}<br/></div>
+                            <div className='description' key={item.id}>{item.description}<br/></div>
+                            <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
                         </>
                     ))}
                 </div>
@@ -160,15 +147,25 @@ return (
                     <div className='menu-items-container'>
                         {drinks.map((item) => (
                             <>
-                                <text className='menu-items' key={item.id}>{item.name} - ${item.calories / 20} </text>
-                                <text className='description' key={item.id}>{item.description} <br /></text>
+                                <div className='menu-items' key={item.id}>{item.name} - ${item.calories / 20}<br/></div>
+                                <div className='description' key={item.id}>{item.description} <br/></div>
+                                <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
                             </>
                         ))}
                     </div>
                 </div>
             )
         }
+        <div className="order-container">
+            <p> Table {tableNumber}</p>
+            <div className='order-items-container'>
+            <ul>
+            {order.map(item => <li key={item}>{item}</li>)}
+             </ul>   
+            </div>
+        </div>
     </div>
+            
 )
     ;
 }
