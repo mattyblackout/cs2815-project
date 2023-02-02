@@ -7,3 +7,4 @@
 .*.lst
 .*.jar
 .*.class
+/node_modules
