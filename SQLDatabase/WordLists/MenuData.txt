@@ -13,7 +13,7 @@ INSERT INTO Menu(item_id, item_name, calories, category, currently_avaliable, pr
 INSERT INTO Menu(item_id, item_name, calories, category, currently_avaliable, price, description, est_wait_time) VALUES
 (DEFAULT, 'Elote', 150, 'sides', true, 3.99, 'Grilled corn on the cob, coated in mayonnaise, cotija cheese and chili powder', 5),
 (DEFAULT, 'Totopos con Salsa', 300, 'sides', true, 5.99, 'Crispy tortilla chips served with a side of homemade salsa', 5),
-(DEFAULT', 'Frijoles Refritos', 250, 'sides', true, 2.99, 'Traditional Mexican refried pinto beans', 5),
+(DEFAULT, 'Frijoles Refritos', 250, 'sides', true, 2.99, 'Traditional Mexican refried pinto beans', 5),
 (DEFAULT, 'Arroz Rojo', 200, 'sides', true, 2.99, 'Traditional Mexican red rice', 10),
 (DEFAULT, 'Guacamole', 200, 'sides', true, 4.99, 'Homemade guacamole made fresh daily', 5),
 (DEFAULT, 'Pico de Gallo', 50, 'sides', true, 3.99, 'Fresh salsa made with diced tomatoes, onions, cilantro, and lime juice', 5),
