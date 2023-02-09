@@ -2,11 +2,11 @@
 
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'admin',
+    user: 'damanarora',
     host: 'localhost',
-    database: 'juan',
-    password: 'postgres',
-    port: 5432,
+    database: 'damanarora',
+    password: 'damanarora',
+    port: 5433,
 })
 
 const getMenu = (request, response) => {
@@ -59,8 +59,24 @@ const updateMenu = (request, response) => {
             )
 }
 
+const createOrder = (request, response) => {
+    const { items } = request.body
+
+    pool.query(
+            'INSERT INTO orders (items) VALUES ($1)',
+            [items],
+            (error, result) => {
+                if (error) {
+                    throw error
+                }
+                response.status(201).send(`Order added with ID: ${result.insertId}`)
+            }
+            )
+}
+
 module.exports = {
     getMenu,
     updateMenu,
-    getMenuByType
+    getMenuByType,
+    createOrder
 }

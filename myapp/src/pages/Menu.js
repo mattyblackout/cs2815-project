@@ -6,7 +6,7 @@ import splash from '../splash-image.jpg';
 
 let show = true;
 
-const Menu = () => {
+function Menu() {
     const [expanded, setExpanded] = useState("");
     const [tableNumber, setTableNumber] = useState("");
     const [mains, setMains] = useState([]);
@@ -16,10 +16,32 @@ const Menu = () => {
     const [order, setOrder] = useState([]);
 
     const addToOrder = (item) => {
-        setOrder([...order, item.name + "  " + item.price]);
-        console.log(order);
-    }
+        const existingItemIndex = order.findIndex(orderItem => orderItem.name === item.name);
+        if (existingItemIndex !== -1) {
+            const updatedOrder = [...order];
+            updatedOrder[existingItemIndex].quantity += 1;
+            setOrder(updatedOrder);
+        } else {
+            setOrder([...order, {...item, quantity: 1}]);
+        }
+    };
 
+    const handleRemove = (itemToRemove) => {
+        const existingItemIndex = order.findIndex((item) => item.name === itemToRemove.name);
+        if (existingItemIndex >= 0) {
+            const updatedOrder = [...order];
+            if (updatedOrder[existingItemIndex].quantity > 1) {
+                updatedOrder[existingItemIndex].quantity -= 1;
+            } else {
+                updatedOrder.splice(existingItemIndex, 1);
+            }
+            setOrder(updatedOrder);
+        }
+    };
+
+    const totalMoney = order.reduce((total, item) => {
+        return total + item.price * item.quantity;
+    }, 0);
 
     const handleButtonClick = (item) => {
         if (item === 'mains') {
@@ -52,7 +74,7 @@ const Menu = () => {
                     console.log(error);
                 });
         }
-        if (item === 'drinks') {
+        if (item === 'mains') {
             fetch('http://localhost:3000/menu/41')
                 .then((response) => response.json())
                 .then((data) => {
@@ -73,7 +95,6 @@ const Menu = () => {
     }, []);
     return (
         <div className="App">
-
             <header className="App-header">
                 <img src={logo} alt="the logo" className="header-image"/>
             </header>
@@ -81,7 +102,6 @@ const Menu = () => {
                 <img src={splash} alt="splash" className={"splash-image"}/>
             </div>
             <div className="menu-container">
-
                 <div className="menu-categories-container">
                     <div className="menu-category-container">
                         <button onClick={() => handleButtonClick("mains")}>Mains</button>
@@ -95,18 +115,36 @@ const Menu = () => {
                     <div className="menu-category-container">
                         <button onClick={() => handleButtonClick("drinks")}>Drinks</button>
                     </div>
+                    <div className="ordering-container">
+                        <h1 className="table">TABLE</h1>
+                        <p className="table-number">{tableNumber}</p>
+                        <hr className="underline"></hr>
+                        <h1 className="simple-text">YOUR ORDER</h1>
+                        <h4 className={"GAP"}/>
+                        {order.map((item, index) => (
+                            <div key={index}>
+                                <span className="item-name">{item.quantity} {item.name}</span>
+                                <button className="remove" onClick={() => handleRemove(item)}>-</button>
+                                <span className="money">£{(item.price * item.quantity).toFixed(2)}</span>
+                            </div>
+                        ))}
+                        <hr className="underline"></hr>
+                        <h1 className="simple-text">TOTAL</h1>
+                        <h2 className="money">£{totalMoney.toFixed(2)}</h2>
+                    </div>
                 </div>
             </div>
-            <div className="separate">
-            </div>
+            <div className="separate"/>
             {expanded === "mains" && (
                 <div className='expanded-div'>
                     <div className='menu-items-container'>
                         {mains.map((item) => (
                             <>
                                 <div className='food-item-container'>
-                                    <div className='menu-items' key={item.id}>{item.name} - ${item.calories / 20}<br/>
-                                    </div>
+                                    <div className='menu-items' key={item.id}>{item.name} -
+                                        £{item.price}&nbsp;&nbsp;&nbsp;
+                                        <div className='calories' key={item.id}>({item.calories}KCAL)</div>
+                                        <br/></div>
                                     <div className='description' key={item.id}>{item.description} <br/></div>
                                     <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
                                     </button>
@@ -121,7 +159,9 @@ const Menu = () => {
                     <div className='menu-items-container'>
                         {sides.map((item) => (
                             <>
-                                <div className='menu-items' key={item.id}>{item.name} - ${item.calories / 20}<br/></div>
+                                <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
+                                    <div className='calories' key={item.id}>({item.calories}KCAL)</div>
+                                    <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
                             </>
@@ -134,7 +174,9 @@ const Menu = () => {
                     <div className='menu-items-container'>
                         {desserts.map((item) => (
                             <>
-                                <div className='menu-items' key={item.id}>{item.name} - ${item.calories / 20}<br/></div>
+                                <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
+                                    <div className='calories' key={item.id}>({item.calories}KCAL)</div>
+                                    <br/></div>
                                 <div className='description' key={item.id}>{item.description}<br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
                             </>
@@ -149,7 +191,9 @@ const Menu = () => {
                         <div className='menu-items-container'>
                             {drinks.map((item) => (
                                 <>
-                                    <div className='menu-items' key={item.id}>{item.name} - ${item.calories / 20}<br/></div>
+                                    <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
+                                        <div className='calories' key={item.id}>({item.calories}KCAL)</div>
+                                        <br/></div>
                                     <div className='description' key={item.id}>{item.description} <br/></div>
                                     <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
                                 </>
@@ -158,14 +202,6 @@ const Menu = () => {
                     </div>
                 )
             }
-            <div className="order-container">
-                <p> Table {tableNumber}</p>
-                <div className='order-items-container'>
-                    <ul>
-                        {order.map(item => <li key={item}>{item}</li>)}
-                    </ul>
-                </div>
-            </div>
         </div>
 
     )

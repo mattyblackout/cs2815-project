@@ -18,10 +18,13 @@ app.use(
 
 app.get('/menu', db.getMenu)
 app.get('/menu/:id', db.getMenuByType)
+app.post('/order', db.createOrder)
+
 
 app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
 })
+
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
 })

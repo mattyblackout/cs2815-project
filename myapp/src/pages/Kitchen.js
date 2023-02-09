@@ -4,7 +4,7 @@ import logo from '../logo.png';
 import splash from '../splash-image.jpg';
 
 
-const Orders = (props) => {
+const Kitchen = (props) => {
   const [orders, setOrders] = useState([]);
 
   function ordersWithId(id) {
@@ -59,4 +59,4 @@ const Orders = (props) => {
   )
 }
 
-export default Orders;
+export default Kitchen;
