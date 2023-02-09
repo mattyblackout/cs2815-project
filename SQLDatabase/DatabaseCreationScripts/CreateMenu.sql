@@ -1,5 +1,5 @@
 CREATE TABLE Menu (
-  item_id VARCHAR(255) NOT NULL,
+  item_id SERIAL NOT NULL,
   item_name VARCHAR(255),
   calories int,
   category VARCHAR(255),
