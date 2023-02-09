@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import '../Waiter.css';
+import '../css/Waiter.css';
 import logo from '../logo.png';
 import splash from '../splash-image.jpg';
 

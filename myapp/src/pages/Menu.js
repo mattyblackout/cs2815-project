@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import '../Menu.css';
+import '../css/Menu.css';
 import logo from '../logo.png';
 import '../fonts/Bayon-Regular.ttf';
 import splash from '../splash-image.jpg';
