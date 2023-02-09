@@ -1,0 +1,49 @@
+.ordersContainer {
+    margin-top: 30px;
+    margin-left: 30px;
+    border: 5px solid #f8cb2e;
+    width: 43%;
+    height: 80%;
+}
+
+.orderContainer {
+    border: 2px solid black;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+}
+.splash-image{
+    width: 100%;
+}
+
+.App-header {
+    background-color: #f8cb2e;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    font-size: calc(10px + 2vmin);
+    height: 100px;
+}
+
+
+
+.activeButton {
+    height: 45px;
+    margin-left: -1px;
+    margin-top: 5px;
+    text-align: center;
+    line-height: 35px;
+}
+
+.completedButton {
+    height: 45px;
+    margin-left: 161px;
+    margin-top: 5px;
+    text-align: center;
+    line-height: 35px;
+}
+
+.underline {
+    border: 2px solid black;
+}

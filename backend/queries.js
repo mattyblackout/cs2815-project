@@ -2,11 +2,11 @@
 
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'damanarora',
+    user: 'admin',
     host: 'localhost',
-    database: 'damanarora',
-    password: 'damanarora',
-    port: 5433,
+    database: 'juan',
+    password: 'postgres',
+    port: 5432,
 })
 
 const getMenu = (request, response) => {
