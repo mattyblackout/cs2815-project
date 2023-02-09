@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../css/Kitchen.css';
 import logo from '../logo.png';
 import splash from '../splash-image.jpg';
-
+import { Link } from 'react-router-dom';
 
 const Kitchen = (props) => {
   const [orders, setOrders] = useState([]);
@@ -32,7 +32,9 @@ const Kitchen = (props) => {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} alt="the logo" className="header-image" />
+          <Link to="/">
+              <img src={logo} alt="the logo" className="header-image"/>
+          </Link>
       </header>
       <div className="splash-div">
         <img src={splash} alt="splash" className="splash-image" />

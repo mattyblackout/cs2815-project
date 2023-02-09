@@ -3,6 +3,7 @@ import '../css/Menu.css';
 import logo from '../logo.png';
 import '../fonts/Bayon-Regular.ttf';
 import splash from '../splash-image.jpg';
+import { Link } from 'react-router-dom';
 
 let show = true;
 
@@ -96,7 +97,14 @@ function Menu() {
     return (
         <div className="App">
             <header className="App-header">
-                <img src={logo} alt="the logo" className="header-image"/>
+                <Link to="/">
+                    <img src={logo} alt="the logo" className="header-image"/>
+                </Link>
+                <div>
+                    <Link to="/login">
+                        <button className="login-button">Login</button>
+                    </Link>
+                </div>
             </header>
             <div className="splash-image">
                 <img src={splash} alt="splash" className={"splash-image"}/>

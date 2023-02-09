@@ -39,8 +39,9 @@ button:hover {
 }
 .header-image {
     height: 64px;
-    position: absolute;
     left: 30px;
+    position:absolute;
+    top:20px;
 }
 
 .App-header {
@@ -48,12 +49,10 @@ button:hover {
     color: black;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     font-size: calc(10px + 2vmin);
     height: 100px;
-
 }
+
 .menu-categories-container {
     margin-top: 10px;
     margin-left: 10px;
@@ -118,6 +117,24 @@ button:hover {
     margin-left: 20px;
     margin-top: 20px;
 }
+
+.login-button{
+    height: 50px;
+    line-height: 40px;
+    width: 150px;
+    background: #f8cb2e;
+    position:absolute;
+    top:30px;
+    right: 30px;
+    border: 0px solid black;
+
+}
+.login-button:hover {
+    border: 5px solid black;
+    background:#f8cb2e;
+    color: black;
+}
+
 
 .table-number{
     border: 2px solid black;
@@ -200,7 +217,7 @@ button:hover {
 .expanded-div {
     justify-content: left;
     position: absolute;
-    top:482px;
+    top:440px;
     height: fit-content;
     width: 850px;
     border: 5px solid #f8cb2e;
