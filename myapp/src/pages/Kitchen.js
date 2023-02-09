@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../css/Orders.css';
+import '../css/Kitchen.css';
 import logo from '../logo.png';
 import splash from '../splash-image.jpg';
 

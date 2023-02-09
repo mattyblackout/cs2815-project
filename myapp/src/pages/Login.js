@@ -11,6 +11,7 @@ function Login() {
         <header className="App-header">
             <img src={logo} alt="the logo" className="header-image"/>
         </header>
+            
         </div>
         )
     }

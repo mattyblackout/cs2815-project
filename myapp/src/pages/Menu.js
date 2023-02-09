@@ -98,7 +98,7 @@ function Menu() {
             <header className="App-header">
                 <img src={logo} alt="the logo" className="header-image"/>
             </header>
-            <div className="splash-div">
+            <div className="splash-image">
                 <img src={splash} alt="splash" className={"splash-image"}/>
             </div>
             <div className="menu-container">
@@ -122,12 +122,14 @@ function Menu() {
                         <h1 className="simple-text">YOUR ORDER</h1>
                         <h4 className={"GAP"}/>
                         {order.map((item, index) => (
-                            <div key={index}>
-                                <span className="item-name">{item.quantity} {item.name}</span>
-                                <button className="remove" onClick={() => handleRemove(item)}>-</button>
-                                <span className="money">£{(item.price * item.quantity).toFixed(2)}</span>
-                            </div>
-                        ))}
+                                <div className= "order-row">
+                                    <div key={index}>
+                                        <div className="item-name">{item.quantity} {item.name}</div>
+                                        <button className="remove" onClick={() => handleRemove(item)}>-</button>
+                                        <div className="money">£{(item.price * item.quantity).toFixed(2)}</div>
+                                    </div>
+                                </div>
+                                ))}
                         <hr className="underline"></hr>
                         <h1 className="simple-text">TOTAL</h1>
                         <h2 className="money">£{totalMoney.toFixed(2)}</h2>
