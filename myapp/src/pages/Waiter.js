@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import '../Waiter.css';
+import '../css/Waiter.css';
 import logo from '../logo.png';
-
+import { Link } from 'react-router-dom';
 
 function Waiter() {
     const [orders, setOrders] = useState([])
@@ -30,7 +30,9 @@ function Waiter() {
 
     return (<div className="App">
         <header className="App-header">
-            <img src={logo} alt="the logo" className="header-image"/>
+            <Link to="/">
+                <img src={logo} alt="the logo" className="header-image"/>
+            </Link>
         </header>
         <div className="ordersContainer">
             <button className="activeButton" onClick={() => handleButtonClick("Active")}> Active</button>
