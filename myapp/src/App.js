@@ -10,7 +10,7 @@ export function App() {
             <Routes>
                 <Route path = "/" element = {<Menu />} />
                 <Route path = "kitchen" element={<Kitchen />} />
-                <Route path = "waiters" element = {<Waiter />} />
+                <Route path = "waiter" element = {<Waiter />} />
                 <Route path = "login" element = {<Login />} />
             </Routes>
     )
