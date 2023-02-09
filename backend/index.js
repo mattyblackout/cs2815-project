@@ -18,7 +18,7 @@ app.use(
 
 app.get('/menu', db.getMenu)
 app.get('/menu/:id', db.getMenuByType)
-app.post('/order', db.createOrder)
+app.get('/orders', db.getWaitOrders)
 
 
 app.get('/', (request, response) => {
