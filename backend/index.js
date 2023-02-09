@@ -19,6 +19,7 @@ app.use(
 app.get('/menu', db.getMenu)
 app.get('/menu/:id', db.getMenuByType)
 app.get('/orders', db.getWaitOrders)
+app.get('/kitchen-orders', db.getKitchenOrders)
 
 
 app.get('/', (request, response) => {
