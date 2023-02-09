@@ -1,5 +1,6 @@
 // Code adapted from https://blog.logrocket.com/crud-rest-api-node-js-express-postgresql/#creating-routes-crud-operations
 
+const {request, response} = require("express");
 const Pool = require('pg').Pool
 const pool = new Pool({
     user: 'admin',
@@ -10,7 +11,7 @@ const pool = new Pool({
 })
 
 const getMenu = (request, response) => {
-    pool.query('SELECT * FROM menu ORDER BY id ASC', (error, results) => {
+    pool.query('SELECT * FROM menu', (error, results) => {
         if (error) {
             throw error
         }
@@ -48,7 +49,7 @@ const updateMenu = (request, response) => {
     const { available } = request.body
 
     pool.query(
-            'UPDATE menu SET available = $1, WHERE id = $2',
+            'UPDATE menu SET available = $1 WHERE id = $2',
             [available, id],
             (error, results) => {
                 if (error) {
@@ -59,11 +60,21 @@ const updateMenu = (request, response) => {
             )
 }
 
+const getWaitOrders = (request, response) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id;", (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
+
 const createOrder = (request, response) => {
     const { items } = request.body
 
     pool.query(
-            'INSERT INTO orders (items) VALUES ($1)',
+            'INSERT INTO orders VALUES ($1)',
             [items],
             (error, result) => {
                 if (error) {
@@ -78,5 +89,6 @@ module.exports = {
     getMenu,
     updateMenu,
     getMenuByType,
-    createOrder
+    createOrder,
+    getWaitOrders
 }

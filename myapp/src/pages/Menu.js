@@ -75,7 +75,7 @@ function Menu() {
                     console.log(error);
                 });
         }
-        if (item === 'mains') {
+        if (item === 'drinks') {
             fetch('http://localhost:3000/menu/41')
                 .then((response) => response.json())
                 .then((data) => {
