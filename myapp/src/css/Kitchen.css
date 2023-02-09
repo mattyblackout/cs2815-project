@@ -123,5 +123,5 @@ p {
 @font-face {
   font-family: "Bayon";
   src: local(Bayon-Regular),
-  url("./fonts/Bayon-Regular.ttf") format("truetype");
+  url("../fonts/Bayon-Regular.ttf") format("truetype");
 }

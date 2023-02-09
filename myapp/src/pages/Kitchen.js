@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './Kitchen.css';
-import logo from './logo.png';
-import splash from './splash-image.jpg';
+import '../css/Kitchen.css';
+import logo from '../logo.png';
+import splash from '../splash-image.jpg';
 
 
 const Kitchen = (props) => {
@@ -9,7 +9,7 @@ const Kitchen = (props) => {
 
   function ordersWithId(id) {
     return orders.filter(order => order.order_number === id);
-  };
+  }
 
   const handleComplete = (order_number) => {
     if (window.confirm("Are you sure you have completed this order?")) {
@@ -55,7 +55,7 @@ const Kitchen = (props) => {
                 </>
               ))}
               <div className='button-container'>
-                <button className="complete-button"onClick={() => handleComplete(id)}>Complete Order</button>
+                <button className="complete-button" onClick={() => handleComplete(id)}>Complete Order</button>
               </div>
             </div>
           )
