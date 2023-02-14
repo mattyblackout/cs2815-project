@@ -35,13 +35,13 @@ INSERT INTO Menu(item_id, item_name, calories, category, currently_avaliable, pr
 (DEFAULT, 'Vampiro', 150, 'drinks', true, 7.99, 'A traditional Mexican cocktail made with tequila, orange juice and grenadine', 5);
 
 INSERT INTO Menu(item_id, item_name, calories, category, currently_avaliable, price, description, est_wait_time) VALUES
-(DEFAULT, 'Churros con Chocolate', 500,  'dessert', true, 6.99,'Crispy fried dough sticks dusted with cinnamon sugar and served with warm chocolate dipping sauce.'),
-  (DEFAULT, 'Flan',400,'dessert', true, 5.99,'A classic Mexican custard made with sweetened condensed milk, eggs and vanilla.'),
-  (DEFAULT, 'Tres Leches Cake',600, 'dessert', true, 7.99,'A sponge cake soaked in a mixture of three milks (evaporated milk, sweetened condensed milk, and heavy cream) and topped with whipped cream.'),
-  (DEFAULT, 'Capirotada', 500,  'dessert', true, 8.99,'A traditional Mexican bread pudding made with layers of bread, cheese, milk, cinnamon, raisins and pecans.'),
-  (DEFAULT, 'Cocadas', 500, 'dessert', true, 6.99,'Coconut candy made with shredded coconut, sugar and condensed milk.'),
-  (DEFAULT, 'Arroz con Leche',  400,'dessert', true, 5.99, 'A sweet and creamy rice pudding made with cooked rice, milk, sugar, cinnamon and vanilla.'),
-  (DEFAULT, 'Paletas', 100, 'dessert', true, 3.99,'Fruit-based ice pops made with fresh fruit, sugar, water, and lime juice.'),
-  (DEFAULT, 'Pan de Elote',600, 'dessert', true, 7.99,'A sweet bread made with corn flour, sugar, eggs, milk and butter.'),
-  (DEFAULT, 'Cajeta', 500, 'dessert', true, 6.99,'A caramel-like sauce made from sweetened and cooked goat milk, cinnamon and vanilla.'),
-  (DEFAULT, 'Bunuelos', 400, 'dessert', true, 5.99,'Fried dough balls dusted with cinnamon sugar.');
+(DEFAULT, 'Churros con Chocolate', 500,  'dessert', true, 6.99,'Crispy fried dough sticks dusted with cinnamon sugar and served with warm chocolate dipping sauce.', 5),
+  (DEFAULT, 'Flan',400,'dessert', true, 5.99,'A classic Mexican custard made with sweetened condensed milk, eggs and vanilla.', 5),
+  (DEFAULT, 'Tres Leches Cake',600, 'dessert', true, 7.99,'A sponge cake soaked in a mixture of three milks (evaporated milk, sweetened condensed milk, and heavy cream) and topped with whipped cream.', 5),
+  (DEFAULT, 'Capirotada', 500,  'dessert', true, 8.99,'A traditional Mexican bread pudding made with layers of bread, cheese, milk, cinnamon, raisins and pecans.', 5),
+  (DEFAULT, 'Cocadas', 500, 'dessert', true, 6.99,'Coconut candy made with shredded coconut, sugar and condensed milk.', 5),
+  (DEFAULT, 'Arroz con Leche',  400,'dessert', true, 5.99, 'A sweet and creamy rice pudding made with cooked rice, milk, sugar, cinnamon and vanilla.', 5),
+  (DEFAULT, 'Paletas', 100, 'dessert', true, 3.99,'Fruit-based ice pops made with fresh fruit, sugar, water, and lime juice.', 5),
+  (DEFAULT, 'Pan de Elote',600, 'dessert', true, 7.99,'A sweet bread made with corn flour, sugar, eggs, milk and butter.', 5),
+  (DEFAULT, 'Cajeta', 500, 'dessert', true, 6.99,'A caramel-like sauce made from sweetened and cooked goat milk, cinnamon and vanilla.', 5),
+  (DEFAULT, 'Bunuelos', 400, 'dessert', true, 5.99,'Fried dough balls dusted with cinnamon sugar.', 5);
