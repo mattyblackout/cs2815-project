@@ -4,5 +4,5 @@ CREATE TABLE Customer (
 	order_id SERIAL,
 	PRIMARY KEY (table_no),
 	FOREIGN KEY (table_no) REFERENCES Tables(table_no),
-	FOREIGN KEY (order_id) REFERENCES ResturauntOrder(order_id)
+	FOREIGN KEY (order_id) REFERENCES RestaurantOrder(order_id)
 );
