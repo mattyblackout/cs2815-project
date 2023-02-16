@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import '../css/Waiter.css';
 import logo from '../logo.png';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 function Waiter() {
     const [orders, setOrders] = useState([])
-    const [expanded, setExpanded] = useState("")
 
     function ordersWithId(id) {
         return orders.filter(order => order.order_number === id);
@@ -22,8 +21,9 @@ function Waiter() {
                     console.log(error);
                 });
         }
-        setExpanded(item)
     }
+
+
     const handleOrderClick = () => {
         console.log("You clicked an order!")
     }
@@ -40,31 +40,21 @@ function Waiter() {
             <hr className="underline"/>
             {[...new Set(orders.map(order => order.order_number))].map(id => {
                 const order_time = ordersWithId(id)[0].time_ordered;
-                return (<div className="orderContainer">
-                    <div className="order-left"> Order #{id} <br/>
-                        Table: 7
-                    </div>
-                    <div className="order-right">
-
-                        <div className="order-right"> {order_time} <br/>
-                            4 Minute(s) ago
+                return (
+                    <div className="orderContainer" onClick={() => console.log('Clicked order ' + {id})}>
+                        <div className="order-left"> Order #{id} <br/>
+                            Table: 7
                         </div>
+                        <div className="order-right">
 
-                    </div>
-                </div>)
+                            <div className="order-right"> {order_time} <br/>
+                                4 Minute(s) ago
+                            </div>
+                        </div>
+                        <br/>
+                    </div>)
             })}
-
-
-            <div className="orderContainer">
-                <div className="order-left"> Order #1 <br/>
-                    Table: 7
-                </div>
-                <div className="order-right"> 15:24 <br/>
-                    4 Minute(s) ago
-                </div>
-            </div>
         </div>
     </div>)
 }
-
 export default Waiter
