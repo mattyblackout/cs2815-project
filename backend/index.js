@@ -21,6 +21,7 @@ app.get('/menu/:id', db.getMenuByType)
 app.get('/orders', db.getWaitOrders)
 app.get('/kitchen-orders', db.getKitchenOrders)
 app.post('/orders/:id', db.updateWaitOrders)
+app.post('kitchen-orders/:id', db.updateKitchenOrders)
 
 
 app.get('/', (request, response) => {
