@@ -3,11 +3,11 @@
 const {request, response} = require("express");
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'admin',
+    user: 'damanarora',
     host: 'localhost',
-    database: 'juan',
-    password: 'postgres',
-    port: 5432,
+    database: 'damanarora',
+    password: 'damanarora',
+    port: 5433,
 })
 
 const getMenu = (request, response) => {
@@ -69,6 +69,20 @@ const getWaitOrders = (request, response) => {
     })
 }
 
+const updateWaitOrders =  (req, res) => {
+    const order_number = parseInt(req.params.id)
+    pool.query(
+        'UPDATE orders SET confirmed = TRUE WHERE order_number = $1',
+        [order_number],
+        (error, results) => {
+            if (error){
+                throw error
+            }
+            res.status(200).send(`Order number ${order_number} marked as confirmed`)
+        }
+    )
+}
+
 const getKitchenOrders = (request, response) => {
     pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = true;", (error, results) => {
         if (error) {
@@ -99,5 +113,6 @@ module.exports = {
     getMenuByType,
     createOrder,
     getWaitOrders,
-    getKitchenOrders
+    getKitchenOrders,
+    updateWaitOrders
 }
