@@ -24,6 +24,7 @@ function Register() {
         setEmail('');
         setPassword('');
         setStatus('');
+        window.location.href = '/login';
     }
 
     return (
