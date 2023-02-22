@@ -21,16 +21,16 @@ const getMenu = (request, response) => {
 let range
 const getMenuByType = (request, response) => {
     const id = parseInt(request.params.id)
-    if (id === 11){
+    if (id === 11) {
         range = 0
     }
-    if (id === 21){
+    if (id === 21) {
         range = 11
     }
-    if (id === 31){
+    if (id === 31) {
         range = 21
     }
-    if (id === 41){
+    if (id === 41) {
         range = 31
     }
 
@@ -45,38 +45,86 @@ const getMenuByType = (request, response) => {
 
 const updateMenu = (request, response) => {
     const id = parseInt(request.params.id)
-    const { available } = request.body
+    const {available} = request.body
 
     pool.query(
-            'UPDATE menu SET available = $1, WHERE id = $2',
-            [available, id],
-            (error, results) => {
-                if (error) {
-                    throw error
-                }
-                response.status(200).send(`User modified with ID: ${id}`)
+        'UPDATE menu SET available = $1, WHERE id = $2',
+        [available, id],
+        (error, results) => {
+            if (error) {
+                throw error
             }
-            )
+            response.status(200).send(`User modified with ID: ${id}`)
+        }
+    )
 }
 
 const createOrder = (request, response) => {
-    const { items } = request.body
+    const {items} = request.body
 
     pool.query(
-            'INSERT INTO orders (items) VALUES ($1)',
-            [items],
+        'INSERT INTO orders (items) VALUES ($1)',
+        [items],
+        (error, result) => {
+            if (error) {
+                throw error
+            }
+            response.status(201).send(`Order added with ID: ${result.insertId}`)
+        }
+    )
+}
+const createUser = (request, response) => {
+    const {email, password, status_code} = request.body
+
+    if (status_code === "KITCHEN") {
+        pool.query('INSERT INTO users (email, password, status) VALUES ($1, $2, $3)',
+            [email, password, "kitchen"],
             (error, result) => {
                 if (error) {
                     throw error
                 }
-                response.status(201).send(`Order added with ID: ${result.insertId}`)
-            }
-            )
+                response.status(201).send(`User added: ${result.insertId}`)
+            })
+    } else if (status_code === "WAITER") {
+        pool.query('INSERT INTO users (email, password, status) VALUES ($1, $2, $3)',
+            [email, password, "waiter"],
+            (error, result) => {
+                if (error) {
+                    throw error
+                }
+                response.status(201).send(`User added: ${result.insertId}`)
+            })
+    } else {
+        pool.query('INSERT INTO users (email, password, status) VALUES ($1, $2, $3)',
+            [email, password, "customer"],
+            (error, result) => {
+                if (error) {
+                    throw error
+                }
+                response.status(201).send(`User added: ${result.insertId}`)
+            })
+    }
 }
+const authenticate = (req, res) => {
+    const { email, password } = req.body;
+    pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('An error occurred while authenticating');
+        } else if (result.rowCount === 0) {
+            res.status(401).send('Incorrect email or password');
+        } else {
+            res.send('Login successful');
+        }
+    });
+}
+
 
 module.exports = {
     getMenu,
     updateMenu,
     getMenuByType,
-    createOrder
+    createOrder,
+    createUser,
+    authenticate
 }
