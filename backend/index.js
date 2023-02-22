@@ -20,6 +20,8 @@ app.get('/menu', db.getMenu)
 app.get('/menu/:id', db.getMenuByType)
 app.get('/orders', db.getWaitOrders)
 app.get('/kitchen-orders', db.getKitchenOrders)
+app.put('/orders/:order_number/complete', db.completeOrder)
+
 
 
 app.get('/', (request, response) => {
