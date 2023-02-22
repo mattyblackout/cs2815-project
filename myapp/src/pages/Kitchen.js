@@ -14,9 +14,24 @@ const Kitchen = (props) => {
   const handleComplete = (order_number) => {
     if (window.confirm("Are you sure you have completed this order?")) {
       setOrders(orders.filter(orders => orders.order_number !== order_number));
-      // You would also want to update the database here to mark the order as completed
+      // Make a PUT request to update the 'complete' column in the database
+      fetch(`http://localhost:3000/orders/${order_number}/complete`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+      })
+      .catch(err => {
+        console.error(`Error updating order ${order_number}: ${err}`);
+      });
     }
   }
+  
 
   useEffect(() => {
     // Fetch the orders from the database here
