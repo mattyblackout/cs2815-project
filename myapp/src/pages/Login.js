@@ -17,26 +17,38 @@ function Login() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({email, password}),
         })
-      .then((response) => {
-          if (response.ok) {
-              setMessage('Login successful');
-          } else if (response.status === 401) {
-              setMessage('Incorrect email or password');
-          } else {
-              throw new Error('An error occurred while authenticating');
-          }
-      })
-      .catch((error) => {
-          console.error(error);
-          setMessage('An error occurred while authenticating');
-      });
+            .then((response) => {
+                if (response.ok) {
+                    setMessage('Login successful');
+                    return response.json();
+                } else if (response.status === 401) {
+                    setMessage('Incorrect email or password');
+                } else {
+                    throw new Error('An error occurred while authenticating');
+                }
+            })
+            .then(data => {
+                console.log(data);
+                if (data.message === "waiter") {
+                    window.location.href = '/waiters';
+                }
+                if (data.message === "kitchen") {
+                    window.location.href = '/kitchen';
+                }
+                if (data.message === "customer") {
+                    window.location.href = '/menuL';
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                setMessage('An error occurred while authenticating');
+            });
     };
 
     return (
         <div className="login-form">
-
             <div className="Login">
                 <header className="App-header">
                     <Link to="/">
@@ -61,12 +73,14 @@ function Login() {
                     </div>
                 </div>
                 <div className="form-group">
-                    <button className="login-Button" onClick={handleSubmit}>
-                        Login
-                    </button>
-                    <Link to="../register">
-                        <button className="register-button"> REGISTER</button>
-                    </Link>
+                    <div className="buttons-lgrg">
+                        <button className="login-Button" onClick={handleSubmit}>
+                            Login
+                        </button>
+                        <Link to="../register">
+                            <button className="register-button"> REGISTER</button>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>

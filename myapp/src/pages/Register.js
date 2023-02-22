@@ -56,8 +56,11 @@ function Register() {
                     <label className="status-label">Status:</label>
                 </div>
                 <div className="input-wrapper">
-                    <input type="text" value={status} onChange={(e) => setStatus(e.target.value)} placeholder="customers leave blank"/>
+                    <input type="text" value={status} onChange={(e) => setStatus(e.target.value)}
+                           placeholder="customers leave blank" defaultValue="customer"/>
                 </div>
+            </div>
+            <div className="form-group">
                 <button className="submit-button" onClick={handleSubmit}>
                     Register
                 </button>

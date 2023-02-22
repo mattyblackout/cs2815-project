@@ -12,6 +12,7 @@
 
 .register-button {
     margin-top: 10px;
+    margin-left: 10px;
     height: fit-content;
     width: fit-content;
 }

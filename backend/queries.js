@@ -74,39 +74,18 @@ const createOrder = (request, response) => {
     )
 }
 const createUser = (request, response) => {
-    const {email, password, status_code} = request.body
-
-    if (status_code === "KITCHEN") {
-        pool.query('INSERT INTO users (email, password, status) VALUES ($1, $2, $3)',
-            [email, password, "kitchen"],
-            (error, result) => {
-                if (error) {
-                    throw error
-                }
-                response.status(201).send(`User added: ${result.insertId}`)
-            })
-    } else if (status_code === "WAITER") {
-        pool.query('INSERT INTO users (email, password, status) VALUES ($1, $2, $3)',
-            [email, password, "waiter"],
-            (error, result) => {
-                if (error) {
-                    throw error
-                }
-                response.status(201).send(`User added: ${result.insertId}`)
-            })
-    } else {
-        pool.query('INSERT INTO users (email, password, status) VALUES ($1, $2, $3)',
-            [email, password, "customer"],
-            (error, result) => {
-                if (error) {
-                    throw error
-                }
-                response.status(201).send(`User added: ${result.insertId}`)
-            })
-    }
+    const {email, password, status} = request.body
+    pool.query('INSERT INTO users (email, password, status) VALUES ($1, $2, $3)',
+        [email, password, status],
+        (error, result) => {
+            if (error) {
+                throw error
+            }
+            response.status(201).send(`User added: ${result.insertId}`)
+        })
 }
 const authenticate = (req, res) => {
-    const { email, password } = req.body;
+    const {email, password} = req.body;
     pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password], (err, result) => {
         if (err) {
             console.error(err);
@@ -114,7 +93,14 @@ const authenticate = (req, res) => {
         } else if (result.rowCount === 0) {
             res.status(401).send('Incorrect email or password');
         } else {
-            res.send('Login successful');
+            const user = result.rows[0];
+            if (user.status === 'customer') {
+                res.json({ message: 'customer' });
+            } else if (user.status === 'waiter') {
+                res.json({ message: 'waiter' });
+            } else if (user.status === 'kitchen') {
+                res.json({ message: 'kitchen' });
+            }
         }
     });
 }
