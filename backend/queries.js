@@ -70,7 +70,7 @@ const getWaitOrders = (request, response) => {
 }
 
 const getKitchenOrders = (request, response) => {
-    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = true;", (error, results) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = true AND orders.complete = false;", (error, results) => {
         if (error) {
             throw error
         }
@@ -93,11 +93,27 @@ const createOrder = (request, response) => {
             )
 }
 
+const completeOrder = (request, response) => {
+    const order_number = parseInt(request.params.order_number)
+  
+    pool.query(
+      'UPDATE orders SET complete = TRUE WHERE order_number = $1',
+      [order_number],
+      (error, result) => {
+        if (error) {
+          throw error
+        }
+        response.status(200).send(`Order ${order_number} marked as complete.`)
+      }
+    )
+}
+
 module.exports = {
     getMenu,
     updateMenu,
     getMenuByType,
     createOrder,
     getWaitOrders,
-    getKitchenOrders
+    getKitchenOrders,
+    completeOrder
 }
