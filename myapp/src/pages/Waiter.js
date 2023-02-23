@@ -74,7 +74,10 @@ function Waiter() {
 
             <hr className="underline"></hr>
             <h1 className="simple-text">TOTAL</h1>
+            <div className='confirm-order'> Confirm Order</div>
+            <div className='delete-order'> Delete Order</div>
         </div>
+
     </div>)
 }
 export default Waiter
