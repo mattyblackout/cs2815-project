@@ -21,6 +21,9 @@ app.get('/menu/:id', db.getMenuByType)
 app.post('/order', db.createOrder)
 app.post('/login', db.authenticate)
 app.post('/register', db.createUser)
+app.get('/orders', db.getWaitOrders)
+app.get('/kitchen-orders', db.getKitchenOrders)
+app.put('/orders/:order_number/complete', db.completeOrder)
 
 
 app.get('/', (request, response) => {

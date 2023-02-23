@@ -14,7 +14,7 @@ export function App() {
                 <Route path = "/" element = {<Menu />} />
                 <Route path = "menuL" element = {<MenuLoggedIn />} />
                 <Route path = "kitchen" element={<Kitchen />} />
-                <Route path = "waiters" element = {<Waiter />} />
+                <Route path = "waiter" element = {<Waiter />} />
                 <Route path = "login" element = {<Login />} />
                 <Route path = "register" element = {<Register />} />
                 <Route path = "user" element = {<User />} />

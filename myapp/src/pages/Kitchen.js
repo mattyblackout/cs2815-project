@@ -8,22 +8,38 @@ const Kitchen = (props) => {
   const [orders, setOrders] = useState([]);
 
   function ordersWithId(id) {
-    return orders.filter(order => order.orderID === id);
-  };
+    return orders.filter(order => order.order_number === id);
+  }
 
-  const handleComplete = (orderID) => {
+  const handleComplete = (order_number) => {
     if (window.confirm("Are you sure you have completed this order?")) {
-      setOrders(orders.filter(order => order.orderID !== orderID));
-      // You would also want to update the database here to mark the order as completed
+      setOrders(orders.filter(orders => orders.order_number !== order_number));
+      // Make a PUT request to update the 'complete' column in the database
+      fetch(`http://localhost:3000/orders/${order_number}/complete`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+      })
+      .catch(err => {
+        console.error(`Error updating order ${order_number}: ${err}`);
+      });
     }
   }
+  
 
   useEffect(() => {
     // Fetch the orders from the database here
     const fetchOrders = async () => {
-      const response = await fetch('https://localhost:3000/food_orders');
+      const response = await fetch('http://localhost:3000/kitchen-orders');
       const data = await response.json();
       setOrders(data);
+      console.log(data);
     };
 
     fetchOrders();
@@ -41,18 +57,23 @@ const Kitchen = (props) => {
       </div>
       <h2 className="Heading">Food Orders</h2>
       <div className="order-container">
-        { [...new Set(orders.map(order => order.orderID))].map(id => {
-          const timeOrdered = ordersWithId(id)[0].timeOrdered;
+        { [...new Set(orders.map(order => order.order_number))].map(id => {
+          const time_ordered = ordersWithId(id)[0].time_ordered;
           return (
             <div className="order-box" key={id}>
-              <h3>Order #{id}</h3>
-              <p className="time-order"> Time Ordered: {timeOrdered} </p>
+              <div className='order-id'>Order #{id}</div>
+              <div className="order-details"> Time Ordered: {time_ordered}</div>
               {ordersWithId(id).map(order => (
                 <>
-                  <p>Item: {order.itemName} x {order.itemQuantity}</p>
+                  <div className='order-items'>
+                    <div className='order-details'>Item: {order.name}</div>
+                    <div className='order-details'>Quantity: {order.item_quantity}</div>
+                  </div>
                 </>
               ))}
-              <button className="complete-button"onClick={() => handleComplete(id)}>Complete Order</button>
+              <div className='button-container'>
+                <button className="complete-button" onClick={() => handleComplete(id)}>Complete Order</button>
+              </div>
             </div>
           )
         })}

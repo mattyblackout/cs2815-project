@@ -1,5 +1,6 @@
 // Code adapted from https://blog.logrocket.com/crud-rest-api-node-js-express-postgresql/#creating-routes-crud-operations
 
+const {request, response} = require("express");
 const Pool = require('pg').Pool
 const pool = new Pool({
     user: 'admin',
@@ -10,7 +11,7 @@ const pool = new Pool({
 })
 
 const getMenu = (request, response) => {
-    pool.query('SELECT * FROM menu ORDER BY id ASC', (error, results) => {
+    pool.query('SELECT * FROM menu', (error, results) => {
         if (error) {
             throw error
         }
@@ -48,21 +49,50 @@ const updateMenu = (request, response) => {
     const {available} = request.body
 
     pool.query(
+<<<<<<< backend/queries.js
         'UPDATE menu SET available = $1, WHERE id = $2',
         [available, id],
         (error, results) => {
             if (error) {
                 throw error
+=======
+            'UPDATE menu SET available = $1 WHERE id = $2',
+            [available, id],
+            (error, results) => {
+                if (error) {
+                    throw error
+                }
+                response.status(200).send(`User modified with ID: ${id}`)
+>>>>>>> backend/queries.js
             }
             response.status(200).send(`User modified with ID: ${id}`)
         }
     )
 }
 
+const getWaitOrders = (request, response) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id;", (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
+const getKitchenOrders = (request, response) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = true AND orders.complete = false;", (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
 const createOrder = (request, response) => {
     const {items} = request.body
 
     pool.query(
+<<<<<<< backend/queries.js
         'INSERT INTO orders (items) VALUES ($1)',
         [items],
         (error, result) => {
@@ -80,6 +110,15 @@ const createUser = (request, response) => {
         (error, result) => {
             if (error) {
                 throw error
+=======
+            'INSERT INTO orders VALUES ($1)',
+            [items],
+            (error, result) => {
+                if (error) {
+                    throw error
+                }
+                response.status(201).send(`Order added with ID: ${result.insertId}`)
+>>>>>>> backend/queries.js
             }
             response.status(201).send(`User added: ${result.insertId}`)
         })
@@ -106,11 +145,29 @@ const authenticate = (req, res) => {
 }
 
 
+const completeOrder = (request, response) => {
+    const order_number = parseInt(request.params.order_number)
+  
+    pool.query(
+      'UPDATE orders SET complete = TRUE WHERE order_number = $1',
+      [order_number],
+      (error, result) => {
+        if (error) {
+          throw error
+        }
+        response.status(200).send(`Order ${order_number} marked as complete.`)
+      }
+    )
+}
+
 module.exports = {
     getMenu,
     updateMenu,
     getMenuByType,
     createOrder,
     createUser,
-    authenticate
+    authenticate,
+    getWaitOrders,
+    getKitchenOrders,
+    completeOrder
 }

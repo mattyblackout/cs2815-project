@@ -6,9 +6,15 @@
   width: 1385px;
 }
 
+.header-image {
+  height: 64px;
+  position: absolute;
+  left: 30px;
+}
 
 .Heading {
   font-size: 50px;
+  font-family: "Bayon";
 }
 
 .App-header {
@@ -52,29 +58,37 @@ p {
 }
 
 .order-box {
-  width: 215px;
-  height: 100%;
+  width: fit-content;
+  height: fit-content;
   margin: 10px;
-  padding: 10px;
-  border: 5px solid rgb(223, 175, 16);
+  padding: 1px;
+  border: 5px solid black;
   font-family: "Bayon";
   background-color: #f8cb2e;
   box-sizing: border-box;
-  color:#f8cb2e;
-}
-
-
-.order-box h3 {
-  font-size: 35px;
   color: black;
 }
 
-.order-box p {
-  width: 100%;
-  box-sizing: border-box;
-  float: left;
-  margin-left: 1%;
+.order-details{
   font-family: "Bayon";
+  color: black;
+  font-size: 25px;
+}
+
+.order-items {
+  padding: 20px;
+}
+
+.order-id {
+  padding: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  font-family: "Bayon";
+}
+
+.order-box h3 {
+  font-family: "Bayon";
+  font-size: 35px;
   color: black;
 }
 
@@ -93,13 +107,18 @@ p {
   height:40px;
   width: 120px;
   font-size: 15px;
+  padding: 5px;
   font-family: "Bayon";
+  border: 2px solid black;
 }
 
 * {
   font-family: "Bayon-Regular.tff";
 }
 
+.button-container {
+  padding: 20px;
+}
 
 @font-face {
   font-family: "Bayon";
