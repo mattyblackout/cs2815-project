@@ -22,16 +22,16 @@ const getMenu = (request, response) => {
 let range
 const getMenuByType = (request, response) => {
     const id = parseInt(request.params.id)
-    if (id === 11){
+    if (id === 11) {
         range = 0
     }
-    if (id === 21){
+    if (id === 21) {
         range = 11
     }
-    if (id === 31){
+    if (id === 31) {
         range = 21
     }
-    if (id === 41){
+    if (id === 41) {
         range = 31
     }
 
@@ -46,9 +46,16 @@ const getMenuByType = (request, response) => {
 
 const updateMenu = (request, response) => {
     const id = parseInt(request.params.id)
-    const { available } = request.body
+    const {available} = request.body
 
     pool.query(
+<<<<<<< backend/queries.js
+        'UPDATE menu SET available = $1, WHERE id = $2',
+        [available, id],
+        (error, results) => {
+            if (error) {
+                throw error
+=======
             'UPDATE menu SET available = $1 WHERE id = $2',
             [available, id],
             (error, results) => {
@@ -56,8 +63,11 @@ const updateMenu = (request, response) => {
                     throw error
                 }
                 response.status(200).send(`User modified with ID: ${id}`)
+>>>>>>> backend/queries.js
             }
-            )
+            response.status(200).send(`User modified with ID: ${id}`)
+        }
+    )
 }
 
 const getWaitOrders = (request, response) => {
@@ -79,9 +89,28 @@ const getKitchenOrders = (request, response) => {
 }
 
 const createOrder = (request, response) => {
-    const { items } = request.body
+    const {items} = request.body
 
     pool.query(
+<<<<<<< backend/queries.js
+        'INSERT INTO orders (items) VALUES ($1)',
+        [items],
+        (error, result) => {
+            if (error) {
+                throw error
+            }
+            response.status(201).send(`Order added with ID: ${result.insertId}`)
+        }
+    )
+}
+const createUser = (request, response) => {
+    const {email, password, status} = request.body
+    pool.query('INSERT INTO users (email, password, status) VALUES ($1, $2, $3)',
+        [email, password, status],
+        (error, result) => {
+            if (error) {
+                throw error
+=======
             'INSERT INTO orders VALUES ($1)',
             [items],
             (error, result) => {
@@ -89,9 +118,32 @@ const createOrder = (request, response) => {
                     throw error
                 }
                 response.status(201).send(`Order added with ID: ${result.insertId}`)
+>>>>>>> backend/queries.js
             }
-            )
+            response.status(201).send(`User added: ${result.insertId}`)
+        })
 }
+const authenticate = (req, res) => {
+    const {email, password} = req.body;
+    pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('An error occurred while authenticating');
+        } else if (result.rowCount === 0) {
+            res.status(401).send('Incorrect email or password');
+        } else {
+            const user = result.rows[0];
+            if (user.status === 'customer') {
+                res.json({ message: 'customer' });
+            } else if (user.status === 'waiter') {
+                res.json({ message: 'waiter' });
+            } else if (user.status === 'kitchen') {
+                res.json({ message: 'kitchen' });
+            }
+        }
+    });
+}
+
 
 const completeOrder = (request, response) => {
     const order_number = parseInt(request.params.order_number)
@@ -113,6 +165,8 @@ module.exports = {
     updateMenu,
     getMenuByType,
     createOrder,
+    createUser,
+    authenticate,
     getWaitOrders,
     getKitchenOrders,
     completeOrder
