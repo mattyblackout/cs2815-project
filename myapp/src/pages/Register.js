@@ -11,6 +11,10 @@ function Register() {
     const [status, setStatus] = useState('');
 
     const handleSubmit = (event) => {
+        if (status === ' '){
+            setStatus('customer');
+            console.log('set user status to customer');
+        }
         const data = {email, password, status};
 
         // Send data to server to insert into database
@@ -58,7 +62,7 @@ function Register() {
                 </div>
                 <div className="input-wrapper">
                     <input type="text" value={status} onChange={(e) => setStatus(e.target.value)}
-                           placeholder="customers leave blank" defaultValue="customer"/>
+                           placeholder="customers leave blank"/>
                 </div>
             </div>
             <div className="form-group">
