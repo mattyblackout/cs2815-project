@@ -52,10 +52,10 @@ function Waiter() {
                 const order_time = ordersWithId(id)[0].time_ordered;
                 return (
                     <div className="orderContainer" onClick={() => console.log('Clicked order ' + {id})}>
-                        <div className="order-left"> Order #{id} <br/>
+                        <div className="order-left" onClick={() => console.log('Clicked order ' + {id})}> Order #{id} <br/>
                             Table: 7
                         </div>
-                        <div className="order-right">
+                        <div className="order-right" onClick={() => console.log('Clicked order ' + {id})}>
 
                             <div className="order-right"> {order_time} <br/>
                                 4 Minute(s) ago
@@ -64,6 +64,16 @@ function Waiter() {
                         <br/>
                     </div>)
             })}
+        </div>
+        <div className="orderDisplay">
+            <h1 className="table">TABLE</h1>
+            <p className="table-number">7</p>
+            <hr className="underline"></hr>
+            <h1 className="simple-text">YOUR ORDER</h1>
+            <h4 className={"GAP"}/>
+
+            <hr className="underline"></hr>
+            <h1 className="simple-text">TOTAL</h1>
         </div>
     </div>)
 }
