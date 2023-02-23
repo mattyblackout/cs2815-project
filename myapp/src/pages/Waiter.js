@@ -33,9 +33,28 @@ function Waiter() {
         }
     }
 
+    const handleConfirmOrder = (id) => {
+        fetch(`http://localhost:3000/orders/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id
+            }),
+        }).then((response) => response.json())
+            .then((data) => {
+                setOrders(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
-    const handleOrderClick = () => {
-        console.log("You clicked an order!")
+    let orderID
+    function handleOrderClick(id){
+        console.log('Clicked order ' + id)
+        orderID = id
     }
 
     return (<div className="App">
@@ -51,11 +70,11 @@ function Waiter() {
             {[...new Set(orders.map(order => order.order_number))].map(id => {
                 const order_time = ordersWithId(id)[0].time_ordered;
                 return (
-                    <div className="orderContainer" onClick={() => console.log('Clicked order ' + {id})}>
-                        <div className="order-left" onClick={() => console.log('Clicked order ' + {id})}> Order #{id} <br/>
+                    <div className="orderContainer" onClick={() => handleOrderClick(id)}>
+                        <div className="order-left" onClick={() => handleOrderClick(id)}> Order #{id} <br/>
                             Table: 7
                         </div>
-                        <div className="order-right" onClick={() => console.log('Clicked order ' + {id})}>
+                        <div className="order-right" onClick={() => handleOrderClick(id)}>
 
                             <div className="order-right"> {order_time} <br/>
                                 4 Minute(s) ago
@@ -74,7 +93,7 @@ function Waiter() {
 
             <hr className="underline"></hr>
             <h1 className="simple-text">TOTAL</h1>
-            <div className='confirm-order'> Confirm Order</div>
+            <div className='confirm-order' onClick={() => handleConfirmOrder(orderID)}> Confirm Order</div>
             <div className='delete-order'> Delete Order</div>
         </div>
 

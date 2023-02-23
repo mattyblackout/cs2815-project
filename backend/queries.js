@@ -3,11 +3,11 @@
 const {request, response} = require("express");
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'admin',
+    user: 'damanarora',
     host: 'localhost',
-    database: 'juan',
-    password: 'postgres',
-    port: 5432,
+    database: 'damanarora',
+    password: 'damanarora',
+    port: 5433,
 })
 
 const getMenu = (request, response) => {
