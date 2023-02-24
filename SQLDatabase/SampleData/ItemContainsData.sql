@@ -181,4 +181,70 @@ INSERT INTO ItemContains(item_id, ingredient) VALUES
 (30, 'Tequila'),
 (30, 'Orange Juice'),
 (30, 'Grenadine'),
-(30, 'Lime Juice');
+(30, 'Lime Juice'),
+
+-- Churros con Chocolate
+(31, 'Flour'),
+(31, 'Sugar'),
+(31, 'Cinnamon'),
+(31, 'Chocolate Sauce'),
+
+-- Flan
+(32, 'Milk'),
+(32, 'Sugar'),
+(32, 'Eggs'),
+(32, 'Vanilla Extract'),
+
+-- Tres Leches Cake
+(33, 'Milk'),
+(33, 'Sugar'),
+(33, 'Eggs'),
+(33, 'Vanilla Extract'),
+(33, 'Flour'),
+(33, 'Whipped Cream'),
+
+-- Capirotada
+(34, 'Bread'),
+(34, 'Cheese'),
+(34, 'Milk'),
+(34, 'Cinnamon'),
+(34, 'Raisins'),
+(34, 'Pecans'),
+
+-- Cocadas
+(35, 'Coconut'),
+(35, 'Sugar'),
+(35, 'Condensed Milk'),
+
+-- Arroz con Leche
+(36, 'Rice'),
+(36, 'Milk'),
+(36, 'Sugar'),
+(36, 'Cinnamon'),
+(36, 'Vanilla Extract'),
+
+-- Paletas
+(37, 'Lime Juice'),
+(37, 'Sugar'),
+(37, 'Water'),
+(37, 'Fruit'),
+
+-- Pan de Elote
+(38, 'Corn Flour'),
+(38, 'Sugar'),
+(38, 'Butter'),
+(38, 'Milk'),
+(38, 'Eggs'),
+
+-- Cajeta
+(39, 'Sugar'),
+(39, 'Goat Milk'),
+(39, 'Cinnamon'),
+(39, 'Vanilla Extract'),
+
+-- Bunuelos
+(40, 'Flour'),
+(40, 'Sugar'),
+(40, 'Cinnamon'),
+(40, 'Eggs'),
+(40, 'Milk');
