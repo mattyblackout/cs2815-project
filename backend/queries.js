@@ -3,11 +3,11 @@
 const {request, response} = require("express");
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'admin',
+    user: 'damanarora',
     host: 'localhost',
-    database: 'juan',
-    password: 'postgres',
-    port: 5432,
+    database: 'damanarora',
+    password: 'damanarora',
+    port: 5433,
 })
 
 const getMenu = (request, response) => {
@@ -49,21 +49,11 @@ const updateMenu = (request, response) => {
     const {available} = request.body
 
     pool.query(
-<<<<<<< backend/queries.js
         'UPDATE menu SET available = $1, WHERE id = $2',
         [available, id],
         (error, results) => {
             if (error) {
                 throw error
-=======
-            'UPDATE menu SET available = $1 WHERE id = $2',
-            [available, id],
-            (error, results) => {
-                if (error) {
-                    throw error
-                }
-                response.status(200).send(`User modified with ID: ${id}`)
->>>>>>> backend/queries.js
             }
             response.status(200).send(`User modified with ID: ${id}`)
         }
@@ -71,12 +61,26 @@ const updateMenu = (request, response) => {
 }
 
 const getWaitOrders = (request, response) => {
-    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id;", (error, results) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = false;", (error, results) => {
         if (error) {
             throw error
         }
         response.status(200).json(results.rows)
     })
+}
+
+const updateWaitOrders =  (req, res) => {
+    const order_number = parseInt(req.params.id)
+    pool.query(
+        'UPDATE orders SET confirmed = TRUE WHERE order_number = $1',
+        [order_number],
+        (error, results) => {
+            if (error){
+                throw error
+            }
+            res.status(200).send(`Order number ${order_number} marked as confirmed`)
+        }
+    )
 }
 
 const getKitchenOrders = (request, response) => {
@@ -88,11 +92,33 @@ const getKitchenOrders = (request, response) => {
     })
 }
 
+const updateKitchenOrders =  (req, res) => {
+    const order_number = parseInt(req.params.id)
+    pool.query(
+        'UPDATE orders SET completed = TRUE WHERE order_number = $1',
+        [order_number],
+        (error, results) => {
+            if (error){
+                throw error
+            }
+            res.status(200).send(`Order number ${order_number} marked as completed`)
+        }
+    )
+}
+
+const getFinishedOrders = (request, response) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.completed = true;", (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
 const createOrder = (request, response) => {
     const {items} = request.body
 
     pool.query(
-<<<<<<< backend/queries.js
         'INSERT INTO orders (items) VALUES ($1)',
         [items],
         (error, result) => {
@@ -110,15 +136,6 @@ const createUser = (request, response) => {
         (error, result) => {
             if (error) {
                 throw error
-=======
-            'INSERT INTO orders VALUES ($1)',
-            [items],
-            (error, result) => {
-                if (error) {
-                    throw error
-                }
-                response.status(201).send(`Order added with ID: ${result.insertId}`)
->>>>>>> backend/queries.js
             }
             response.status(201).send(`User added: ${result.insertId}`)
         })
@@ -169,5 +186,8 @@ module.exports = {
     authenticate,
     getWaitOrders,
     getKitchenOrders,
+    updateWaitOrders,
+    updateKitchenOrders,
+    getFinishedOrders
     completeOrder
 }
