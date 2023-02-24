@@ -127,7 +127,6 @@ button:hover {
     top:30px;
     right: 30px;
     border: 0px solid black;
-
 }
 .login-button:hover {
     border: 5px solid black;
@@ -227,6 +226,12 @@ button:hover {
     color: #61dafb;
 }
 
+html{
+    background-color: #ffffff;
+}
+.App{
+    background-color: #ffffff;
+}
 @font-face{
     font-family: "Bayon";
     src: local(Bayon-Regular),
