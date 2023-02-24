@@ -46,7 +46,7 @@ function Menu() {
 
     const handleButtonClick = (item) => {
         if (item === 'mains') {
-            fetch('http://localhost:3000/menu/11')
+            fetch('http://localhost:3000/menu/21')
                 .then((response) => response.json())
                 .then((data) => {
                     setMains(data);
@@ -56,7 +56,7 @@ function Menu() {
                 });
         }
         if (item === 'sides') {
-            fetch('http://localhost:3000/menu/21')
+            fetch('http://localhost:3000/menu/31')
                 .then((response) => response.json())
                 .then((data) => {
                     setSides(data);
@@ -66,7 +66,7 @@ function Menu() {
                 });
         }
         if (item === 'desserts') {
-            fetch('http://localhost:3000/menu/31')
+            fetch('http://localhost:3000/menu/41')
                 .then((response) => response.json())
                 .then((data) => {
                     setDesserts(data);
@@ -76,7 +76,7 @@ function Menu() {
                 });
         }
         if (item === 'drinks') {
-            fetch('http://localhost:3000/menu/41')
+            fetch('http://localhost:3000/menu/51')
                 .then((response) => response.json())
                 .then((data) => {
                     setDrinks(data);

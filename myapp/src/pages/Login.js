@@ -32,7 +32,7 @@ function Login() {
             .then(data => {
                 console.log(data);
                 if (data.message === "waiter") {
-                    window.location.href = '/waiters';
+                    window.location.href = '/waiter';
                 }
                 if (data.message === "kitchen") {
                     window.location.href = '/kitchen';

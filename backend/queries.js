@@ -3,11 +3,11 @@
 const {request, response} = require("express");
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'damanarora',
-    host: 'localhost',
-    database: 'damanarora',
-    password: 'damanarora',
-    port: 5433,
+    user: 'aekkmejk',
+    host: 'trumpet.db.elephantsql.com',
+    database: 'aekkmejk',
+    password: 't0tYetmAy50WtSeI_zAQBcyI_Fmkt6AE',
+    port: 5432,
 })
 
 const getMenu = (request, response) => {
@@ -49,7 +49,7 @@ const updateMenu = (request, response) => {
     const {available} = request.body
 
     pool.query(
-        'UPDATE menu SET available = $1, WHERE id = $2',
+        'UPDATE menu SET available = $1 WHERE id = $2',
         [available, id],
         (error, results) => {
             if (error) {
@@ -95,7 +95,7 @@ const getKitchenOrders = (request, response) => {
 const updateKitchenOrders =  (req, res) => {
     const order_number = parseInt(req.params.id)
     pool.query(
-        'UPDATE orders SET completed = TRUE WHERE order_number = $1',
+        'UPDATE orders SET complete = TRUE WHERE order_number = $1',
         [order_number],
         (error, results) => {
             if (error){
@@ -107,7 +107,7 @@ const updateKitchenOrders =  (req, res) => {
 }
 
 const getFinishedOrders = (request, response) => {
-    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.completed = true;", (error, results) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.complete = true;", (error, results) => {
         if (error) {
             throw error
         }
@@ -115,20 +115,6 @@ const getFinishedOrders = (request, response) => {
     })
 }
 
-const createOrder = (request, response) => {
-    const {items} = request.body
-
-    pool.query(
-        'INSERT INTO orders (items) VALUES ($1)',
-        [items],
-        (error, result) => {
-            if (error) {
-                throw error
-            }
-            response.status(201).send(`Order added with ID: ${result.insertId}`)
-        }
-    )
-}
 const createUser = (request, response) => {
     const {email, password, status} = request.body
     pool.query('INSERT INTO users (email, password, status) VALUES ($1, $2, $3)',
@@ -181,13 +167,12 @@ module.exports = {
     getMenu,
     updateMenu,
     getMenuByType,
-    createOrder,
     createUser,
     authenticate,
     getWaitOrders,
     getKitchenOrders,
     updateWaitOrders,
     updateKitchenOrders,
-    getFinishedOrders
+    getFinishedOrders,
     completeOrder
 }
