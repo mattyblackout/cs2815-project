@@ -1,4 +1,4 @@
-INSERT INTO ItemContains(item_id, ingredient) VALUES 
+INSERT INTO ItemContains(id, ingredient) VALUES 
 
 -- Taco al Pastor
 (1, 'Marinated Pork'),
