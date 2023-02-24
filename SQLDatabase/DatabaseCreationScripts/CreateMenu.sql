@@ -5,6 +5,7 @@ CREATE TABLE Menu (
   diet VARCHAR(255),
   category VARCHAR(255),
   price DECIMAL(12, 2),
+  description VARCHAR(255),
   avaliable BOOLEAN,
   PRIMARY KEY (item_id),
 );
