@@ -1,12 +1,11 @@
 CREATE TABLE Menu (
-  item_id SERIAL NOT NULL,
+  id SERIAL NOT NULL,
   item_name VARCHAR(255),
   calories int,
   diet VARCHAR(255),
   category VARCHAR(255),
   description VARCHAR(255),
   price DECIMAL(12, 2),
-  currently_avaliable BOOLEAN,
-  est_wait_time int,
+  avaliable BOOLEAN,
   PRIMARY KEY (item_id),
 );
