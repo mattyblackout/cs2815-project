@@ -97,18 +97,17 @@
 
 .activeButton {
     height: 45px;
-    margin-left: -1px;
-    margin-top: 5px;
     text-align: center;
     line-height: 35px;
+    margin-top: 10px;
 }
 
 .completedButton {
     height: 45px;
-    margin-left: 161px;
-    margin-top: 5px;
     text-align: center;
     line-height: 35px;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 
 .underline {
