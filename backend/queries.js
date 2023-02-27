@@ -51,7 +51,7 @@ const updateMenu = (request, response) => {
     pool.query(
         'UPDATE menu SET available = $1 WHERE id = $2',
         [available, id],
-        (error, results) => {
+        (error) => {
             if (error) {
                 throw error
             }
@@ -74,7 +74,7 @@ const updateWaitOrders =  (req, res) => {
     pool.query(
         'UPDATE orders SET confirmed = TRUE WHERE order_number = $1',
         [order_number],
-        (error, results) => {
+        (error) => {
             if (error){
                 throw error
             }
@@ -97,7 +97,7 @@ const updateKitchenOrders =  (req, res) => {
     pool.query(
         'UPDATE orders SET complete = TRUE WHERE order_number = $1',
         [order_number],
-        (error, results) => {
+        (error) => {
             if (error){
                 throw error
             }
@@ -148,21 +148,6 @@ const authenticate = (req, res) => {
 }
 
 
-const completeOrder = (request, response) => {
-    const order_number = parseInt(request.params.order_number)
-  
-    pool.query(
-      'UPDATE orders SET complete = TRUE WHERE order_number = $1',
-      [order_number],
-      (error, result) => {
-        if (error) {
-          throw error
-        }
-        response.status(200).send(`Order ${order_number} marked as complete.`)
-      }
-    )
-}
-
 module.exports = {
     getMenu,
     updateMenu,
@@ -174,5 +159,4 @@ module.exports = {
     updateWaitOrders,
     updateKitchenOrders,
     getFinishedOrders,
-    completeOrder
 }

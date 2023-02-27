@@ -4,31 +4,32 @@ import logo from '../logo.png';
 import splash from '../splash-image.jpg';
 import { Link } from 'react-router-dom';
 
-const Kitchen = (props) => {
+const Kitchen = () => {
   const [orders, setOrders] = useState([]);
 
   function ordersWithId(id) {
     return orders.filter(order => order.order_number === id);
   }
 
-  const handleComplete = (order_number) => {
+  const handleComplete = (id) => {
     if (window.confirm("Are you sure you have completed this order?")) {
-      setOrders(orders.filter(orders => orders.order_number !== order_number));
+      setOrders(orders.filter(orders => orders.order_number !== id));
       // Make a PUT request to update the 'complete' column in the database
-      fetch(`http://localhost:3000/orders/${order_number}/complete`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-      })
-      .catch(err => {
-        console.error(`Error updating order ${order_number}: ${err}`);
-      });
+      fetch(`http://localhost:3000/kitchen-orders/${id}`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              id: id
+          }),
+      }).then((response) => response.json())
+          .then((data) => {
+              setOrders(data);
+          })
+          .catch((error) => {
+              console.log(error);
+          });
     }
   }
   
