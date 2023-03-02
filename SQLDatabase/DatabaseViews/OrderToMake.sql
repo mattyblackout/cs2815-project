@@ -1,6 +1,6 @@
 CREATE VIEW OrderToMake AS
-SELECT RestaurauntOrder.order_id, Menu.name, RestaurauntOrder.quantity, OverallOrder.time_placed
-FROM RestaurauntOrder, OverallOrder, Menu
-WHERE RestaurauntOrder.order_id = OverallOrder.order_id
-	AND RestaurauntOrder.item_id = Menu.id
-ORDER BY OverallOrder.time_placed;
+SELECT order_items.order_number, Menu.name, order_items.item_quantity, orders.time_ordered
+FROM order_items, orders, Menu
+WHERE order_items.order_number = Orders.order_number
+	AND order_items.item_id = Menu.id
+ORDER BY orders.time_ordered;
