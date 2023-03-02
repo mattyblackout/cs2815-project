@@ -24,6 +24,7 @@ app.get('/orders', db.getWaitOrders)
 app.get('/kitchen-orders', db.getKitchenOrders)
 app.post('/orders/:id', db.updateWaitOrders)
 app.post('/orders/delete/:id',db.deleteOrders)
+app.post('/orders/delivered/:id', db.deliverOrders)
 app.post('/kitchen-orders/:id', db.updateKitchenOrders)
 app.get('/finished-orders', db.getFinishedOrders)
 

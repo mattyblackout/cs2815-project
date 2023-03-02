@@ -97,6 +97,20 @@ const deleteOrders =  (req, res) => {
     )
 }
 
+const deliverOrders = (req, res) => {
+    const order_number = parseInt(req.params.id)
+    pool.query(
+        'UPDATE orders SET delivered = true WHERE order_number = $1',
+        [order_number],
+        (error) => {
+            if (error){
+                throw error
+            }
+            res.status(200).send(`Order number ${order_number} marked as delivered`)
+        }
+    )
+}
+
 
 const getKitchenOrders = (request, response) => {
     pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = true AND orders.complete = false;", (error, results) => {
@@ -174,5 +188,6 @@ module.exports = {
     updateWaitOrders,
     updateKitchenOrders,
     getFinishedOrders,
-    deleteOrders
+    deleteOrders,
+    deliverOrders
 }
