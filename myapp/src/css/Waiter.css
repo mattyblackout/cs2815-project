@@ -18,6 +18,52 @@
     padding: 5px;
     font-family: 'Bayon', serif;
 }
+
+.orderDisplay{
+    position: absolute;
+    right: 2%;
+    border: 5px solid black;
+    background-color: #f8cb2e;
+    font-size: 32px;
+    width: 400px;
+    top: 20%;
+}
+.confirm-order{
+    position: absolute;
+    border: 5px solid black;
+    background-color: green;
+    color: black;
+    font-size: 32px;
+    width: fit-content;
+    height: fit-content;
+    font-family: "Bayon";
+    background-color: green;
+    left: 50%;
+    top: 120%;
+}
+.confirm-order:hover{
+    background-color: black;
+    color: #f8cb2e;
+    background-color: black;
+}
+
+.delete-order{
+    position: absolute;
+    border: 5px solid black;
+    background-color: red;
+    color: black;
+    font-size: 32px;
+    width: fit-content;
+    height: fit-content;
+    font-family: "Bayon";
+    top: 120%;
+}
+.delete-order:hover{
+    background-color: black;
+    color: #f8cb2e;
+    background-color: black;
+}
+
 .splash-image{
     width: 100%;
 }
