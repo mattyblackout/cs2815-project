@@ -18,15 +18,15 @@ app.use(
 
 app.get('/menu', db.getMenu)
 app.get('/menu/:id', db.getMenuByType)
-app.post('/order', db.createOrder)
 app.post('/login', db.authenticate)
 app.post('/register', db.createUser)
 app.get('/orders', db.getWaitOrders)
 app.get('/kitchen-orders', db.getKitchenOrders)
 app.post('/orders/:id', db.updateWaitOrders)
-app.post('kitchen-orders/:id', db.updateKitchenOrders)
+app.post('/orders/delete/:id',db.deleteOrders)
+app.post('/orders/delivered/:id', db.deliverOrders)
+app.post('/kitchen-orders/:id', db.updateKitchenOrders)
 app.get('/finished-orders', db.getFinishedOrders)
-app.put('/orders/:order_number/complete', db.completeOrder)
 
 
 app.get('/', (request, response) => {

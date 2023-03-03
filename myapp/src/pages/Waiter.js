@@ -51,6 +51,24 @@ function Waiter() {
             });
     }
 
+    const handleDeleteOrder = (id) => {
+        fetch(`http://localhost:3000/orders/delete/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id
+            }),
+        }).then((response) => response.json())
+            .then((data) => {
+                setOrders(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     let orderID
     function handleOrderClick(id){
         console.log('Clicked order ' + id)
@@ -94,7 +112,7 @@ function Waiter() {
             <hr className="underline"></hr>
             <h1 className="simple-text">TOTAL</h1>
             <div className='confirm-order' onClick={() => handleConfirmOrder(orderID)}> Confirm Order</div>
-            <div className='delete-order'> Delete Order</div>
+            <div className='delete-order' onClick={() => handleDeleteOrder(orderID)}> Delete Order</div>
         </div>
 
     </div>)

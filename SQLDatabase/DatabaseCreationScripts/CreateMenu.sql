@@ -6,8 +6,6 @@ CREATE TABLE Menu (
   category VARCHAR(255),
   price DECIMAL(12, 2),
   description VARCHAR(255),
-  currently_avaliable BOOLEAN,
-  est_wait_time int,
+  available BOOLEAN,
   PRIMARY KEY (id)
 );
-

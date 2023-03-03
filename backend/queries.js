@@ -3,10 +3,10 @@
 const {request, response} = require("express");
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'admin',
-    host: 'localhost',
-    database: 'juan',
-    password: 'postgres',
+    user: 'aekkmejk',
+    host: 'trumpet.db.elephantsql.com',
+    database: 'aekkmejk',
+    password: 't0tYetmAy50WtSeI_zAQBcyI_Fmkt6AE',
     port: 5432,
 })
 
@@ -49,9 +49,9 @@ const updateMenu = (request, response) => {
     const {available} = request.body
 
     pool.query(
-        'UPDATE menu SET available = $1, WHERE id = $2',
+        'UPDATE menu SET available = $1 WHERE id = $2',
         [available, id],
-        (error, results) => {
+        (error) => {
             if (error) {
                 throw error
             }
@@ -74,7 +74,7 @@ const updateWaitOrders =  (req, res) => {
     pool.query(
         'UPDATE orders SET confirmed = TRUE WHERE order_number = $1',
         [order_number],
-        (error, results) => {
+        (error) => {
             if (error){
                 throw error
             }
@@ -82,6 +82,35 @@ const updateWaitOrders =  (req, res) => {
         }
     )
 }
+
+const deleteOrders =  (req, res) => {
+    const order_number = parseInt(req.params.id)
+    pool.query(
+        'DELETE FROM orders WHERE order_number = $1',
+        [order_number],
+        (error) => {
+            if (error){
+                throw error
+            }
+            res.status(200).send(`Order number ${order_number} deleted`)
+        }
+    )
+}
+
+const deliverOrders = (req, res) => {
+    const order_number = parseInt(req.params.id)
+    pool.query(
+        'UPDATE orders SET delivered = true WHERE order_number = $1',
+        [order_number],
+        (error) => {
+            if (error){
+                throw error
+            }
+            res.status(200).send(`Order number ${order_number} marked as delivered`)
+        }
+    )
+}
+
 
 const getKitchenOrders = (request, response) => {
     pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = true AND orders.complete = false;", (error, results) => {
@@ -95,9 +124,9 @@ const getKitchenOrders = (request, response) => {
 const updateKitchenOrders =  (req, res) => {
     const order_number = parseInt(req.params.id)
     pool.query(
-        'UPDATE orders SET completed = TRUE WHERE order_number = $1',
+        'UPDATE orders SET complete = TRUE WHERE order_number = $1',
         [order_number],
-        (error, results) => {
+        (error) => {
             if (error){
                 throw error
             }
@@ -115,20 +144,6 @@ const getFinishedOrders = (request, response) => {
     })
 }
 
-const createOrder = (request, response) => {
-    const {items} = request.body
-
-    pool.query(
-        'INSERT INTO orders (items) VALUES ($1)',
-        [items],
-        (error, result) => {
-            if (error) {
-                throw error
-            }
-            response.status(201).send(`Order added with ID: ${result.insertId}`)
-        }
-    )
-}
 const createUser = (request, response) => {
     const {email, password, status} = request.body
     pool.query('INSERT INTO users (email, password, status) VALUES ($1, $2, $3)',
@@ -162,26 +177,10 @@ const authenticate = (req, res) => {
 }
 
 
-const completeOrder = (request, response) => {
-    const order_number = parseInt(request.params.order_number)
-  
-    pool.query(
-      'UPDATE orders SET complete = TRUE WHERE order_number = $1',
-      [order_number],
-      (error, result) => {
-        if (error) {
-          throw error
-        }
-        response.status(200).send(`Order ${order_number} marked as complete.`)
-      }
-    )
-}
-
 module.exports = {
     getMenu,
     updateMenu,
     getMenuByType,
-    createOrder,
     createUser,
     authenticate,
     getWaitOrders,
@@ -189,5 +188,6 @@ module.exports = {
     updateWaitOrders,
     updateKitchenOrders,
     getFinishedOrders,
-    completeOrder
+    deleteOrders,
+    deliverOrders
 }

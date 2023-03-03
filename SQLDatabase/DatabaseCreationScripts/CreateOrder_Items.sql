@@ -1,8 +1,6 @@
 CREATE TABLE order_items (
-    order_number INT,
-    item_id INT,
-    item_quantity INT,
-    PRIMARY KEY (order_number, item_id),
-    FOREIGN KEY (order_number) REFERENCES orders(order_number),
-    FOREIGN KEY item_id REFERENCES menu(id)
+    id SERIAL PRIMARY KEY,
+    order_number INT REFERENCES orders(order_number) on delete cascade,
+    item_id INT REFERENCES menu(id),
+    item_quantity INT
 );
