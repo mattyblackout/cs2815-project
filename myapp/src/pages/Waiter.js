@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 
 function Waiter() {
     const [orders, setOrders] = useState([])
+    const [expanded, setExpanded] = useState("")
 
     function ordersWithId(id) {
         return orders.filter(order => order.order_number === id);
@@ -31,6 +32,7 @@ function Waiter() {
                     console.log(error);
                 });
         }
+        setExpanded(item)
     }
 
     const handleConfirmOrder = (id) => {
@@ -53,6 +55,24 @@ function Waiter() {
 
     const handleDeleteOrder = (id) => {
         fetch(`http://localhost:3000/orders/delete/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id
+            }),
+        }).then((response) => response.json())
+            .then((data) => {
+                setOrders(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const handleDeliverOrder = (id) => {
+        fetch(`http://localhost:3000/orders/delivered/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -111,8 +131,18 @@ function Waiter() {
 
             <hr className="underline"></hr>
             <h1 className="simple-text">TOTAL</h1>
-            <div className='confirm-order' onClick={() => handleConfirmOrder(orderID)}> Confirm Order</div>
-            <div className='delete-order' onClick={() => handleDeleteOrder(orderID)}> Delete Order</div>
+            {expanded === "Active" && (
+                <>
+                    <div className='confirm-order' onClick={() => handleConfirmOrder(orderID)}> Confirm Order</div>
+                    <div className='delete-order' onClick={() => handleDeleteOrder(orderID)}> Delete Order</div>
+                </>
+            )}
+            {expanded === "Completed" && (
+                <>
+                    <div className='deliver-order' onClick={() => handleDeliverOrder(orderID)}> Delivered</div>
+                </>
+            )}
+
         </div>
 
     </div>)

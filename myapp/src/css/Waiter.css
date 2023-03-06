@@ -37,14 +37,13 @@
     width: fit-content;
     height: fit-content;
     font-family: "Bayon";
-    background-color: green;
     left: 50%;
-    top: 120%;
+    top: 105%;
 }
 .confirm-order:hover{
     background-color: black;
     color: #f8cb2e;
-    background-color: black;
+    top: 105%;
 }
 
 .delete-order{
@@ -56,18 +55,34 @@
     width: fit-content;
     height: fit-content;
     font-family: "Bayon";
-    top: 120%;
+    top: 105%;
 }
 .delete-order:hover{
     background-color: black;
     color: #f8cb2e;
-    background-color: black;
+    top: 105%;
 }
 
 .splash-image{
     width: 100%;
 }
-
+.deliver-order{
+    position: absolute;
+    border: 5px solid black;
+    background-color: green;
+    color: black;
+    font-size: 32px;
+    width: fit-content;
+    height: fit-content;
+    font-family: "Bayon";
+    left: 35%;
+    top: 105%;
+}
+.deliver-order:hover{
+    background-color: black;
+    color: #f8cb2e;
+    top: 105%
+}
 .App-header {
     background-color: #f8cb2e;
     color: black;

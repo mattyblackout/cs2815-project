@@ -3,11 +3,11 @@
 const {request, response} = require("express");
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'jake',
-    host: 'localhost',
-    database: 'jake',
-    password: 'postgres',
-    port: 5433,
+    user: 'aekkmejk',
+    host: 'trumpet.db.elephantsql.com',
+    database: 'aekkmejk',
+    password: 't0tYetmAy50WtSeI_zAQBcyI_Fmkt6AE',
+    port: 5432,
 })
 
 const getMenu = (request, response) => {
@@ -136,7 +136,7 @@ const updateKitchenOrders =  (req, res) => {
 }
 
 const getFinishedOrders = (request, response) => {
-    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.complete = true;", (error, results) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.complete = true and orders.delivered = false;", (error, results) => {
         if (error) {
             throw error
         }
