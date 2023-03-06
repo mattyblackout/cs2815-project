@@ -83,7 +83,7 @@ function Waiter() {
         </header>
         <div className="ordersContainer">
             <button className="activeButton" onClick={() => handleButtonClick("Active")}> Active</button>
-            <button className="completedButton" onClick={() => handleButtonClick("Completed")}> Delivered</button>
+            <button className="completedButton" onClick={() => handleButtonClick("Completed")}> Completed</button>
             <hr className="underline"/>
             {[...new Set(orders.map(order => order.order_number))].map(id => {
                 const order_time = ordersWithId(id)[0].time_ordered;
