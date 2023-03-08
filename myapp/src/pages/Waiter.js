@@ -51,6 +51,7 @@ function Waiter() {
             .catch((error) => {
                 console.log(error);
             });
+        alert(`Order number ${id} has been confirmed`)
     }
 
     const handleDeleteOrder = (id) => {
@@ -69,6 +70,7 @@ function Waiter() {
             .catch((error) => {
                 console.log(error);
             });
+        alert(`Order number ${id} has been deleted`)
     }
 
     const handleDeliverOrder = (id) => {
@@ -87,6 +89,7 @@ function Waiter() {
             .catch((error) => {
                 console.log(error);
             });
+        alert(`Order number ${id} has been marked as delivered`)
     }
 
     let orderID
