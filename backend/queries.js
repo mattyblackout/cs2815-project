@@ -185,6 +185,20 @@ const authenticate = (req, res) => {
     });
 }
 
+const payOrders = (req, res) => {
+    const order_number = parseInt(req.params.id)
+    pool.query(
+        'UPDATE orders SET paid = true WHERE order_number = $1',
+        [order_number],
+        (error) => {
+            if (error){
+                throw error
+            }
+            res.status(200).send(`Order number ${order_number} marked as paid`)
+        }
+    )
+}
+
 
 module.exports = {
     getMenu,
@@ -198,5 +212,7 @@ module.exports = {
     updateKitchenOrders,
     getFinishedOrders,
     deleteOrders,
-    deliverOrders
+    deliverOrders,
+    getPaidOrders,
+    payOrders
 }

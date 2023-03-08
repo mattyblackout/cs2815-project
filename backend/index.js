@@ -28,6 +28,7 @@ app.post('/orders/delivered/:id', db.deliverOrders)
 app.post('/kitchen-orders/:id', db.updateKitchenOrders)
 app.get('/finished-orders', db.getFinishedOrders)
 app.get('/paid-orders', db.getPaidOrders)
+app.post('/orders/paid/:id', db.payOrders)
 
 
 app.get('/', (request, response) => {
