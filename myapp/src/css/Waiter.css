@@ -75,13 +75,29 @@
     width: fit-content;
     height: fit-content;
     font-family: "Bayon";
-    left: 35%;
+    left: 50%;
     top: 105%;
 }
 .deliver-order:hover{
     background-color: black;
     color: #f8cb2e;
-    top: 105%
+    top: 105%;
+}
+.pay-order{
+    position: absolute;
+    border: 5px solid black;
+    background-color: rgb(7, 144, 243);
+    color: black;
+    font-size: 32px;
+    width: fit-content;
+    height: fit-content;
+    font-family: "Bayon";
+    top: 105%;
+}
+.pay-order:hover{
+    background-color: black;
+    color: #f8cb2e;
+    top: 105%;
 }
 .App-header {
     background-color: #f8cb2e;
@@ -118,6 +134,14 @@
 }
 
 .completedButton {
+    height: 45px;
+    text-align: center;
+    line-height: 35px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.paidButton {
     height: 45px;
     text-align: center;
     line-height: 35px;
