@@ -125,6 +125,14 @@
     margin-top: 10px;
 }
 
+.paidButton {
+    height: 45px;
+    text-align: center;
+    line-height: 35px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
 .underline {
     border: 2px solid black;
 }
