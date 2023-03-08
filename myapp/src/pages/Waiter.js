@@ -100,6 +100,25 @@ function Waiter() {
             });
     };
 
+    const handleMarkAsPaid = (id) => {
+        fetch(`http://localhost:3000/orders/paid/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: id,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setOrders(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     let orderID;
     function handleOrderClick(id) {
         console.log('Clicked order ' + id);
@@ -117,10 +136,7 @@ function Waiter() {
                 <button className="activeButton" onClick={() => handleButtonClick("Active")}>
                     Active
                 </button>
-                <button
-                    className="completedButton"
-                    onClick={() => handleButtonClick("Completed")}
-                >
+                <button className="completedButton" onClick={() => handleButtonClick("Completed")}>
                     Completed
                 </button>
                 <button className="paidButton" onClick={() => handleButtonClick("Paid")}>
@@ -184,8 +200,15 @@ function Waiter() {
                         >
                             Delivered
                         </div>
+                        <div
+                            className="pay-order"
+                            onClick={() => handleMarkAsPaid(orderID)}
+                        >
+                            Mark as Paid
+                        </div>
                     </>
                 )}
+
             </div>
         </div>
     );
