@@ -11,7 +11,7 @@ const pool = new Pool({
 })
 
 const getMenu = (request, response) => {
-    pool.query('SELECT * FROM menu', (error, results) => {
+    pool.query('SELECT * FROM menu ORDER BY id asc', (error, results) => {
         if (error) {
             throw error
         }
