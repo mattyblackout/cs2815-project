@@ -30,7 +30,7 @@ function Waiter() {
                 .catch((error) => {
                     console.log(error);
                 });
-        } else if (item === 'Paid') {
+        } else if (item === 'Unpaid') {
             fetch('http://localhost:3000/paid-orders')
                 .then((response) => response.json())
                 .then((data) => {
@@ -147,8 +147,8 @@ function Waiter() {
                 <button className="completedButton" onClick={() => handleButtonClick("Completed")}>
                     Completed
                 </button>
-                <button className="paidButton" onClick={() => handleButtonClick("Paid")}>
-                    Paid
+                <button className="paidButton" onClick={() => handleButtonClick("Unpaid")}>
+                    Unpaid
                 </button>
                 <hr className="underline" />
                 {[...new Set(orders.map((order) => order.order_number))].map((id) => {
@@ -208,6 +208,16 @@ function Waiter() {
                         >
                             Delivered
                         </div>
+                        <div
+                            className="pay-order"
+                            onClick={() => handleMarkAsPaid(orderID)}
+                        >
+                            Mark as Paid
+                        </div>
+                    </>
+                )}
+                {expanded === "Unpaid" && (
+                    <>
                         <div
                             className="pay-order"
                             onClick={() => handleMarkAsPaid(orderID)}
