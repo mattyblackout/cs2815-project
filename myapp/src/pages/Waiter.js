@@ -134,6 +134,11 @@ function Waiter() {
                 <Link to="/">
                     <img src={logo} alt="the logo" className="header-image" />
                 </Link>
+                <div>
+                    <Link to="/edit">
+                        <button className="edit-button">Edit Menu</button>
+                    </Link>
+                </div>
             </header>
             <div className="ordersContainer">
                 <button className="activeButton" onClick={() => handleButtonClick("Active")}>

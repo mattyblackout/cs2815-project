@@ -152,7 +152,21 @@
 .underline {
     border: 2px solid black;
 }
-
+.edit-button{
+    height: 50px;
+    line-height: 40px;
+    width: 150px;
+    background: #f8cb2e;
+    position:absolute;
+    top:30px;
+    right: 30px;
+    border: 0px solid black;
+}
+.edit-button:hover {
+    border: 5px solid black;
+    background:#f8cb2e;
+    color: black;
+}
 @font-face{
     font-family: "Bayon";
     src: local(Bayon-Regular),
