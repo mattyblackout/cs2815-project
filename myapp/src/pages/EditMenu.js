@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import logo from "../logo.png";
 import splash from "../splash-image.jpg";
-import {wait} from "@testing-library/user-event/dist/utils";
 
 function EditMenu() {
     const [menu, setMenu] = useState([]);
@@ -57,7 +56,7 @@ function EditMenu() {
             <div className="menu-item">
                 {menu.map((item) => (
                     <div className='menu-items' key={item.id}>
-                        <span className="menu-name">{item.name}</span>
+                        <div className="menu-name">{item.name}</div>
                         {item.available === true ? (
                             <button className='hideButton' onClick={ () => handleButtonClick(false,item)}>Hide</button>
                         ) : (
