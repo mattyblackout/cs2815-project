@@ -27,6 +27,7 @@ app.post('/orders/delete/:id',db.deleteOrders)
 app.post('/orders/delivered/:id', db.deliverOrders)
 app.post('/kitchen-orders/:id', db.updateKitchenOrders)
 app.get('/finished-orders', db.getFinishedOrders)
+app.post('/update/:id', db.updateMenu)
 app.get('/paid-orders', db.getPaidOrders)
 app.post('/orders/paid/:id', db.payOrders)
 

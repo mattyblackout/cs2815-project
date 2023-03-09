@@ -6,6 +6,7 @@ import { default as Login} from './pages/Login';
 import Register from "./pages/Register";
 import MenuLoggedIn from "./pages/MenuLoggedIn";
 import User from "./pages/User";
+import EditMenu from "./pages/EditMenu";
 
 
 export function App() {
@@ -18,6 +19,7 @@ export function App() {
                 <Route path = "login" element = {<Login />} />
                 <Route path = "register" element = {<Register />} />
                 <Route path = "user" element = {<User />} />
+                <Route path = "edit" element={<EditMenu />} />
             </Routes>
     )
 }

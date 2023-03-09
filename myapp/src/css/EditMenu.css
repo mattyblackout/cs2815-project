@@ -1,0 +1,36 @@
+.splash-image{
+    height: 64px;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.menu-items {
+    position: absolute;
+    left: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.menu-name {
+    margin-bottom: 10px;
+}
+
+.hideButton,
+.showButton {
+    width: 100%;
+    max-width: 150px;
+}
+
+
+@font-face{
+    font-family: "Bayon";
+    src: local(Bayon-Regular),
+    url("../fonts/Bayon-Regular.ttf") format("truetype");
+}

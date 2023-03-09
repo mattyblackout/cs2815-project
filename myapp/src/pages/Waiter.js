@@ -60,7 +60,8 @@ function Waiter() {
             .catch((error) => {
                 console.log(error);
             });
-    };
+        alert(`Order number ${id} has been confirmed`)
+    }
 
     const handleDeleteOrder = (id) => {
         fetch(`http://localhost:3000/orders/delete/${id}`, {
@@ -79,7 +80,8 @@ function Waiter() {
             .catch((error) => {
                 console.log(error);
             });
-    };
+        alert(`Order number ${id} has been deleted`)
+    }
 
     const handleDeliverOrder = (id) => {
         fetch(`http://localhost:3000/orders/delivered/${id}`, {
@@ -98,7 +100,8 @@ function Waiter() {
             .catch((error) => {
                 console.log(error);
             });
-    };
+        alert(`Order number ${id} has been marked as delivered`)
+    }
 
     const handleMarkAsPaid = (id) => {
         fetch(`http://localhost:3000/orders/paid/${id}`, {
