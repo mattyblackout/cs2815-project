@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import logo from "../logo.png";
 import splash from "../splash-image.jpg";
+import {wait} from "@testing-library/user-event/dist/utils";
 
 function EditMenu() {
     const [menu, setMenu] = useState([]);
@@ -17,16 +18,26 @@ function EditMenu() {
             });
     }, []);
 
-    function handleButtonClick(available,item) {
-            fetch(`http://localhost:3000/update/${item.id}`, {
+    function handleButtonClick(available, item) {
+        fetch(`http://localhost:3000/update/${item.id}`, {
             method: 'POST',
-                headers: {
+            headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 available: available
             }),
         }).then((response) => response.json())
+            .then((updatedItem) => {
+                const updatedMenu = menu.map((menuitem) => {
+                    if (menuitem.id === updatedItem.id) {
+                        return updatedItem;
+                    } else {
+                        return menuitem;
+                    }
+                });
+                setMenu(updatedMenu);
+            })
             .catch((error) => {
                 console.log(error);
             });
@@ -48,13 +59,12 @@ function EditMenu() {
                     <div className='menu-items' key={item.id}>
                         <span className="menu-name">{item.name}</span>
                         {item.available === true ? (
-                            <button className='hideButton' onClick={handleButtonClick(false,item)}>Hide</button>
+                            <button className='hideButton' onClick={ () => handleButtonClick(false,item)}>Hide</button>
                         ) : (
-                            <button className='showButton' onClick={handleButtonClick(true,item)}>Show</button>
+                            <button className='showButton' onClick={ () => handleButtonClick(true,item)}>Show</button>
                         )}
                     </div>
                 ))}
-
             </div>
         </div>
     </div>);
