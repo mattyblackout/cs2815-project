@@ -3,11 +3,11 @@
 const {request, response} = require("express");
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'aekkmejk',
-    host: 'trumpet.db.elephantsql.com',
-    database: 'aekkmejk',
-    password: 't0tYetmAy50WtSeI_zAQBcyI_Fmkt6AE',
-    port: 5432,
+    user: 'jake',
+    host: 'localhost',
+    database: 'jake',
+    password: 'postgres',
+    port: 5433,
 })
 
 const getMenu = (request, response) => {
@@ -144,6 +144,15 @@ const getFinishedOrders = (request, response) => {
     })
 }
 
+const getPaidOrders = (request, response) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.complete = true and orders.paid = true;", (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
 const createUser = (request, response) => {
     const {email, password, status} = request.body
     pool.query('INSERT INTO users (email, password, status) VALUES ($1, $2, $3)',
@@ -176,6 +185,20 @@ const authenticate = (req, res) => {
     });
 }
 
+const payOrders = (req, res) => {
+    const order_number = parseInt(req.params.id)
+    pool.query(
+        'UPDATE orders SET paid = true WHERE order_number = $1',
+        [order_number],
+        (error) => {
+            if (error){
+                throw error
+            }
+            res.status(200).send(`Order number ${order_number} marked as paid`)
+        }
+    )
+}
+
 
 module.exports = {
     getMenu,
@@ -189,5 +212,7 @@ module.exports = {
     updateKitchenOrders,
     getFinishedOrders,
     deleteOrders,
-    deliverOrders
+    deliverOrders,
+    getPaidOrders,
+    payOrders
 }
