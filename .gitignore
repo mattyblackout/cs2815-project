@@ -7,8 +7,5 @@
 .*.lst
 .*.jar
 .*.class
-*/node_modules
-myapp/node_modules/.cache/.eslintcache
-myapp/node_modules/.cache/default-development/0.pack
-myapp/node_modules/.cache/default-development/index.pack
-myapp/node_modules/.cache/default-development/index.pack.old
+node_modules/
+
