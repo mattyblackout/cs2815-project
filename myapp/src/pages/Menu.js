@@ -15,6 +15,7 @@ function Menu() {
     const [desserts, setDesserts] = useState([]);
     const [drinks, setDrinks] = useState([]);
     const [order, setOrder] = useState([]);
+    const [counter, setCounter] = useState(0);
 
     const addToOrder = (item) => {
         const existingItemIndex = order.findIndex(orderItem => orderItem.name === item.name);
@@ -26,6 +27,16 @@ function Menu() {
             setOrder([...order, {...item, quantity: 1}]);
         }
     };
+    const handleCheckout = () => {
+        if (order.length === 0) {
+            alert('Your basket is empty');
+        } else {
+            setOrder([]);
+            setCounter(counter + 1);
+            alert('Your items are added to cart!');
+        }
+    };
+
 
     const handleRemove = (itemToRemove) => {
         const existingItemIndex = order.findIndex((item) => item.name === itemToRemove.name);
@@ -144,6 +155,7 @@ function Menu() {
                         <hr className="underline"></hr>
                         <h1 className="simple-text">TOTAL</h1>
                         <h2 className="money">£{totalMoney.toFixed(2)}</h2>
+                        <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
                     </div>
                 </div>
             </div>
