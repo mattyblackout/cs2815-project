@@ -1,0 +1,119 @@
+.checkout-container {
+    position:-webkit-sticky;
+    position:sticky;
+    top:0;
+    border: 5px solid black;
+    background-color: #f8cb2e;
+    font-size: 28px;
+    width: 35%;
+    margin-right: 5%;
+    z-index: 1000;
+    float: right;
+    font-family: "Bayon";
+}
+
+.payment-container {
+    position:-webkit-sticky;
+    position:sticky;
+    top:0;
+    border: 5px solid black;
+    background-color: #f8cb2e;
+    font-size: 28px;
+    width: 50%;
+    margin-left: 5%;
+    z-index: 1000;
+    float: left;
+    font-family: "Bayon";
+}
+
+.order-text {
+    font-family: "Bayon";
+    margin-left: 10%;
+}
+
+.title-text {
+    font-size: 26px;
+    font-family: "Bayon";
+    margin-left: 5%;
+}
+
+.payment-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.payment-button {
+    width: 42%;
+    height: 10%;
+}
+
+.input-container {
+    margin-left: 5%;
+    width: 155%;
+}
+
+.small-input {
+    margin-left: 1%;
+    width: 100px;
+}
+
+.security-card {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 5%;
+}
+
+
+input[type="name-on-card"] {
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 55%;
+}
+
+input[type="card-number"] {
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 55%;
+}
+
+input[type="expiry-cvv"] {
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 45%;
+}
+
+.text {
+    font-size: 24px;
+    font-family: "Bayon";
+    margin-left: 5%;
+}
+
+.underline {
+    width: 90%;
+    border-top: 1px solid black;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+html{
+    background-color: #f8cb2e;
+}
+.App{
+    background-color: #ffffff;
+}
+@font-face{
+    font-family: "Bayon";
+    src: local(Bayon-Regular),
+    url("../fonts/Bayon-Regular.ttf") format("truetype");
+}
