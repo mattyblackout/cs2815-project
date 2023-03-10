@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import MenuLoggedIn from "./pages/MenuLoggedIn";
 import User from "./pages/User";
 import EditMenu from "./pages/EditMenu";
+import Cart from "./pages/Cart";
 
 
 export function App() {
@@ -20,6 +21,7 @@ export function App() {
                 <Route path = "register" element = {<Register />} />
                 <Route path = "user" element = {<User />} />
                 <Route path = "edit" element={<EditMenu />} />
+                <Route path = "cart" element={<Cart />} />
             </Routes>
     )
 }

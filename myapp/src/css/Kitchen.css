@@ -13,8 +13,11 @@
 }
 
 .Heading {
+    position: absolute;
   font-size: 50px;
   font-family: "Bayon";
+  left: 40%;
+  top: -4%;
 }
 
 .App-header {

@@ -32,9 +32,9 @@ function Cart() {
     };
 
     return (
-            <div className="User-Page">
+            <div className="Cart-Page">
                 <header className="App-header">
-                    <Link to="/menu">
+                    <Link to="/">
                         <img src={logo} alt="the logo" className="header-image" />
                     </Link>
                 </header>

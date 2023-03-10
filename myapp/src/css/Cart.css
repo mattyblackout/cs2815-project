@@ -43,10 +43,16 @@
     align-items: center;
     gap: 20px;
 }
+.place-order-button{
+    position: absolute;
+    bottom: 30%;
+    right:5%;
+}
 
 .payment-button {
     width: 42%;
     height: 10%;
+
 }
 
 .input-container {
@@ -105,9 +111,9 @@ input[type="expiry-cvv"] {
 .App-link {
     color: #61dafb;
 }
-
-html{
-    background-color: #f8cb2e;
+.Cart-Page{
+    background-color:#f8cb2e;
+    height: 100vh;
 }
 .App{
     background-color: #ffffff;

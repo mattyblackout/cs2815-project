@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import logo from "../logo.png";
+import '../fonts/Bayon-Regular.ttf';
 import splash from "../splash-image.jpg";
+import '../css/EditMenu.css';
 
 function EditMenu() {
     const [menu, setMenu] = useState([]);
@@ -53,10 +55,9 @@ function EditMenu() {
         </div>
         <h2 className="Heading">Edit Menu</h2>
         <div className="menu-container">
-            <div className="menu-item">
                 {menu.map((item) => (
-                    <div className='menu-items' key={item.id}>
-                        <div className="menu-name">{item.name}</div>
+                    <div className='menu-items-edit' key={item.id}>
+                        <div className="menu-name-edit">{item.name}</div>
                         {item.available === true ? (
                             <button className='hideButton' onClick={ () => handleButtonClick(false,item)}>Hide</button>
                         ) : (
@@ -64,7 +65,6 @@ function EditMenu() {
                         )}
                     </div>
                 ))}
-            </div>
         </div>
     </div>);
 }

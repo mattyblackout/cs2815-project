@@ -104,6 +104,9 @@ function Menu() {
                     <Link to="/login">
                         <button className="login-button">Login</button>
                     </Link>
+                    <Link to="/cart">
+                        <button className="cart-button">Cart</button>
+                    </Link>
                 </div>
             </header>
             <div className="splash-image">
