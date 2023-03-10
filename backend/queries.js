@@ -36,7 +36,7 @@ const getMenuByType = (request, response) => {
     }
 
 
-    pool.query('SELECT * FROM menu WHERE id < $1 and id >= $2', [id, range], (error, results) => {
+    pool.query('SELECT * FROM menu WHERE id < $1 and id >= $2 and available = true', [id, range], (error, results) => {
         if (error) {
             throw error
         }
