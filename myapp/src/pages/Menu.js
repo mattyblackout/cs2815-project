@@ -76,21 +76,21 @@ function Menu() {
                     console.log(error);
                 });
         }
-        if (item === 'desserts') {
+        if (item === 'drinks') {
             fetch('http://localhost:3000/menu/31')
                 .then((response) => response.json())
                 .then((data) => {
-                    setDesserts(data);
+                    setDrinks(data);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         }
-        if (item === 'drinks') {
+        if (item === 'desserts') {
             fetch('http://localhost:3000/menu/41')
                 .then((response) => response.json())
                 .then((data) => {
-                    setDrinks(data);
+                    setDesserts(data);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -105,6 +105,7 @@ function Menu() {
             show = false; //Stops the prompt from loading multiple times
         }
     }, []);
+
     return (
         <div className="App">
             <header className="App-header">
