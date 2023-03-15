@@ -69,6 +69,15 @@ const getWaitOrders = (request, response) => {
     })
 }
 
+const getWaitOrdersFiltered = (request, response) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = false ORDER BY time_ordered;", (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
 const updateWaitOrders =  (req, res) => {
     const order_number = parseInt(req.params.id)
     pool.query(
@@ -144,8 +153,26 @@ const getFinishedOrders = (request, response) => {
     })
 }
 
-const getPaidOrders = (request, response) => {
+const getFinishedOrdersFiltered = (request, response) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.complete = true and orders.delivered = false ORDER BY time_ordered;", (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
+const getUnpaidOrders = (request, response) => {
     pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.delivered = true and orders.paid = false;", (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
+const getUnpaidOrdersFiltered = (request, response) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.delivered = true and orders.paid = false ORDER BY time_ordered;", (error, results) => {
         if (error) {
             throw error
         }
@@ -213,6 +240,9 @@ module.exports = {
     getFinishedOrders,
     deleteOrders,
     deliverOrders,
-    getPaidOrders,
-    payOrders
+    getUnpaidOrders,
+    payOrders,
+    getFinishedOrdersFiltered,
+    getUnpaidOrdersFiltered,
+    getWaitOrdersFiltered,
 }
