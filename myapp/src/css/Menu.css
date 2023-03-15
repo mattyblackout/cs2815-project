@@ -46,6 +46,7 @@ button {
     height: 100px;
     font-family: "Bayon";
 }
+
 button:hover {
     background-color: black;
     color: #F8CB2D;
@@ -144,12 +145,12 @@ button:hover {
     right: 30px;
     border: 0px solid black;
 }
+
 .login-button:hover {
     border: 5px solid black;
     background:#f8cb2e;
     color: black;
 }
-
 
 .table-number{
     border: 2px solid black;
@@ -249,9 +250,18 @@ button:hover {
 html{
     background-color: #ffffff;
 }
+
 .App{
     background-color: #ffffff;
 }
+
+button.information { 
+    background:none; 
+    border:none;
+    width: 20px;
+    height: 20px; 
+}
+
 @font-face{
     font-family: "Bayon";
     src: local(Bayon-Regular),
