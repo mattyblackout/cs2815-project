@@ -187,7 +187,7 @@ function Menu() {
                                 <div className='food-item-container'>
                                     <div><p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p></div>
                                     <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                        <button class="information" className='information' onClick={() => infoPopup(item.id)}> ⓘ</button>
+                                        <button class="information" className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                         <br/></div>
                                     <div className='description' key={item.id}>{item.description} <br/></div>
                                     <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
@@ -205,7 +205,7 @@ function Menu() {
                             <>
                                 <div><p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p></div>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                    <button class="information" className='information' onClick={() => infoPopup(item.id)}> ⓘ</button>
+                                    <button class="information" className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
@@ -221,7 +221,7 @@ function Menu() {
                             <>
                                 <div><p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p></div>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                    <button class="information" className='information' onClick={() => infoPopup(item.id)}> ⓘ</button>
+                                    <button class="information" className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description}<br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
@@ -239,7 +239,7 @@ function Menu() {
                                 <>
                                     <div><p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p></div>
                                     <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                        <button class="information" className='information' onClick={() => infoPopup(item.id)}> ⓘ</button>
+                                        <button class="information" className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                         <br/></div>
                                     <div className='description' key={item.id}>{item.description} <br/></div>
                                     <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
