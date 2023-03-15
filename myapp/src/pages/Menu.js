@@ -8,6 +8,12 @@ import 'reactjs-popup/dist/index.css';
 
 let show = true;
 
+<<<<<<< HEAD
+=======
+function infoPopup() {
+    alert("< INGREDIENT, CALORIE INFO AND OTHERS GO HERE >");
+}
+>>>>>>> 05277b06914fcd55c2073e38a22128331cd40ba2
 
 function Menu() {
     const [expanded, setExpanded] = useState("");
