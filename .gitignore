@@ -10,3 +10,7 @@
 node_modules/
 myapp/node_modules/
 backend/node_modules/
+myapp/node_modules/.cache/default-development/1.pack
+myapp/node_modules/.cache/default-development/11.pack
+myapp/node_modules/.cache/default-development/index.pack.old
+myapp/node_modules/.cache/default-development/index.pack
