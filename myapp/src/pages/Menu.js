@@ -8,12 +8,6 @@ import 'reactjs-popup/dist/index.css';
 
 let show = true;
 
-<<<<<<< HEAD
-=======
-function infoPopup() {
-    alert("< INGREDIENT, CALORIE INFO AND OTHERS GO HERE >");
-}
->>>>>>> 05277b06914fcd55c2073e38a22128331cd40ba2
 
 function Menu() {
     const [expanded, setExpanded] = useState("");
@@ -25,20 +19,21 @@ function Menu() {
     const [order, setOrder] = useState([]);
     const [counter, setCounter] = useState(0);
 
-
     /*
     Responsible for obtaining calorie and ingredient/allergen information for a requested menu item by its id
     */
     const infoPopup = (id) => {
         fetch(`http://localhost:3000/menu/info/${id}`)
-            .then((response) => response.json())
-            .then((data) => {
-                alert(data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
+          .then((response) => response.json())
+          .then((data) => {
+            alert(`Item Information:\n
+            Calories - ${data[0].calories}\n
+            Ingredients/Allergens - ${data[0].allingredients}`)
+          })
+          .catch((error) => {
+            console.log("Error: ", error);
+          });
+      };
 
     const addToOrder = (item) => {
         const existingItemIndex = order.findIndex(orderItem => orderItem.name === item.name);
