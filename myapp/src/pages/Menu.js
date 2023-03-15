@@ -10,7 +10,7 @@ import 'reactjs-popup/dist/index.css';
 let show = true;
 
 function infoPopup() {
-    alert("I am an alert box!");
+    alert("< INGREDIENT, CALORIE INFO AND OTHERS GO HERE >");
 }
 
 function Menu() {
