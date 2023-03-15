@@ -4,14 +4,10 @@ import logo from '../logo.png';
 import '../fonts/Bayon-Regular.ttf';
 import splash from '../splash-image.jpg';
 import { Link } from 'react-router-dom';
-import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
 let show = true;
 
-function infoPopup() {
-    alert("I am an alert box!");
-}
 
 function Menu() {
     const [expanded, setExpanded] = useState("");
@@ -22,6 +18,21 @@ function Menu() {
     const [drinks, setDrinks] = useState([]);
     const [order, setOrder] = useState([]);
     const [counter, setCounter] = useState(0);
+
+
+    /*
+    Responsible for obtaining calorie and ingredient/allergen information for a requested menu item by its id
+    */
+    const infoPopup = (id) => {
+        fetch(`http://localhost:3000/menu/info/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                alert(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     const addToOrder = (item) => {
         const existingItemIndex = order.findIndex(orderItem => orderItem.name === item.name);
@@ -175,7 +186,7 @@ function Menu() {
                                 <div className='food-item-container'>
                                     <div><p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p></div>
                                     <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                        <button class="information" className='information' onClick={() => infoPopup()}> ⓘ</button>
+                                        <button class="information" className='information' onClick={() => infoPopup(item.id)}> ⓘ</button>
                                         <br/></div>
                                     <div className='description' key={item.id}>{item.description} <br/></div>
                                     <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
@@ -193,7 +204,7 @@ function Menu() {
                             <>
                                 <div><p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p></div>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                    <button class="information" className='information' onClick={() => infoPopup()}> ⓘ</button>
+                                    <button class="information" className='information' onClick={() => infoPopup(item.id)}> ⓘ</button>
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
@@ -209,7 +220,7 @@ function Menu() {
                             <>
                                 <div><p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p></div>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                    <button class="information" className='information' onClick={() => infoPopup()}> ⓘ</button>
+                                    <button class="information" className='information' onClick={() => infoPopup(item.id)}> ⓘ</button>
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description}<br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
