@@ -8,7 +8,6 @@ import 'reactjs-popup/dist/index.css';
 
 let show = true;
 
-
 function Menu() {
     const [expanded, setExpanded] = useState("");
     const [tableNumber, setTableNumber] = useState("");
@@ -19,9 +18,7 @@ function Menu() {
     const [order, setOrder] = useState([]);
     const [counter, setCounter] = useState(0);
 
-    /*
-    Responsible for obtaining calorie and ingredient/allergen information for a requested menu item by its id
-    */
+    // Responsible for obtaining calorie and ingredient/allergen information for a requested menu item by its id
     const infoPopup = (id) => {
         fetch(`http://localhost:3000/menu/info/${id}`)
           .then((response) => response.json())
@@ -33,6 +30,7 @@ function Menu() {
           });
       };
 
+    // Adds an item to the order
     const addToOrder = (item) => {
         const existingItemIndex = order.findIndex(orderItem => orderItem.name === item.name);
         if (existingItemIndex !== -1) {
@@ -43,6 +41,8 @@ function Menu() {
             setOrder([...order, {...item, quantity: 1}]);
         }
     };
+
+    // Checkout and cart system
     const handleCheckout = () => {
         if (order.length === 0) {
             alert('Your basket is empty');
@@ -53,7 +53,7 @@ function Menu() {
         }
     };
 
-
+    // Removes an item from the order
     const handleRemove = (itemToRemove) => {
         const existingItemIndex = order.findIndex((item) => item.name === itemToRemove.name);
         if (existingItemIndex >= 0) {
@@ -67,10 +67,12 @@ function Menu() {
         }
     };
 
+    // Calculates the total price of the order
     const totalMoney = order.reduce((total, item) => {
         return total + item.price * item.quantity;
     }, 0);
 
+    // Responsible for obtaining the menu items of a requested category when button is clicked
     const handleButtonClick = (item) => {
         if (item === 'mains') {
             fetch('http://localhost:3000/menu/11')
