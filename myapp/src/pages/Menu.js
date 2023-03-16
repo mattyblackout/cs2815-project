@@ -26,9 +26,7 @@ function Menu() {
         fetch(`http://localhost:3000/menu/info/${id}`)
           .then((response) => response.json())
           .then((data) => {
-            alert(`Item Information:\n
-            Calories - ${data[0].calories}\n
-            Ingredients/Allergens - ${data[0].allingredients}`)
+            alert(`--------------------- Item Information ---------------------\n\n Calories: ${data[0].calories}\n\n Ingredients/Allergens: ${data[0].allingredients}`)
           })
           .catch((error) => {
             console.log("Error: ", error);
@@ -185,7 +183,6 @@ function Menu() {
                         {mains.map((item) => (
                             <>
                                 <div className='food-item-container'>
-                                    <div><p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p></div>
                                     <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
                                         <button class="information" className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                         <br/></div>
@@ -203,7 +200,6 @@ function Menu() {
                     <div className='menu-items-container'>
                         {sides.map((item) => (
                             <>
-                                <div><p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p></div>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
                                     <button class="information" className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                     <br/></div>
@@ -219,7 +215,6 @@ function Menu() {
                     <div className='menu-items-container'>
                         {desserts.map((item) => (
                             <>
-                                <div><p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p></div>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
                                     <button class="information" className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                     <br/></div>
@@ -237,7 +232,6 @@ function Menu() {
                         <div className='menu-items-container'>
                             {drinks.map((item) => (
                                 <>
-                                    <div><p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p></div>
                                     <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
                                         <button class="information" className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                         <br/></div>
@@ -256,5 +250,3 @@ function Menu() {
 }
 
 export default Menu;
-
-
