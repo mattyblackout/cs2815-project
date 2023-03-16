@@ -10,8 +10,13 @@
 node_modules/
 myapp/node_modules/
 backend/node_modules/
-myapp/node_modules/.cache/default-development/1.pack
-myapp/node_modules/.cache/default-development/11.pack
-myapp/node_modules/.cache/default-development/index.pack.old
-myapp/node_modules/.cache/default-development/index.pack
 myapp/node_modules/.cache/.eslintcache
+myapp/node_modules/.cache/default-development/0.pack
+myapp/node_modules/.cache/default-development/1.pack
+myapp/node_modules/.cache/default-development/2.pack
+myapp/node_modules/.cache/default-development/4.pack
+myapp/node_modules/.cache/default-development/5.pack
+myapp/node_modules/.cache/default-development/6.pack
+myapp/node_modules/.cache/default-development/11.pack
+myapp/node_modules/.cache/default-development/index.pack
+myapp/node_modules/.cache/default-development/index.pack.old
