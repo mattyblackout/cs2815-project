@@ -186,7 +186,7 @@ function Menu() {
                             <>
                                 <div className='food-item-container'>
                                     <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                        <button class="information" className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
+                                        <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                         <br/></div>
                                     <div className='description' key={item.id}>{item.description} <br/></div>
                                     <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
@@ -203,7 +203,7 @@ function Menu() {
                         {sides.map((item) => (
                             <>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                    <button class="information" className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
+                                    <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
@@ -218,7 +218,7 @@ function Menu() {
                         {desserts.map((item) => (
                             <>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                    <button class="information" className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
+                                    <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description}<br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
@@ -235,7 +235,7 @@ function Menu() {
                             {drinks.map((item) => (
                                 <>
                                     <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                        <button class="information" className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
+                                        <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                         <br/></div>
                                     <div className='description' key={item.id}>{item.description} <br/></div>
                                     <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
