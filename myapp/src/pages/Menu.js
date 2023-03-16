@@ -117,6 +117,7 @@ function Menu() {
         setExpanded(item);
     };
 
+    // Prompts user to enter their table number
     useEffect(() => {
         if (show) {
             setTableNumber(window.prompt('What is your table number?'));
@@ -124,6 +125,7 @@ function Menu() {
         }
     }, []);
 
+    // Main menu page
     return (
         <div className="App">
             <header className="App-header">
@@ -226,29 +228,24 @@ function Menu() {
                         ))}
                     </div>
                 </div>
-            )
-            }
-            {
-                expanded === "drinks" && (
-                    <div className='expanded-div'>
-                        <div className='menu-items-container'>
-                            {drinks.map((item) => (
-                                <>
-                                    <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                        <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
-                                        <br/></div>
-                                    <div className='description' key={item.id}>{item.description} <br/></div>
-                                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
-                                </>
-                            ))}
-                        </div>
+            )}
+            {expanded === "drinks" && (
+                <div className='expanded-div'>
+                    <div className='menu-items-container'>
+                        {drinks.map((item) => (
+                            <>
+                                <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
+                                    <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
+                                    <br/></div>
+                                <div className='description' key={item.id}>{item.description} <br/></div>
+                                <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                            </>
+                        ))}
                     </div>
-                )
-            }
+                </div>
+            )}
         </div>
-
     )
-        ;
 }
 
 export default Menu;
