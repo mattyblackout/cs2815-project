@@ -33,6 +33,7 @@ app.post('/update/:id', db.updateMenu)
 app.get('/unpaid-orders', db.getUnpaidOrders)
 app.get('/unpaid-ordersFiltered', db.getUnpaidOrdersFiltered)
 app.post('/orders/paid/:id', db.payOrders)
+app.post('/requestHelp', db.requestHelp)
 
 
 app.get('/', (request, response) => {
