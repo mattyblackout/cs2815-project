@@ -227,7 +227,7 @@ const payOrders = (req, res) => {
 }
 
 const requestHelp = (request, response) => {
-    const {tableNumber} = request.body
+    const tableNumber = request.body
     pool.query('INSERT INTO assistance (tableNumber) VALUES ($1)',
         [tableNumber],
         (error, result) => {
@@ -237,7 +237,6 @@ const requestHelp = (request, response) => {
             response.status(201).send(`Help requested: ${result.insertId}`)
         })
 }
-
 
 module.exports = {
     getMenu,
