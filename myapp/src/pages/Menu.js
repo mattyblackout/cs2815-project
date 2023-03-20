@@ -99,6 +99,17 @@ function Menu() {
         setExpanded(item);
     };
 
+    const sendHelpRequest = (event) => {
+        window.alert("Help Requested!");
+        // Send data to server to insert into database
+        fetch('http://localhost:3000/requestHelp', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(tableNumber),
+        })
+
+    }
+
     useEffect(() => {
         if (show) {
             setTableNumber(window.prompt('What is your table number?'));
@@ -158,9 +169,8 @@ function Menu() {
                         <h2 className="money">£{totalMoney.toFixed(2)}</h2>
                         <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
                         <div>
-                            <button class="help-button" onclick="sendHelpRequest()">Call Waiter</button>
+                            <button class="help-button" onClick={sendHelpRequest}>Call Waiter</button>
                         </div>
-
                     </div>
                 </div>
             </div>

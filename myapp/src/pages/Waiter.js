@@ -184,6 +184,9 @@ function Waiter() {
                 <button className = "filterButton" onClick = {() => handleFilterClick(expanded)}>
                     Sort by time ordered
                 </button>
+                <button className = "helpButton" onClick = {() => handleFilterClick(expanded)}>
+                    Help Required
+                </button>
                 <hr className="underline" />
                 {[...new Set(orders.map((order) => order.order_number))].map((id) => {
                     const order_time = ordersWithId(id)[0].time_ordered;
@@ -257,6 +260,16 @@ function Waiter() {
                             onClick={() => handleMarkAsPaid(orderID)}
                         >
                             Mark as Paid
+                        </div>
+                    </>
+                )}
+                {expanded === "Help Requested" && (
+                    <>
+                        <div
+                            className="mark-as-done"
+                            //onClick={() => handleMarkAsPaid(orderID)}
+                        >
+                            Mark as Done
                         </div>
                     </>
                 )}
