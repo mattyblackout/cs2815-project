@@ -236,6 +236,14 @@ const helpRequest = (req, res) => {
     })
 }
 
+const getAssistanceTable = (request, response) => {
+    pool.query('SELECT * FROM assistance ORDER BY tablenumber asc', (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
 
 module.exports = {
     getMenu,
@@ -255,5 +263,7 @@ module.exports = {
     getFinishedOrdersFiltered,
     getUnpaidOrdersFiltered,
     getWaitOrdersFiltered,
-    helpRequest
+    helpRequest,
+    getAssistanceTable
+
 }
