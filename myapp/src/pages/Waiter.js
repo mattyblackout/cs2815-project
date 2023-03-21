@@ -39,6 +39,15 @@ function Waiter() {
                 .catch((error) => {
                     console.log(error);
                 });
+        } else if (item === 'Help-Required') {
+            fetch('http://localhost:3000/assistanceTable')
+                .then((response) => response.json())
+                .then((data) => {
+                    setOrders(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
         setExpanded(item);
     };
@@ -64,6 +73,15 @@ function Waiter() {
                 });
         } else if (item === 'Unpaid') {
             fetch('http://localhost:3000/unpaid-ordersFiltered')
+                .then((response) => response.json())
+                .then((data) => {
+                    setOrders(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else if (item === 'Help-Required') {
+            fetch('http://localhost:3000/assistanceTable')
                 .then((response) => response.json())
                 .then((data) => {
                     setOrders(data);
@@ -184,7 +202,7 @@ function Waiter() {
                 <button className = "filterButton" onClick = {() => handleFilterClick(expanded)}>
                     Sort by time ordered
                 </button>
-                <button className = "helpButton" onClick = {() => handleFilterClick(expanded)}>
+                <button className = "helpButton" onClick = {() => handleButtonClick("Help-Required")}>
                     Help Required
                 </button>
                 <hr className="underline" />
@@ -263,11 +281,11 @@ function Waiter() {
                         </div>
                     </>
                 )}
-                {expanded === "Help Requested" && (
+                {expanded === "Help-Required" && (
                     <>
                         <div
                             className="mark-as-done"
-                            //onClick={() => handleMarkAsPaid(orderID)}
+                            //onClick={() => }
                         >
                             Mark as Done
                         </div>
