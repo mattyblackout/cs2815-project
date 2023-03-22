@@ -4,12 +4,13 @@ import logo from '../logo.png';
 import '../fonts/Bayon-Regular.ttf';
 import { Link } from 'react-router-dom';
 
+// main cart function, containing core code for the cart functionality
 function Cart() {
-
     const [cardNumber, setCardNumber] = useState('');
     const [expiry, setExpiry] = useState('');
     const [cvv, setCvv] = useState('');
 
+    // function to handle the input of the card number
     const handleCardNumberInput = (event) => {
         let formattedValue = event.target.value.replace(/ /g, '');
         if (formattedValue.length > 0) {
@@ -18,6 +19,7 @@ function Cart() {
         setCardNumber(formattedValue);
     };
 
+    // function to handle the input of the expiry date
     const handleExpiryInput = (event) => {
         let formattedValue = event.target.value.replace(/[^0-9]/g, '').substring(0, 4);
         if (formattedValue.length > 2) {
@@ -26,11 +28,13 @@ function Cart() {
         setExpiry(formattedValue);
     };
 
+    // function to handle the input of the cvv
     const handleCvvInput = (event) => {
         let formattedValue = event.target.value.replace(/[^0-9]/g, '').substring(0, 3);
         setCvv(formattedValue);
     };
 
+    // front-end code for cart
     return (
             <div className="Cart-Page">
                 <header className="App-header">
