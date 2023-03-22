@@ -11,9 +11,6 @@ You may edit it as you like, but please do not remove the default topics or the 
 4. If you get an error saying 'react-scripts' is not installed, just type 'npm i react-scripts' and try to run start again after.
 5. The web-app should now be ready to go.
 
-Make sure you have a working Postgres database already running on local prior to attempting the above steps.
-You should also have input your database details in /backend/queries.js
-
 # NAVIGATING THE WEB-APP
 1. Once the webpack is compiled successfully, the web-app is ready to view in the browser.
 2. First, start typing your desired table number.
