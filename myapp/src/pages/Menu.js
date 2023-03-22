@@ -23,7 +23,7 @@ function Menu() {
         fetch(`http://localhost:3000/menu/info/${id}`)
           .then((response) => response.json())
           .then((data) => {
-            alert(`--------------------- Item Information ---------------------\n\n Calories: ${data[0].calories}\n\n Ingredients/Allergens: ${data[0].allingredients}`)
+            alert(`------------------ Ingredients / Allergens ------------------\n\n${data[0].allingredients}`)
           })
           .catch((error) => {
             console.log("Error: ", error);
@@ -188,6 +188,7 @@ function Menu() {
                             <>
                                 <div className='food-item-container'>
                                     <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
+                                        <div className='calories' key={item.id}>({item.calories} KCAL)</div>
                                         <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                         <br/></div>
                                     <div className='description' key={item.id}>{item.description} <br/></div>
@@ -205,6 +206,7 @@ function Menu() {
                         {sides.map((item) => (
                             <>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
+                                    <div className='calories' key={item.id}>({item.calories} KCAL)</div>
                                     <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
@@ -220,6 +222,7 @@ function Menu() {
                         {desserts.map((item) => (
                             <>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
+                                    <div className='calories' key={item.id}>({item.calories} KCAL)</div>
                                     <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description}<br/></div>
@@ -235,6 +238,7 @@ function Menu() {
                         {drinks.map((item) => (
                             <>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
+                                    <div className='calories' key={item.id}>({item.calories} KCAL)</div>
                                     <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
