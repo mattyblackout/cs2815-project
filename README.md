@@ -9,5 +9,5 @@ You may edit it as you like, but please do not remove the default topics or the 
 2. Open a second terminal and navigate to the myapp directory
 3. Type 'npm run start' in the terminal.
 4. If you get an error saying 'react-scripts' is not installed, just type 'npm i react-scripts' and try to run start again after.
-5. The web-app should now be ready to go.
-
+5. If prompted 'Would you like to run the app on another port instead?' press the Y key.
+6. The web-app should now be ready to go.
