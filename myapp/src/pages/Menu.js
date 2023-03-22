@@ -75,7 +75,7 @@ function Menu() {
     // Responsible for obtaining the menu items of a requested category when button is clicked
     const handleButtonClick = (item) => {
         if (item === 'mains') {
-            fetch('http://localhost:3000/menu/11')
+            fetch('http://localhost:3000/menu/mains')
                 .then((response) => response.json())
                 .then((data) => {
                     setMains(data);
@@ -85,7 +85,7 @@ function Menu() {
                 });
         }
         if (item === 'sides') {
-            fetch('http://localhost:3000/menu/21')
+            fetch('http://localhost:3000/menu/sides')
                 .then((response) => response.json())
                 .then((data) => {
                     setSides(data);
@@ -95,7 +95,7 @@ function Menu() {
                 });
         }
         if (item === 'drinks') {
-            fetch('http://localhost:3000/menu/31')
+            fetch('http://localhost:3000/menu/drinks')
                 .then((response) => response.json())
                 .then((data) => {
                     setDrinks(data);
@@ -105,7 +105,7 @@ function Menu() {
                 });
         }
         if (item === 'desserts') {
-            fetch('http://localhost:3000/menu/41')
+            fetch('http://localhost:3000/menu/dessert')
                 .then((response) => response.json())
                 .then((data) => {
                     setDesserts(data);

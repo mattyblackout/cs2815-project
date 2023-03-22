@@ -19,24 +19,14 @@ const getMenu = (request, response) => {
     })
 }
 
-let range
+/** 
+Uses the specified item type to return the rows of menu items where they belong to that type only.
+Example: if the category is "drinks" then only drinks items are returned
+*/
 const getMenuByType = (request, response) => {
-    const id = parseInt(request.params.id)
-    if (id === 11) {
-        range = 0
-    }
-    if (id === 21) {
-        range = 11
-    }
-    if (id === 31) {
-        range = 21
-    }
-    if (id === 41) {
-        range = 31
-    }
-
-
-    pool.query('SELECT * FROM menu WHERE id < $1 and id >= $2 and available = true', [id, range], (error, results) => {
+    const category = request.params.category
+    
+    pool.query('SELECT * FROM menu WHERE category=$1 and available = true', [category], (error, results) => {
         if (error) {
             throw error
         }
