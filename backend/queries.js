@@ -19,13 +19,15 @@ const getMenu = (request, response) => {
     })
 }
 
-/** 
-Uses the specified item type to return the rows of menu items where they belong to that type only.
-Example: if the category is "drinks" then only drinks items are returned
-*/
+/**
+ * Uses the specified item type to return the rows of menu items where they belong to that type only.
+ * Example: if the category is "drinks" then only drinks items are returned
+ * @param {URL} request is the URL specified under the GET request containing the item type
+ * @param {JSON} response is the complete rows of menu items containing that type
+ */
 const getMenuByType = (request, response) => {
     const category = request.params.category
-    
+
     pool.query('SELECT * FROM menu WHERE category=$1 and available = true', [category], (error, results) => {
         if (error) {
             throw error
@@ -50,6 +52,12 @@ const updateMenu = (request, response) => {
     )
 }
 
+/**
+ * Gets order information for each item in an order that has not yet been confirmed. 
+ * Order information, for each item in every order, contains the overall order information as well as the information for each individual item under that order.
+ * @param {URL} request is the URL specified by the POST request containing the order id
+ * @param {*} response is the rows of order items that have not been confirmed
+ */
 const getWaitOrders = (request, response) => {
     pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = false;", (error, results) => {
         if (error) {
@@ -59,6 +67,12 @@ const getWaitOrders = (request, response) => {
     })
 }
 
+/**
+ * Gets order information for each item in an order that has not yet been confirmed, and orders them by the time ordered. 
+ * Order information, for each item in every order, contains the overall order information as well as the information for each individual item under that order.
+ * @param {URL} request is the URL specified by the POST request containing the order id
+ * @param {*} response is the rows of order items that have not been confirmed, ordered by the time they were ordered
+ */
 const getWaitOrdersFiltered = (request, response) => {
     pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = false ORDER BY time_ordered;", (error, results) => {
         if (error) {
