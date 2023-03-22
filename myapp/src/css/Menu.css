@@ -266,6 +266,10 @@ button.information {
     border:none
 }
 
+hr.solid {
+    border-top: 3px solid #bbb;
+}
+
 @font-face{
     font-family: "Bayon";
     src: local(Bayon-Regular),

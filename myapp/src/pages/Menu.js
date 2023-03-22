@@ -206,8 +206,8 @@ function Menu() {
                                         <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                         <br/></div>
                                     <div className='description' key={item.id}>{item.description} <br/></div>
-                                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
-                                    </button>
+                                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                    <div><hr class="solid"></hr></div>
                                 </div>
                             </>
                         ))}
@@ -225,6 +225,7 @@ function Menu() {
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <div><hr class="solid"></hr></div>
                             </>
                         ))}
                     </div>
@@ -241,6 +242,7 @@ function Menu() {
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description}<br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <div><hr class="solid"></hr></div>
                             </>
                         ))}
                     </div>
@@ -257,6 +259,7 @@ function Menu() {
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <div><hr class="solid"></hr></div>
                             </>
                         ))}
                     </div>
