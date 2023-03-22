@@ -102,10 +102,10 @@ function Menu() {
     const sendHelpRequest = (event) => {
         window.alert("Help Requested!");
         // Send data to server to insert into database
-        fetch('http://localhost:3000/helpRequest', {
+        fetch(`http://localhost:3000/helpRequest/${tableNumber}`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(9),
+            body: JSON.stringify({tableNumber}),
         })
     }
     

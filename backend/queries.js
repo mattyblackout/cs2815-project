@@ -227,8 +227,8 @@ const payOrders = (req, res) => {
 }
 
 const helpRequest = (req, res) => {
-    const { table_number } = req.body;
-    pool.query('INSERT INTO assistance (table_number) VALUES ($1)', [table_number], (error, result) => {
+    const  table_number  = parseInt(req.params.id);
+    pool.query('INSERT INTO assistance VALUES ($1)', [table_number], (error, result) => {
         if (error) {
             throw error
         }
@@ -237,7 +237,7 @@ const helpRequest = (req, res) => {
 }
 
 const getAssistanceTable = (request, response) => {
-    pool.query('SELECT * FROM assistance ORDER BY tablenumber asc', (error, results) => {
+    pool.query('SELECT * FROM assistance', (error, results) => {
         if (error) {
             throw error
         }
