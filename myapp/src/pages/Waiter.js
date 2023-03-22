@@ -3,14 +3,17 @@ import '../css/Waiter.css';
 import logo from '../logo.png';
 import { Link } from 'react-router-dom';
 
+// main waiter function 
 function Waiter() {
     const [orders, setOrders] = useState([]);
     const [expanded, setExpanded] = useState('');
 
+    // fetches all orders with given id from the database
     function ordersWithId(id) {
         return orders.filter((order) => order.order_number === id);
     }
 
+    // button click handler
     const handleButtonClick = (item) => {
         if (item === 'Active') {
             fetch('http://localhost:3000/orders')
@@ -43,6 +46,7 @@ function Waiter() {
         setExpanded(item);
     };
 
+    // filter click handler
     const handleFilterClick = (item) => {
         if (item === 'Active') {
             fetch('http://localhost:3000/ordersFiltered')
@@ -74,6 +78,7 @@ function Waiter() {
         }
     }
 
+    // handler for confirming order
     const handleConfirmOrder = (id) => {
         fetch(`http://localhost:3000/orders/${id}`, {
             method: 'POST',
@@ -94,6 +99,7 @@ function Waiter() {
         alert(`Order number ${id} has been confirmed`)
     }
 
+    // handler for deleting order
     const handleDeleteOrder = (id) => {
         fetch(`http://localhost:3000/orders/delete/${id}`, {
             method: 'POST',
@@ -114,6 +120,7 @@ function Waiter() {
         alert(`Order number ${id} has been deleted`)
     }
 
+    // handler for marking order as delivered
     const handleDeliverOrder = (id) => {
         fetch(`http://localhost:3000/orders/delivered/${id}`, {
             method: 'POST',
@@ -134,6 +141,7 @@ function Waiter() {
         alert(`Order number ${id} has been marked as delivered`)
     }
 
+    // handler for marking order as paid
     const handleMarkAsPaid = (id) => {
         fetch(`http://localhost:3000/orders/paid/${id}`, {
             method: 'POST',
@@ -159,6 +167,7 @@ function Waiter() {
         orderID = id;
     }
 
+    // front end code
     return (
         <div className="App">
             <header className="App-header">
