@@ -8,6 +8,7 @@ import 'reactjs-popup/dist/index.css';
 
 let show = true;
 
+// Main menu function, containing the core code and functionality for the menu page
 function Menu() {
     const [expanded, setExpanded] = useState("");
     const [tableNumber, setTableNumber] = useState("");
@@ -117,6 +118,7 @@ function Menu() {
         setExpanded(item);
     };
 
+    // Responsible for sending a help request to the server
     const sendHelpRequest = (event) => {
         window.alert("Help Requested!");
         // Send data to server to insert into database
@@ -135,7 +137,7 @@ function Menu() {
         }
     }, []);
 
-    // Main menu page
+    // Main front-end code for menu page
     return (
         <div className="App">
             <header className="App-header">
