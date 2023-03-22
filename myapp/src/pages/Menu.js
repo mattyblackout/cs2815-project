@@ -4,7 +4,6 @@ import logo from '../logo.png';
 import '../fonts/Bayon-Regular.ttf';
 import splash from '../splash-image.jpg';
 import { Link } from 'react-router-dom';
-import 'reactjs-popup/dist/index.css';
 
 let show = true;
 
