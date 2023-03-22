@@ -294,7 +294,6 @@ module.exports = {
     getWaitOrdersFiltered,
     getSingleOrder,
     getItemCaloriesAndIngredients,
-    requestHelp
     helpRequest,
     getAssistanceTable
 
