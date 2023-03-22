@@ -69,6 +69,17 @@ const getWaitOrders = (request, response) => {
     })
 }
 
+const getSingleOrder = (request, response) => {
+    const id = parseInt(request.params.id)
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.order_number = $1",
+        [id], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
 const getWaitOrdersFiltered = (request, response) => {
     pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = false ORDER BY time_ordered;", (error, results) => {
         if (error) {
@@ -274,6 +285,7 @@ module.exports = {
     getFinishedOrdersFiltered,
     getUnpaidOrdersFiltered,
     getWaitOrdersFiltered,
+    getSingleOrder,
     getItemCaloriesAndIngredients,
     requestHelp
 }

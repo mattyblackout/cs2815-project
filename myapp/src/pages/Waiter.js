@@ -7,13 +7,19 @@ import { Link } from 'react-router-dom';
 function Waiter() {
     const [orders, setOrders] = useState([]);
     const [expanded, setExpanded] = useState('');
+    const [selected, setSelected] = useState([]);
 
     // fetches all orders with given id from the database
     function ordersWithId(id) {
         return orders.filter((order) => order.order_number === id);
     }
 
-    // button click handler
+    let total = 0;
+
+    const updateTotal = (price) => {
+        total = total + parseFloat(price);
+    }
+
     const handleButtonClick = (item) => {
         if (item === 'Active') {
             fetch('http://localhost:3000/orders')
@@ -162,8 +168,16 @@ function Waiter() {
     };
 
     let orderID;
+
     function handleOrderClick(id) {
-        console.log('Clicked order ' + id);
+        fetch(`http://localhost:3000/orders/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setSelected(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         orderID = id;
     }
 
@@ -223,13 +237,29 @@ function Waiter() {
                 })}
             </div>
             <div className="orderDisplay">
+
                 <h1 className="table">TABLE</h1>
                 <p className="table-number">7</p>
                 <hr className="underline"></hr>
-                <h1 className="simple-text">YOUR ORDER</h1>
-                <h4 className={"GAP"} />
-                <hr className="underline"></hr>
-                <h1 className="simple-text">TOTAL</h1>
+                <div>
+                    { [...new Set(selected.map(order => order.order_number))].map(id => {
+                        return (
+                            <div  key={id}>
+                                <div className='order-id'>Order #{id}</div>
+                                {ordersWithId(id).map(order => (
+                                    <>
+                                        <div className='order-items'>
+                                            <div className='order-details'>Item: {order.name} <br/> Quantity: {order.item_quantity}</div>
+                                            <div className='order-details'>Price: £{updateTotal((order.price  * order.item_quantity).toFixed(2))}{(order.price  * order.item_quantity).toFixed(2)}</div>
+                                        </div>
+                                    </>
+                                ))}
+                                <hr className="underline"></hr>
+                                <h1 className="simple-text">TOTAL: £{total} </h1>
+                            </div>
+                        )
+                    })}
+                </div>
                 {expanded === "Active" && (
                     <>
                         <div
