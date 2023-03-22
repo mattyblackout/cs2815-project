@@ -256,19 +256,6 @@ const getItemCaloriesAndIngredients = (request, response) => {
     )
 }
 
-const requestHelp = (request, response) => {
-    const tableNumber = request.body
-    pool.query('INSERT INTO assistance (tableNumber) VALUES ($1)',
-        [tableNumber],
-        (error, result) => {
-            if (error) {
-                throw error
-            }
-            response.status(201).send(`Help requested: ${result.insertId}`)
-        })
-}
-
-
 module.exports = {
     getMenu,
     updateMenu,
