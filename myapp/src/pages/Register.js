@@ -4,12 +4,13 @@ import logo from '../logo.png';
 import '../fonts/Bayon-Regular.ttf';
 import {Link} from 'react-router-dom';
 
+// main register function, containing core code for the user registration functionality
 function Register() {
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState('');
 
+    // function to handle the submission of the registration form
     const handleSubmit = (event) => {
         if (status === ' '){
             setStatus('customer');
@@ -31,6 +32,7 @@ function Register() {
         window.location.href = '/login';
     }
 
+    // front end code for registration
     return (
         <div className="Register">
             <header className="App-header">

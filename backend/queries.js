@@ -226,6 +226,35 @@ const payOrders = (req, res) => {
     )
 }
 
+const requestHelp = (request, response) => {
+    const tableNumber = request.body
+    pool.query('INSERT INTO assistance (tableNumber) VALUES ($1)',
+        [tableNumber],
+        (error, result) => {
+            if (error) {
+                throw error
+            }
+            response.status(201).send(`Help requested: ${result.insertId}`)
+        })
+}
+
+// Retrieves the calories and string concatenation of ingredients for a single specified menu item by its id
+const getItemCaloriesAndIngredients = (request, response) => {
+    const id = parseInt(request.params.id) //Menu.id
+    pool.query(
+        "SELECT Menu.calories, string_agg(DISTINCT ItemContains.ingredient, ', ') as AllIngredients " +
+        "FROM Menu, ItemContains "+
+        "WHERE Menu.id = $1 AND ItemContains.item_id = $1 " +
+        "GROUP BY Menu.id",
+        [id],
+        (error, result) => {
+            if (error) {
+                throw error
+            }
+            response.status(200).json(result.rows)
+        }
+    )
+}
 
 module.exports = {
     getMenu,
@@ -245,4 +274,6 @@ module.exports = {
     getFinishedOrdersFiltered,
     getUnpaidOrdersFiltered,
     getWaitOrdersFiltered,
+    getItemCaloriesAndIngredients,
+    requestHelp
 }
