@@ -23,14 +23,13 @@
     color: black;
 }
 
-
 .menu-items-container{
     text-align: left;
     justify-content: left;
 }
 
 .calories {
-    font-size: 22px;
+    font-size: 26px;
     display: inline-block;
     font-weight: 100;
     font-family: 'Bayon';
@@ -257,9 +256,9 @@ html{
 
 button.information { 
     background:none; 
-    border:none;
-    width: 20px;
-    height: 20px; 
+    width: 75px;
+    height: 1px; 
+    border:none
 }
 
 @font-face{
