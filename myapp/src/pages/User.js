@@ -5,7 +5,6 @@ import '../fonts/Bayon-Regular.ttf';
 import {Link} from 'react-router-dom';
 
 function User() {
-
     return (
             <div className="User-Page">
                 <header className="App-header">

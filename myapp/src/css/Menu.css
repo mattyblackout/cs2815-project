@@ -23,14 +23,15 @@
     color: black;
 }
 
-
 .menu-items-container{
     text-align: left;
     justify-content: left;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .calories {
-    font-size: 22px;
+    font-size: 26px;
     display: inline-block;
     font-weight: 100;
     font-family: 'Bayon';
@@ -46,6 +47,7 @@ button {
     height: 100px;
     font-family: "Bayon";
 }
+
 button:hover {
     background-color: black;
     color: #F8CB2D;
@@ -122,6 +124,7 @@ button:hover {
     width: 400px;
     height: fit-content;
     z-index: 1000;
+    margin-right: 5px;
 }
 
 .table{
@@ -144,12 +147,12 @@ button:hover {
     right: 30px;
     border: 0px solid black;
 }
+
 .login-button:hover {
     border: 5px solid black;
     background:#f8cb2e;
     color: black;
 }
-
 
 .table-number{
     border: 2px solid black;
@@ -236,15 +239,19 @@ button:hover {
     height: fit-content;
     width: 850px;
     border: 5px solid #f8cb2e;
+    margin-left: 12px;
 }
 .checkout{
     height: fit-content;
     width: fit-content;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 .help-button{
     height: fit-content;
     width: fit-content;
+    margin-right: 3px;
 }
 
 .App-link {
@@ -254,9 +261,29 @@ button:hover {
 html{
     background-color: #ffffff;
 }
+
 .App{
     background-color: #ffffff;
 }
+
+button.information { 
+    background:none; 
+    width: 75px;
+    height: 1px; 
+    border:none
+}
+
+hr.solid {
+    border-top: 3px solid #bbb;
+}
+
+button.invisible-button {
+    background:none; 
+    width: 100px;
+    height: 10px; 
+    border:none
+}
+
 @font-face{
     font-family: "Bayon";
     src: local(Bayon-Regular),

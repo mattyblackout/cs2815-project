@@ -18,9 +18,11 @@ app.use(
 
 app.get('/menu', db.getMenu)
 app.get('/menu/:id', db.getMenuByType)
+app.get('/menu/info/:id', db.getItemCaloriesAndIngredients)
 app.post('/login', db.authenticate)
 app.post('/register', db.createUser)
 app.get('/orders', db.getWaitOrders)
+app.get('/orders/:id', db.getSingleOrder)
 app.get('/ordersFiltered', db.getWaitOrdersFiltered)
 app.get('/kitchen-orders', db.getKitchenOrders)
 app.post('/orders/:id', db.updateWaitOrders)
