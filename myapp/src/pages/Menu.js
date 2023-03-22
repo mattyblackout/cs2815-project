@@ -117,6 +117,16 @@ function Menu() {
         setExpanded(item);
     };
 
+    const sendHelpRequest = (event) => {
+        window.alert("Help Requested!");
+        // Send data to server to insert into database
+        fetch('http://localhost:3000/requestHelp', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(tableNumber),
+        })
+    }
+
     // Prompts user to enter their table number
     useEffect(() => {
         if (show) {
