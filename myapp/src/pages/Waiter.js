@@ -31,7 +31,7 @@ function Waiter() {
                     console.log(error);
                 });
         } else if (item === 'Unpaid') {
-            fetch('http://localhost:3000/paid-orders')
+            fetch('http://localhost:3000/unpaid-orders')
                 .then((response) => response.json())
                 .then((data) => {
                     setOrders(data);
@@ -42,6 +42,37 @@ function Waiter() {
         }
         setExpanded(item);
     };
+
+    const handleFilterClick = (item) => {
+        if (item === 'Active') {
+            fetch('http://localhost:3000/ordersFiltered')
+                .then((response) => response.json())
+                .then((data) => {
+                    setOrders(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else if (item === 'Completed') {
+            fetch('http://localhost:3000/finished-ordersFiltered')
+                .then((response) => response.json())
+                .then((data) => {
+                    setOrders(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else if (item === 'Unpaid') {
+            fetch('http://localhost:3000/unpaid-ordersFiltered')
+                .then((response) => response.json())
+                .then((data) => {
+                    setOrders(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }
 
     const handleConfirmOrder = (id) => {
         fetch(`http://localhost:3000/orders/${id}`, {
@@ -150,6 +181,12 @@ function Waiter() {
                 <button className="paidButton" onClick={() => handleButtonClick("Unpaid")}>
                     Unpaid
                 </button>
+                <button className = "filterButton" onClick = {() => handleFilterClick(expanded)}>
+                    Sort by time ordered
+                </button>
+                <button className = "helpButton" onClick = {() => handleFilterClick(expanded)}>
+                    Help Required
+                </button>
                 <hr className="underline" />
                 {[...new Set(orders.map((order) => order.order_number))].map((id) => {
                     const order_time = ordersWithId(id)[0].time_ordered;
@@ -223,6 +260,16 @@ function Waiter() {
                             onClick={() => handleMarkAsPaid(orderID)}
                         >
                             Mark as Paid
+                        </div>
+                    </>
+                )}
+                {expanded === "Help Requested" && (
+                    <>
+                        <div
+                            className="mark-as-done"
+                            //onClick={() => handleMarkAsPaid(orderID)}
+                        >
+                            Mark as Done
                         </div>
                     </>
                 )}

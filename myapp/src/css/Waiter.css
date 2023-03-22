@@ -149,6 +149,14 @@
     margin-top: 10px;
 }
 
+.helpButton {
+    height: 45px;
+    text-align: center;
+    line-height: 35px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
 .underline {
     border: 2px solid black;
 }
@@ -160,12 +168,20 @@
     position:absolute;
     top:30px;
     right: 30px;
-    border: 0px solid black;
+    border: 0 solid black;
 }
 .edit-button:hover {
     border: 5px solid black;
     background:#f8cb2e;
     color: black;
+}
+
+.filterButton {
+    height: 45px;
+    text-align: center;
+    line-height: 35px;
+    margin-top: 10px;
+    margin-left: 20px;
 }
 @font-face{
     font-family: "Bayon";

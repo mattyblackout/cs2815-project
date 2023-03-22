@@ -258,6 +258,11 @@ button:hover {
     border: 5px solid #f8cb2e;
 }
 
+.help-button{
+    height: fit-content;
+    width: fit-content;
+}
+
 .App-link {
     color: #61dafb;
 }
