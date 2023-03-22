@@ -237,7 +237,7 @@ const helpRequest = (req, res) => {
 }
 
 const getAssistanceTable = (request, response) => {
-    pool.query('SELECT * FROM assistance', (error, results) => {
+    pool.query('SELECT tablenumber FROM assistance', (error, results) => {
         if (error) {
             throw error
         }

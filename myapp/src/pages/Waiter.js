@@ -3,12 +3,21 @@ import '../css/Waiter.css';
 import logo from '../logo.png';
 import { Link } from 'react-router-dom';
 
+// main waiter function 
 function Waiter() {
     const [orders, setOrders] = useState([]);
     const [expanded, setExpanded] = useState('');
+    const [selected, setSelected] = useState([]);
 
+    // fetches all orders with given id from the database
     function ordersWithId(id) {
         return orders.filter((order) => order.order_number === id);
+    }
+
+    let total = 0;
+
+    const updateTotal = (price) => {
+        total = total + parseFloat(price);
     }
 
     const handleButtonClick = (item) => {
@@ -39,19 +48,11 @@ function Waiter() {
                 .catch((error) => {
                     console.log(error);
                 });
-        } else if (item === 'Help-Required') {
-            fetch('http://localhost:3000/assistanceTable')
-                .then((response) => response.json())
-                .then((data) => {
-                    setOrders(data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
         }
         setExpanded(item);
     };
 
+    // filter click handler
     const handleFilterClick = (item) => {
         if (item === 'Active') {
             fetch('http://localhost:3000/ordersFiltered')
@@ -80,18 +81,10 @@ function Waiter() {
                 .catch((error) => {
                     console.log(error);
                 });
-        } else if (item === 'Help-Required') {
-            fetch('http://localhost:3000/assistanceTable')
-                .then((response) => response.json())
-                .then((data) => {
-                    setOrders(data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
         }
     }
 
+    // handler for confirming order
     const handleConfirmOrder = (id) => {
         fetch(`http://localhost:3000/orders/${id}`, {
             method: 'POST',
@@ -112,6 +105,7 @@ function Waiter() {
         alert(`Order number ${id} has been confirmed`)
     }
 
+    // handler for deleting order
     const handleDeleteOrder = (id) => {
         fetch(`http://localhost:3000/orders/delete/${id}`, {
             method: 'POST',
@@ -132,6 +126,7 @@ function Waiter() {
         alert(`Order number ${id} has been deleted`)
     }
 
+    // handler for marking order as delivered
     const handleDeliverOrder = (id) => {
         fetch(`http://localhost:3000/orders/delivered/${id}`, {
             method: 'POST',
@@ -152,6 +147,7 @@ function Waiter() {
         alert(`Order number ${id} has been marked as delivered`)
     }
 
+    // handler for marking order as paid
     const handleMarkAsPaid = (id) => {
         fetch(`http://localhost:3000/orders/paid/${id}`, {
             method: 'POST',
@@ -172,9 +168,29 @@ function Waiter() {
     };
 
     let orderID;
+
     function handleOrderClick(id) {
-        console.log('Clicked order ' + id);
+        fetch(`http://localhost:3000/orders/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setSelected(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         orderID = id;
+    }
+
+    const fetchNotifications = () => {
+        fetch('http://localhost:3000/assistanceTable')
+            .then((response) => response.json())
+            .then((data) => {
+                const notifications = data.map((record) => `Table ${record.tablenumber} needs assistance`).join('\n');
+                alert(notifications);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     return (
@@ -187,6 +203,9 @@ function Waiter() {
                     <Link to="/edit">
                         <button className="edit-button">Edit Menu</button>
                     </Link>
+                    <button className="notifications-button" onClick={fetchNotifications}>
+                        Notifications
+                    </button>
                 </div>
             </header>
             <div className="ordersContainer">
@@ -201,9 +220,6 @@ function Waiter() {
                 </button>
                 <button className = "filterButton" onClick = {() => handleFilterClick(expanded)}>
                     Sort by time ordered
-                </button>
-                <button className = "helpButton" onClick = {() => handleButtonClick("Help-Required")}>
-                    Help Required
                 </button>
                 <hr className="underline" />
                 {[...new Set(orders.map((order) => order.order_number))].map((id) => {
@@ -232,13 +248,29 @@ function Waiter() {
                 })}
             </div>
             <div className="orderDisplay">
+
                 <h1 className="table">TABLE</h1>
                 <p className="table-number">7</p>
                 <hr className="underline"></hr>
-                <h1 className="simple-text">YOUR ORDER</h1>
-                <h4 className={"GAP"} />
-                <hr className="underline"></hr>
-                <h1 className="simple-text">TOTAL</h1>
+                <div>
+                    { [...new Set(selected.map(order => order.order_number))].map(id => {
+                        return (
+                            <div  key={id}>
+                                <div className='order-id'>Order #{id}</div>
+                                {ordersWithId(id).map(order => (
+                                    <>
+                                        <div className='order-items'>
+                                            <div className='order-details'>Item: {order.name} <br/> Quantity: {order.item_quantity}</div>
+                                            <div className='order-details'>Price: £{updateTotal((order.price  * order.item_quantity).toFixed(2))}{(order.price  * order.item_quantity).toFixed(2)}</div>
+                                        </div>
+                                    </>
+                                ))}
+                                <hr className="underline"></hr>
+                                <h1 className="simple-text">TOTAL: £{total} </h1>
+                            </div>
+                        )
+                    })}
+                </div>
                 {expanded === "Active" && (
                     <>
                         <div
@@ -281,16 +313,7 @@ function Waiter() {
                         </div>
                     </>
                 )}
-                {expanded === "Help-Required" && (
-                    <>
-                        <div
-                            className="mark-as-done"
-                            //onClick={() => }
-                        >
-                            Mark as Done
-                        </div>
-                    </>
-                )}
+
 
             </div>
         </div>
