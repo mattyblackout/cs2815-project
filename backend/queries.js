@@ -123,7 +123,7 @@ const deleteOrders =  (req, res) => {
  * Marks a specific order as delivered depending on the order id provided.
  * @param {URL} req the URL included in the POST request that contains the order id to use
  * @param {JSON} res contains the confirmation message to state an order was marked as delivered
- * @throws the SQL error if it cannot be deleted
+ * @throws the SQL error if it can not be marked as delivered
  */
 const deliverOrders = (req, res) => {
     const order_number = parseInt(req.params.id)
@@ -139,7 +139,12 @@ const deliverOrders = (req, res) => {
     )
 }
 
-
+/**
+ * Gets the overall order information and order item information for orders that have been confirmed but have not been completed.
+ * @param {URL} request the URL used in the GET request
+ * @param {JSON} response contains the data for all the rows of orders
+ * @throws SQL error
+ */
 const getKitchenOrders = (request, response) => {
     pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = true AND orders.complete = false;", (error, results) => {
         if (error) {
@@ -149,6 +154,12 @@ const getKitchenOrders = (request, response) => {
     })
 }
 
+/**
+ * Sets the orders specified by an order id to complete.
+ * @param {URL} req the URL used by the POST request that contains the order id
+ * @param {JSON} res contains the confirmation message to state if an order was marked as completed
+ * @throws SQL error if it could not be marke as completed
+ */
 const updateKitchenOrders =  (req, res) => {
     const order_number = parseInt(req.params.id)
     pool.query(
@@ -257,7 +268,12 @@ const requestHelp = (request, response) => {
         })
 }
 
-// Retrieves the calories and string concatenation of ingredients for a single specified menu item by its id
+/**
+ * Retrieves the calories and string concatenation of ingredients for a single specified menu item by its id.
+ * @param {URL} request the URL used by the GET request containing the menu item id.
+ * @param {JSON} response contains the rows of data containing the calorie and ingredient information.
+ * @throws SQL error
+ */
 const getItemCaloriesAndIngredients = (request, response) => {
     const id = parseInt(request.params.id) //Menu.id
     pool.query(
