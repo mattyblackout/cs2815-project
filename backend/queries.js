@@ -263,6 +263,7 @@ module.exports = {
     getFinishedOrdersFiltered,
     getUnpaidOrdersFiltered,
     getWaitOrdersFiltered,
+    requestHelp
     helpRequest,
     getAssistanceTable
 
