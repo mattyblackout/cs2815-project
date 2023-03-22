@@ -1,6 +1,6 @@
 // Code adapted from https://blog.logrocket.com/crud-rest-api-node-js-express-postgresql/#creating-routes-crud-operations
 
-const {request, response} = require("express");
+const { request, response } = require("express");
 const Pool = require('pg').Pool
 const pool = new Pool({
     user: 'aekkmejk',
@@ -46,7 +46,7 @@ const getMenuByType = (request, response) => {
 
 const updateMenu = (request, response) => {
     const id = parseInt(request.params.id)
-    const {available} = request.body
+    const { available } = request.body
 
     pool.query(
         'UPDATE menu SET available = $1 WHERE id = $2',
@@ -89,13 +89,13 @@ const getWaitOrdersFiltered = (request, response) => {
     })
 }
 
-const updateWaitOrders =  (req, res) => {
+const updateWaitOrders = (req, res) => {
     const order_number = parseInt(req.params.id)
     pool.query(
         'UPDATE orders SET confirmed = TRUE WHERE order_number = $1',
         [order_number],
         (error) => {
-            if (error){
+            if (error) {
                 throw error
             }
             res.status(200).send(`Order number ${order_number} marked as confirmed`)
@@ -103,13 +103,13 @@ const updateWaitOrders =  (req, res) => {
     )
 }
 
-const deleteOrders =  (req, res) => {
+const deleteOrders = (req, res) => {
     const order_number = parseInt(req.params.id)
     pool.query(
         'DELETE FROM orders WHERE order_number = $1',
         [order_number],
         (error) => {
-            if (error){
+            if (error) {
                 throw error
             }
             res.status(200).send(`Order number ${order_number} deleted`)
@@ -123,7 +123,7 @@ const deliverOrders = (req, res) => {
         'UPDATE orders SET delivered = true WHERE order_number = $1',
         [order_number],
         (error) => {
-            if (error){
+            if (error) {
                 throw error
             }
             res.status(200).send(`Order number ${order_number} marked as delivered`)
@@ -141,13 +141,13 @@ const getKitchenOrders = (request, response) => {
     })
 }
 
-const updateKitchenOrders =  (req, res) => {
+const updateKitchenOrders = (req, res) => {
     const order_number = parseInt(req.params.id)
     pool.query(
         'UPDATE orders SET complete = TRUE WHERE order_number = $1',
         [order_number],
         (error) => {
-            if (error){
+            if (error) {
                 throw error
             }
             res.status(200).send(`Order number ${order_number} marked as completed`)
@@ -192,7 +192,7 @@ const getUnpaidOrdersFiltered = (request, response) => {
 }
 
 const createUser = (request, response) => {
-    const {email, password, status} = request.body
+    const { email, password, status } = request.body
     pool.query('INSERT INTO users (email, password, status) VALUES ($1, $2, $3)',
         [email, password, status],
         (error, result) => {
@@ -203,7 +203,7 @@ const createUser = (request, response) => {
         })
 }
 const authenticate = (req, res) => {
-    const {email, password} = req.body;
+    const { email, password } = req.body;
     pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password], (err, result) => {
         if (err) {
             console.error(err);
@@ -229,7 +229,7 @@ const payOrders = (req, res) => {
         'UPDATE orders SET paid = true WHERE order_number = $1',
         [order_number],
         (error) => {
-            if (error){
+            if (error) {
                 throw error
             }
             res.status(200).send(`Order number ${order_number} marked as paid`)
@@ -237,16 +237,23 @@ const payOrders = (req, res) => {
     )
 }
 
-const requestHelp = (request, response) => {
-    const tableNumber = request.body
-    pool.query('INSERT INTO assistance (tableNumber) VALUES ($1)',
-        [tableNumber],
-        (error, result) => {
-            if (error) {
-                throw error
-            }
-            response.status(201).send(`Help requested: ${result.insertId}`)
-        })
+const helpRequest = (req, res) => {
+    const  table_number  = parseInt(req.params.id);
+    pool.query('INSERT INTO assistance VALUES ($1)', [table_number], (error, result) => {
+        if (error) {
+            throw error
+        }
+        res.status(201).send('Table added: ${ result.insertId }')
+    })
+}
+
+const getAssistanceTable = (request, response) => {
+    pool.query('SELECT tablenumber FROM assistance', (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
 }
 
 // Retrieves the calories and string concatenation of ingredients for a single specified menu item by its id
@@ -288,4 +295,7 @@ module.exports = {
     getSingleOrder,
     getItemCaloriesAndIngredients,
     requestHelp
+    helpRequest,
+    getAssistanceTable
+
 }

@@ -176,6 +176,22 @@
     color: black;
 }
 
+.notifications-button{
+    height: 50px;
+    line-height: 40px;
+    width: 200px;
+    background: #f8cb2e;
+    position:absolute;
+    top:30px;
+    border: 0 solid black;
+}
+
+.notifications-button:hover {
+    border: 5px solid black;
+    background:#f8cb2e;
+    color: black;
+}
+
 .filterButton {
     height: 45px;
     text-align: center;

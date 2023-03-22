@@ -181,7 +181,18 @@ function Waiter() {
         orderID = id;
     }
 
-    // front end code
+    const fetchNotifications = () => {
+        fetch('http://localhost:3000/assistanceTable')
+            .then((response) => response.json())
+            .then((data) => {
+                const notifications = data.map((record) => `Table ${record.tablenumber} needs assistance`).join('\n');
+                alert(notifications);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     return (
         <div className="App">
             <header className="App-header">
@@ -192,6 +203,9 @@ function Waiter() {
                     <Link to="/edit">
                         <button className="edit-button">Edit Menu</button>
                     </Link>
+                    <button className="notifications-button" onClick={fetchNotifications}>
+                        Notifications
+                    </button>
                 </div>
             </header>
             <div className="ordersContainer">
@@ -206,9 +220,6 @@ function Waiter() {
                 </button>
                 <button className = "filterButton" onClick = {() => handleFilterClick(expanded)}>
                     Sort by time ordered
-                </button>
-                <button className = "helpButton" onClick = {() => handleFilterClick(expanded)}>
-                    Help Required
                 </button>
                 <hr className="underline" />
                 {[...new Set(orders.map((order) => order.order_number))].map((id) => {
@@ -302,16 +313,7 @@ function Waiter() {
                         </div>
                     </>
                 )}
-                {expanded === "Help Requested" && (
-                    <>
-                        <div
-                            className="mark-as-done"
-                            //onClick={() => handleMarkAsPaid(orderID)}
-                        >
-                            Mark as Done
-                        </div>
-                    </>
-                )}
+
 
             </div>
         </div>
