@@ -187,8 +187,10 @@ function Menu() {
                         <hr className="underline"></hr>
                         <h1 className="simple-text">TOTAL</h1>
                         <h2 className="money">£{totalMoney.toFixed(2)}</h2>
-                        <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                        <br/>
                         <div>
+                            <button className="invisible-button"></button>
+                            <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
                             <button class="help-button" onClick={sendHelpRequest}>Call Waiter</button>
                         </div>
                     </div>
@@ -207,6 +209,7 @@ function Menu() {
                                         <br/></div>
                                     <div className='description' key={item.id}>{item.description} <br/></div>
                                     <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                    <br/>
                                     <div><hr class="solid"></hr></div>
                                 </div>
                             </>
@@ -225,6 +228,7 @@ function Menu() {
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <br/>
                                 <div><hr class="solid"></hr></div>
                             </>
                         ))}
@@ -242,6 +246,7 @@ function Menu() {
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description}<br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <br/>
                                 <div><hr class="solid"></hr></div>
                             </>
                         ))}
@@ -259,6 +264,7 @@ function Menu() {
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <br/>
                                 <div><hr class="solid"></hr></div>
                             </>
                         ))}
