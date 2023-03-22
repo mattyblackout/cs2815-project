@@ -12,6 +12,13 @@
     justify-content: left;
 }
 
+.menu-images{
+    height: 100px;
+    width: 100px;
+    border: 2px solid black;
+}
+
+
 .toggle-item-name{
     font-family: "Bayon";
 }

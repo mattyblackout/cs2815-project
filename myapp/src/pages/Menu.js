@@ -119,7 +119,7 @@ function Menu() {
         // Send data to server to insert into database
         fetch('http://localhost:3000/requestHelp', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(tableNumber),
         })
 
@@ -201,7 +201,7 @@ function Menu() {
                                         £{item.price}&nbsp;&nbsp;&nbsp;
                                         <div className='calories' key={item.id}>({item.calories}KCAL)</div>
                                         {imageVisible && imageName === item.name && (
-                                            <img src={`PROJECT/myapp/src/images/${item.name}.jpg`} alt={item.name} />
+                                            <img className='menu-images' src={require(`./images/${item.name}.jpg`)} alt={item.name} />
                                         )}
                                         <br />
                                     </div>
@@ -225,7 +225,7 @@ function Menu() {
                                         £{item.price}&nbsp;&nbsp;&nbsp;
                                         <div className='calories' key={item.id}>({item.calories}KCAL)</div>
                                         {imageVisible && imageName === item.name && (
-                                            <img src={`PROJECT/myapp/src/images/${item.name}.jpg`} alt={item.name} />
+                                            <img className='menu-images' src={require(`./images/${item.name}.jpg`)} alt={item.name} />
                                         )}
                                         <br />
                                     </div>
@@ -249,7 +249,7 @@ function Menu() {
                                         £{item.price}&nbsp;&nbsp;&nbsp;
                                         <div className='calories' key={item.id}>({item.calories}KCAL)</div>
                                         {imageVisible && imageName === item.name && (
-                                            <img src={`PROJECT/myapp/src/images/${item.name}.jpg`} alt={item.name} />
+                                            <img className='menu-images' src={require(`./images/${item.name}.jpg`)} alt={item.name} />
                                         )}
                                         <br />
                                     </div>
@@ -275,7 +275,7 @@ function Menu() {
                                             £{item.price}&nbsp;&nbsp;&nbsp;
                                             <div className='calories' key={item.id}>({item.calories}KCAL)</div>
                                             {imageVisible && imageName === item.name && (
-                                                <img src={`PROJECT/myapp/src/images/${item.name}.jpg`} alt={item.name} />
+                                                <img className='menu-images' src={require(`./images/${item.name}.jpg`)} alt={item.name} />
                                             )}
                                             <br />
                                         </div>
@@ -296,5 +296,3 @@ function Menu() {
 }
 
 export default Menu;
-
-
