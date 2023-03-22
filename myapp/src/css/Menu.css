@@ -242,6 +242,11 @@ button:hover {
     width: fit-content;
 }
 
+.help-button{
+    height: fit-content;
+    width: fit-content;
+}
+
 .App-link {
     color: #61dafb;
 }

@@ -187,6 +187,9 @@ function Menu() {
                         <h1 className="simple-text">TOTAL</h1>
                         <h2 className="money">£{totalMoney.toFixed(2)}</h2>
                         <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                        <div>
+                            <button class="help-button" onClick={sendHelpRequest}>Call Waiter</button>
+                        </div>
                     </div>
                 </div>
             </div>
