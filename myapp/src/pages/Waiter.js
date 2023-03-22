@@ -235,11 +235,10 @@ function Waiter() {
                         return (
                             <div  key={id}>
                                 <div className='order-id'>Order #{id}</div>
-                                <div className="order-details"> Time Ordered: {id.time_ordered}</div>
                                 {ordersWithId(id).map(order => (
                                     <>
                                         <div className='order-items'>
-                                            <div className='order-details'>Item: {order.name} Quantity: {order.item_quantity}</div>
+                                            <div className='order-details'>Item: {order.name} <br/> Quantity: {order.item_quantity}</div>
                                             <div className='order-details'>Price: £{updateTotal((order.price  * order.item_quantity).toFixed(2))}{(order.price  * order.item_quantity).toFixed(2)}</div>
                                         </div>
                                     </>
