@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/Menu.css';
 import logo from '../logo.png';
 import '../fonts/Bayon-Regular.ttf';
@@ -16,6 +16,17 @@ function Menu() {
     const [drinks, setDrinks] = useState([]);
     const [order, setOrder] = useState([]);
     const [counter, setCounter] = useState(0);
+    const [imageVisible, setImageVisible] = useState(false);
+    const [imageName, setImageName] = useState('');
+
+    function toggleImage(name) {
+        if (imageName === name) {
+            setImageVisible(!imageVisible);
+        } else {
+            setImageName(name);
+            setImageVisible(true);
+        }
+    }
 
     const addToOrder = (item) => {
         const existingItemIndex = order.findIndex(orderItem => orderItem.name === item.name);
@@ -24,13 +35,17 @@ function Menu() {
             updatedOrder[existingItemIndex].quantity += 1;
             setOrder(updatedOrder);
         } else {
-            setOrder([...order, {...item, quantity: 1}]);
+            setOrder([...order, { ...item, quantity: 1 }]);
         }
     };
+
     const handleCheckout = () => {
         if (order.length === 0) {
             alert('Your basket is empty');
         } else {
+            console.log(order);
+            localStorage.setItem("order", JSON.stringify(order));
+            localStorage.setItem("tablenumber", JSON.stringify(tableNumber));
             setOrder([]);
             setCounter(counter + 1);
             alert('Your items are added to cart!');
@@ -76,21 +91,21 @@ function Menu() {
                     console.log(error);
                 });
         }
-        if (item === 'desserts') {
+        if (item === 'drinks') {
             fetch('http://localhost:3000/menu/31')
                 .then((response) => response.json())
                 .then((data) => {
-                    setDesserts(data);
+                    setDrinks(data);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         }
-        if (item === 'drinks') {
+        if (item === 'desserts') {
             fetch('http://localhost:3000/menu/41')
                 .then((response) => response.json())
                 .then((data) => {
-                    setDrinks(data);
+                    setDesserts(data);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -105,11 +120,12 @@ function Menu() {
             show = false; //Stops the prompt from loading multiple times
         }
     }, []);
+
     return (
         <div className="App">
             <header className="App-header">
                 <Link to="/">
-                    <img src={logo} alt="the logo" className="header-image"/>
+                    <img src={logo} alt="the logo" className="header-image" />
                 </Link>
                 <div>
                     <Link to="/login">
@@ -121,7 +137,7 @@ function Menu() {
                 </div>
             </header>
             <div className="splash-image">
-                <img src={splash} alt="splash" className={"splash-image"}/>
+                <img src={splash} alt="splash" className={"splash-image"} />
             </div>
             <div className="menu-container">
                 <div className="menu-categories-container">
@@ -142,35 +158,42 @@ function Menu() {
                         <p className="table-number">{tableNumber}</p>
                         <hr className="underline"></hr>
                         <h1 className="simple-text">YOUR ORDER</h1>
-                        <h4 className={"GAP"}/>
+                        <h4 className={"GAP"} />
                         {order.map((item, index) => (
-                                <div className= "order-row">
-                                    <div key={index}>
-                                        <div className="item-name">{item.quantity} {item.name}</div>
-                                        <button className="remove" onClick={() => handleRemove(item)}>-</button>
-                                        <div className="money">£{(item.price * item.quantity).toFixed(2)}</div>
-                                    </div>
+                            <div className="order-row">
+                                <div key={index}>
+                                    <div className="item-name">{item.quantity} {item.name}</div>
+                                    <button className="remove" onClick={() => handleRemove(item)}>-</button>
+                                    <div className="money">£{(item.price * item.quantity).toFixed(2)}</div>
                                 </div>
-                                ))}
+                            </div>
+                        ))}
                         <hr className="underline"></hr>
                         <h1 className="simple-text">TOTAL</h1>
                         <h2 className="money">£{totalMoney.toFixed(2)}</h2>
-                        <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                        <Link to={"/cart"}>
+                            <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                        </Link>
                     </div>
                 </div>
             </div>
-            <div className="separate"/>
+            <div className="separate" />
             {expanded === "mains" && (
                 <div className='expanded-div'>
                     <div className='menu-items-container'>
                         {mains.map((item) => (
                             <>
                                 <div className='food-item-container'>
-                                    <div className='menu-items' key={item.id}>{item.name} -
+                                    <div className='menu-items' key={item.id}>
+                                        <span className='toggle-item-name' onClick={() => toggleImage(item.name)}>{item.name}</span>&nbsp;-
                                         £{item.price}&nbsp;&nbsp;&nbsp;
                                         <div className='calories' key={item.id}>({item.calories}KCAL)</div>
-                                        <br/></div>
-                                    <div className='description' key={item.id}>{item.description} <br/></div>
+                                        {imageVisible && imageName === item.name && (
+                                            <img src={`PROJECT/myapp/src/images/${item.name}.jpg`} alt={item.name} />
+                                        )}
+                                        <br />
+                                    </div>
+                                    <div className='description' key={item.id}>{item.description} <br /></div>
                                     <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
                                     </button>
                                 </div>
@@ -184,11 +207,20 @@ function Menu() {
                     <div className='menu-items-container'>
                         {sides.map((item) => (
                             <>
-                                <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                    <div className='calories' key={item.id}>({item.calories}KCAL)</div>
-                                    <br/></div>
-                                <div className='description' key={item.id}>{item.description} <br/></div>
-                                <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <div className='food-item-container'>
+                                    <div className='menu-items' key={item.id}>
+                                        <span className='toggle-item-name' onClick={() => toggleImage(item.name)}>{item.name}</span>&nbsp;-
+                                        £{item.price}&nbsp;&nbsp;&nbsp;
+                                        <div className='calories' key={item.id}>({item.calories}KCAL)</div>
+                                        {imageVisible && imageName === item.name && (
+                                            <img src={`PROJECT/myapp/src/images/${item.name}.jpg`} alt={item.name} />
+                                        )}
+                                        <br />
+                                    </div>
+                                    <div className='description' key={item.id}>{item.description} <br /></div>
+                                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
+                                    </button>
+                                </div>
                             </>
                         ))}
                     </div>
@@ -199,11 +231,20 @@ function Menu() {
                     <div className='menu-items-container'>
                         {desserts.map((item) => (
                             <>
-                                <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                    <div className='calories' key={item.id}>({item.calories}KCAL)</div>
-                                    <br/></div>
-                                <div className='description' key={item.id}>{item.description}<br/></div>
-                                <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <div className='food-item-container'>
+                                    <div className='menu-items' key={item.id}>
+                                        <span className='toggle-item-name' onClick={() => toggleImage(item.name)}>{item.name}</span>&nbsp;-
+                                        £{item.price}&nbsp;&nbsp;&nbsp;
+                                        <div className='calories' key={item.id}>({item.calories}KCAL)</div>
+                                        {imageVisible && imageName === item.name && (
+                                            <img src={`PROJECT/myapp/src/images/${item.name}.jpg`} alt={item.name} />
+                                        )}
+                                        <br />
+                                    </div>
+                                    <div className='description' key={item.id}>{item.description} <br /></div>
+                                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
+                                    </button>
+                                </div>
                             </>
                         ))}
                     </div>
@@ -216,11 +257,20 @@ function Menu() {
                         <div className='menu-items-container'>
                             {drinks.map((item) => (
                                 <>
-                                    <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                        <div className='calories' key={item.id}>({item.calories}KCAL)</div>
-                                        <br/></div>
-                                    <div className='description' key={item.id}>{item.description} <br/></div>
-                                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                    <div className='food-item-container'>
+                                        <div className='menu-items' key={item.id}>
+                                            <span className='toggle-item-name' onClick={() => toggleImage(item.name)}>{item.name}</span>&nbsp;-
+                                            £{item.price}&nbsp;&nbsp;&nbsp;
+                                            <div className='calories' key={item.id}>({item.calories}KCAL)</div>
+                                            {imageVisible && imageName === item.name && (
+                                                <img src={`PROJECT/myapp/src/images/${item.name}.jpg`} alt={item.name} />
+                                            )}
+                                            <br />
+                                        </div>
+                                        <div className='description' key={item.id}>{item.description} <br /></div>
+                                        <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
+                                        </button>
+                                    </div>
                                 </>
                             ))}
                         </div>
