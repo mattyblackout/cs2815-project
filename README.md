@@ -14,9 +14,9 @@ You may edit it as you like, but please do not remove the default topics or the 
 
 # NAVIGATING THE WEB-APP
 1. Once the webpack is compiled successfully, the web-app is ready to view in the browser.
-2. First, start typing your desired table number.
-3. The web-app will display the menu, where we can navigate using buttons which are linked to different pages. A "Cart" button is also available as well as a "Login" button.
-4. Menu items are shown under mains, sides, desserts and drinks with their adequate description, calories, and price, as well as the option to "Add to Order".
+2. First, enter your table number in the prompt.
+3. The web-app will display the menu screen. From here, we can navigate the site using buttons which are linked to different pages. A "Cart" button is also available as well as a "Login" button.
+4. Menu items are shown under the mains, sides, desserts and drinks tabs with their corresponding description, calories, and price and ingredient/allergen information, as well as the option to "Add to Order".
 5. Additionally, the user has an overview of the total amount to pay during checkout.
 6. All users must register and make an account so the system can take them to the appropriate page.
 7. The "Oaxaca" logo can be used as a button to return to the menu page.
@@ -24,7 +24,7 @@ You may edit it as you like, but please do not remove the default topics or the 
 # CUSTOMER
 1. The customer does not need to declare their status as a customer when they are registering, instead it is preferred if it is just left blank.
 2. There will be a pop-up asking for the table number. 
-3. Once inputted, the menu page will appear, showing all the items, as well as the price, description and calorie intake for that dish.
+3. Once entered, the menu page will appear, showing all the items, as well as the price, description and calorie count for that dish.
 4. The customer has the option to choose their dishes and add them to their checkout cart.
 5. The customer can see their items, prices, and quantities in a tab next to the menu. They also have the option to delete items.
 6. After pressing "Checkout", a pop-up will appear telling us that "Your items are added to your cart!"
