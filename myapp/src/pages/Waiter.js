@@ -3,11 +3,13 @@ import '../css/Waiter.css';
 import logo from '../logo.png';
 import { Link } from 'react-router-dom';
 
+// main waiter function 
 function Waiter() {
     const [orders, setOrders] = useState([]);
     const [expanded, setExpanded] = useState('');
     const [selected, setSelected] = useState([]);
 
+    // fetches all orders with given id from the database
     function ordersWithId(id) {
         return orders.filter((order) => order.order_number === id);
     }
@@ -50,6 +52,7 @@ function Waiter() {
         setExpanded(item);
     };
 
+    // filter click handler
     const handleFilterClick = (item) => {
         if (item === 'Active') {
             fetch('http://localhost:3000/ordersFiltered')
@@ -81,6 +84,7 @@ function Waiter() {
         }
     }
 
+    // handler for confirming order
     const handleConfirmOrder = (id) => {
         fetch(`http://localhost:3000/orders/${id}`, {
             method: 'POST',
@@ -101,6 +105,7 @@ function Waiter() {
         alert(`Order number ${id} has been confirmed`)
     }
 
+    // handler for deleting order
     const handleDeleteOrder = (id) => {
         fetch(`http://localhost:3000/orders/delete/${id}`, {
             method: 'POST',
@@ -121,6 +126,7 @@ function Waiter() {
         alert(`Order number ${id} has been deleted`)
     }
 
+    // handler for marking order as delivered
     const handleDeliverOrder = (id) => {
         fetch(`http://localhost:3000/orders/delivered/${id}`, {
             method: 'POST',
@@ -141,6 +147,7 @@ function Waiter() {
         alert(`Order number ${id} has been marked as delivered`)
     }
 
+    // handler for marking order as paid
     const handleMarkAsPaid = (id) => {
         fetch(`http://localhost:3000/orders/paid/${id}`, {
             method: 'POST',
@@ -174,6 +181,7 @@ function Waiter() {
         orderID = id;
     }
 
+    // front end code
     return (
         <div className="App">
             <header className="App-header">
@@ -198,6 +206,9 @@ function Waiter() {
                 </button>
                 <button className = "filterButton" onClick = {() => handleFilterClick(expanded)}>
                     Sort by time ordered
+                </button>
+                <button className = "helpButton" onClick = {() => handleFilterClick(expanded)}>
+                    Help Required
                 </button>
                 <hr className="underline" />
                 {[...new Set(orders.map((order) => order.order_number))].map((id) => {
@@ -288,6 +299,16 @@ function Waiter() {
                             onClick={() => handleMarkAsPaid(orderID)}
                         >
                             Mark as Paid
+                        </div>
+                    </>
+                )}
+                {expanded === "Help Requested" && (
+                    <>
+                        <div
+                            className="mark-as-done"
+                            //onClick={() => handleMarkAsPaid(orderID)}
+                        >
+                            Mark as Done
                         </div>
                     </>
                 )}

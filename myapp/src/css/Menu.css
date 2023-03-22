@@ -23,14 +23,13 @@
     color: black;
 }
 
-
 .menu-items-container{
     text-align: left;
     justify-content: left;
 }
 
 .calories {
-    font-size: 22px;
+    font-size: 26px;
     display: inline-block;
     font-weight: 100;
     font-family: 'Bayon';
@@ -46,6 +45,7 @@ button {
     height: 100px;
     font-family: "Bayon";
 }
+
 button:hover {
     background-color: black;
     color: #F8CB2D;
@@ -144,12 +144,12 @@ button:hover {
     right: 30px;
     border: 0px solid black;
 }
+
 .login-button:hover {
     border: 5px solid black;
     background:#f8cb2e;
     color: black;
 }
-
 
 .table-number{
     border: 2px solid black;
@@ -242,6 +242,11 @@ button:hover {
     width: fit-content;
 }
 
+.help-button{
+    height: fit-content;
+    width: fit-content;
+}
+
 .App-link {
     color: #61dafb;
 }
@@ -249,9 +254,22 @@ button:hover {
 html{
     background-color: #ffffff;
 }
+
 .App{
     background-color: #ffffff;
 }
+
+button.information { 
+    background:none; 
+    width: 75px;
+    height: 1px; 
+    border:none
+}
+
+hr.solid {
+    border-top: 3px solid #bbb;
+}
+
 @font-face{
     font-family: "Bayon";
     src: local(Bayon-Regular),
