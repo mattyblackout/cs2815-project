@@ -242,10 +242,10 @@ function Waiter() {
                     return (
                         <div key={id}>
                         <div className='order-id'>Order #{id}</div>
-                        {ordersWithId(id).map(order => (<>
                             <h1 className="table">TABLE</h1>
-                            <p className="table-number">{order.table_number}</p>
+                            <div className="table-number">{selected[0].table_number}</div>
                             <hr className="underline"></hr>
+                        {ordersWithId(id).map(order => (<>
                             <div className='order-items'>
                                 <div className='order-details'>Item: {order.name}
                                     <br/> Quantity: {order.item_quantity}</div>
