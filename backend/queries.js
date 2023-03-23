@@ -95,7 +95,7 @@ const updateMenu = (request, response) => {
 }
 
 /**
- * Gets order information for each item in an order that has not yet been confirmed. 
+ * Gets order information for each item in an order that has not yet been confirmed.
  * Order information, for each item in every order, contains the overall order information as well as the information for each individual item under that order.
  * @param {object} request contains the order id
  * @param {object} response Contains the rows of order items that have not been confirmed
@@ -123,7 +123,7 @@ const getSingleOrder = (request, response) => {
 
 
 /**
- * Gets order information for each item in an order that has not yet been confirmed, and orders them by the time ordered. 
+ * Gets order information for each item in an order that has not yet been confirmed, and orders them by the time ordered.
  * Order information, for each item in every order, contains the overall order information as well as the information for each individual item under that order.
  * @param {object} request contains the order id
  * @param {object} response Contains the rows of order items that have not been confirmed, ordered by the time they were ordered
@@ -406,10 +406,35 @@ const getItemCaloriesAndIngredients = (request, response) => {
     )
 }
 
+const checkout = (request, response) => {
+    const { tableNumber, items, paid, time } = request.body
+
+    // Insert the order into the database and return the order ID
+    pool.query('INSERT INTO orders (time_ordered, paid, table_number) VALUES ($1, $2, $3) RETURNING order_number', [time, paid, tableNumber], (error, results) => {
+        if (error) {
+            throw error
+        }
+
+        const orderId = results.rows[0].id
+
+        // Insert the items for the order into the order_items table
+        items.forEach((item) => {
+            pool.query('INSERT INTO order_items (order_number, item_id, item_quantity) VALUES ($1, $2, $3)', [orderId, item.id, item.quantity], (error, results) => {
+                if (error) {
+                    throw error
+                }
+            })
+        })
+
+        response.status(201).send(`Order added with ID: ${orderId}`)
+    })
+}
+
 module.exports = {
     getMenu,
     updateMenu,
     getMenuByType,
+    checkout,
     createUser,
     authenticate,
     getWaitOrders,
