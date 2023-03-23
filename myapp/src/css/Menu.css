@@ -243,7 +243,6 @@ button:hover {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 15ch;
 }
 
 .order-row {
