@@ -35,7 +35,7 @@ const getMenu = (request, response) => {
 const getMenuByType = (request, response) => {
     const category = request.params.category
 
-    pool.query('SELECT * FROM menu WHERE category=$1 and available = true', [category], (error, results) => {
+    pool.query('SELECT * FROM menu WHERE category= $1 and available = true', [category], (error, results) => {
         if (error) {
             throw error
         }
@@ -43,10 +43,39 @@ const getMenuByType = (request, response) => {
     })
 }
 
+const getMenuVegan = (request, response) => {
+    const category = request.params.category
+    pool.query('SELECT * FROM menu WHERE category = $1 and vegan = true and available = true', [category], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
+const getMenuVegetarian = (request, response) => {
+    const category = request.params.category
+    pool.query('SELECT * FROM menu WHERE category = $1 and vegetarian = true and available = true', [category], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
+const getMenuDairy = (request, response) => {
+    const category = request.params.category
+    pool.query('SELECT * FROM menu WHERE category = $1 and dairy_free = true and available = true', [category], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
 /**
- * Updates the menu table to mark an orders avaliability.
- * @param {object} request contains the avaliability state and the menu item id
- * @param {pbject} response holds the message that the table was modified
+ * Updates the menu table to mark an orders' availability.
+ * @param {object} request contains the availability state and the menu item id
+ * @param {object} response holds the message that the table was modified
  * @throws {Error} SQL error
  */
 const updateMenu = (request, response) => {
@@ -283,13 +312,13 @@ const createUser = (request, response) => {
 }
 
 /**
- * Authenticates a user as either a customer, waiter or kitchen staff member.
- * This makes use of an email and password. Also detrmines the role the user has.
+ * Authenticates a user as either a customer, waiter or kitchen staff member. 
+ * This makes use of an email and password. Also determines the role the user has.
  * @param {object} req used by the POST request that contains the email and password of the user
  * @param {object} res holds JSON data that holds the role of the user. Also holds messages stating errors.
  */
 const authenticate = (req, res) => {
-    const { email, password } = req.body;
+    const { email, password } = req.params;
     pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password], (err, result) => {
         if (err) {
             console.error(err);
@@ -331,8 +360,8 @@ const payOrders = (req, res) => {
 
 /**
  * Updates the assistance table to declare the table number provided is in need of assistance.
- * @param {object} request used by the POST request that holds the table number in JSON format
- * @param {object} response holds the message that states that help has been requested to the user
+ * @param {object} req used by the POST request that holds the table number in JSON format
+ * @param {object} res holds the message that states that help has been requested to the user
  * @throws {Error} SQL error
  */
 const helpRequest = (req, res) => {
@@ -423,5 +452,8 @@ module.exports = {
     getSingleOrder,
     getItemCaloriesAndIngredients,
     helpRequest,
-    getAssistanceTable
+    getAssistanceTable,
+    getMenuVegan,
+    getMenuVegetarian,
+    getMenuDairy
 }
