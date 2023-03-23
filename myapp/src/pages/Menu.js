@@ -18,7 +18,10 @@ function Menu() {
     const [order, setOrder] = useState([]);
     const [counter, setCounter] = useState(0);
 
-    // Responsible for obtaining calorie and ingredient/allergen information for a requested menu item by its id
+    /**
+     * Responsible for obtaining calorie and ingredient/allergen information for a requested menu item by its id.
+     * @param {number} id the menu item id
+     */
     const infoPopup = (id) => {
         fetch(`http://localhost:3000/menu/info/${id}`)
           .then((response) => response.json())
@@ -30,7 +33,10 @@ function Menu() {
           });
       };
 
-    // Adds an item to the order
+    /**
+     * Adds an item, specified by item id, to an order.
+     * @param {object} item the menu item object
+     */
     const addToOrder = (item) => {
         const existingItemIndex = order.findIndex(orderItem => orderItem.name === item.name);
         if (existingItemIndex !== -1) {
@@ -42,7 +48,11 @@ function Menu() {
         }
     };
 
-    // Checkout and cart system
+    /**
+     * Checkout and cart system that handles a checkout.
+     * If there are no items, an alert is sent stating the cart is empty.
+     * Else, the order is set and the user is alerted the items were added to the cart.
+     */
     const handleCheckout = () => {
         if (order.length === 0) {
             alert('Your basket is empty');
@@ -54,6 +64,11 @@ function Menu() {
     };
 
     // Removes an item from the order
+
+    /**
+     * Removes an item from an order.
+     * @param {object} itemToRemove the item object to remove
+     */
     const handleRemove = (itemToRemove) => {
         const existingItemIndex = order.findIndex((item) => item.name === itemToRemove.name);
         if (existingItemIndex >= 0) {
