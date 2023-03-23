@@ -381,7 +381,7 @@ const checkout = (request, response) => {
     const { tableNumber, items, paid } = request.body
 
     // Insert the order into the database and return the order ID
-    pool.query('INSERT INTO orders (table_number, paid) VALUES ($1, $2) RETURNING id', [tableNumber, paid], (error, results) => {
+    pool.query('INSERT INTO orders (table_number, paid) VALUES ($1, $2) RETURNING order_number', [tableNumber, paid], (error, results) => {
         if (error) {
             throw error
         }
