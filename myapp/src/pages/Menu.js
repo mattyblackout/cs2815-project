@@ -110,6 +110,50 @@ function Menu() {
         }
     }
 
+    const handleVegetarianClick = (type) => {
+        if (type === 'mains') {
+            fetch('http://localhost:3000/menu/mains/vegetarian')
+                .then((response) => response.json())
+                .then((data) => {
+                    setMains(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+        if (type === 'sides') {
+            fetch('http://localhost:3000/menu/sides/vegetarian')
+                .then((response) => response.json())
+                .then((data) => {
+                    setSides(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+        if (type === 'drinks') {
+            fetch('http://localhost:3000/menu/drinks/vegetarian')
+                .then((response) => response.json())
+                .then((data) => {
+                    setDrinks(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+        if (type === 'desserts') {
+            fetch('http://localhost:3000/menu/dessert/vegetarian')
+                .then((response) => response.json())
+                .then((data) => {
+                    setDesserts(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }
+
+
     /**
      * Removes an item from an order.
      * @param {object} itemToRemove the item object to remove
@@ -258,20 +302,25 @@ function Menu() {
         <div className="separate"/>
 
         {expanded === "mains" && (<div className='expanded-div'>
-
+            <div className="filters">
+                <button className="vegan-filter" onClick={() => handleVeganClick(expanded)}>Vegan</button>
+                <button className="vegetarian-filter" onClick={() => handleVegetarianClick(expanded)}>Vegetarian
+                </button>
+                <button className="dairy-filter">Dairy Free</button>
+            </div>
             <div className='menu-items-container'>
                 {mains.map((item) => (<>
                     <div className='food-item-container'>
                         <div className='menu-items' key={item.id}>
                             {item.name} -
                             £{item.price}&nbsp;&nbsp;&nbsp;
-                            <div className='calories' >({item.calories} KCAL)</div>
+                            <div className='calories'>({item.calories} KCAL)</div>
                             <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                             <br/>
-                        <div className='description' >{item.description} <br/></div>
-                        <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
-                        </button>
-                        <br/>
+                            <div className='description'>{item.description} <br/></div>
+                            <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
+                            </button>
+                            <br/>
                         </div>
                         <div>
                             <hr className="solid"></hr>
@@ -283,7 +332,8 @@ function Menu() {
         {expanded === "sides" && (<div className='expanded-div'>
             <div className="filters">
                 <button className="vegan-filter" onClick={() => handleVeganClick(expanded)}>Vegan</button>
-                <button className="vegetarian-filter">Vegetarian</button>
+                <button className="vegetarian-filter" onClick={() => handleVegetarianClick(expanded)}>Vegetarian
+                </button>
                 <button className="dairy-filter">Dairy Free</button>
             </div>
             <div className='menu-items-container'>
@@ -292,12 +342,12 @@ function Menu() {
                         <div className='calories'>({item.calories} KCAL)</div>
                         <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                         <br/>
-                    <div className='description'>{item.description} <br/></div>
-                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
-                    <br/>
-                    <div>
-                        <hr className="solid"></hr>
-                    </div>
+                        <div className='description'>{item.description} <br/></div>
+                        <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                        <br/>
+                        <div>
+                            <hr className="solid"></hr>
+                        </div>
                     </div>
                 </>))}
             </div>
@@ -305,7 +355,8 @@ function Menu() {
         {expanded === "desserts" && (<div className='expanded-div'>
             <div className="filters">
                 <button className="vegan-filter" onClick={() => handleVeganClick(expanded)}>Vegan</button>
-                <button className="vegetarian-filter">Vegetarian</button>
+                <button className="vegetarian-filter" onClick={() => handleVegetarianClick(expanded)}>Vegetarian
+                </button>
                 <button className="dairy-filter">Dairy Free</button>
             </div>
             <div className='menu-items-container'>
@@ -314,12 +365,12 @@ function Menu() {
                         <div className='calories' key={item.id}>({item.calories} KCAL)</div>
                         <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                         <br/>
-                    <div className='description' key={item.id}>{item.description}<br/></div>
-                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
-                    <br/>
-                    <div>
-                        <hr className="solid"></hr>
-                    </div>
+                        <div className='description' key={item.id}>{item.description}<br/></div>
+                        <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                        <br/>
+                        <div>
+                            <hr className="solid"></hr>
+                        </div>
                     </div>
                 </>))}
             </div>
@@ -327,7 +378,8 @@ function Menu() {
         {expanded === "drinks" && (<div className='expanded-div'>
             <div className="filters">
                 <button className="vegan-filter" onClick={() => handleVeganClick(expanded)}>Vegan</button>
-                <button className="vegetarian-filter">Vegetarian</button>
+                <button className="vegetarian-filter" onClick={() => handleVegetarianClick(expanded)}>Vegetarian
+                </button>
                 <button className="dairy-filter">Dairy Free</button>
             </div>
             <div className='menu-items-container'>
@@ -336,12 +388,12 @@ function Menu() {
                         <div className='calories' key={item.id}>({item.calories} KCAL)</div>
                         <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                         <br/>
-                    <div className='description' key={item.id}>{item.description} <br/></div>
-                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
-                    <br/>
-                    <div>
-                        <hr className="solid"></hr>
-                    </div>
+                        <div className='description' key={item.id}>{item.description} <br/></div>
+                        <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                        <br/>
+                        <div>
+                            <hr className="solid"></hr>
+                        </div>
                     </div>
                 </>))}
             </div>
