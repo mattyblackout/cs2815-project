@@ -66,7 +66,7 @@ const updateMenu = (request, response) => {
 }
 
 /**
- * Gets order information for each item in an order that has not yet been confirmed. 
+ * Gets order information for each item in an order that has not yet been confirmed.
  * Order information, for each item in every order, contains the overall order information as well as the information for each individual item under that order.
  * @param {object} request contains the order id
  * @param {object} response Contains the rows of order items that have not been confirmed
@@ -94,7 +94,7 @@ const getSingleOrder = (request, response) => {
 
 
 /**
- * Gets order information for each item in an order that has not yet been confirmed, and orders them by the time ordered. 
+ * Gets order information for each item in an order that has not yet been confirmed, and orders them by the time ordered.
  * Order information, for each item in every order, contains the overall order information as well as the information for each individual item under that order.
  * @param {object} request contains the order id
  * @param {object} response Contains the rows of order items that have not been confirmed, ordered by the time they were ordered
@@ -283,7 +283,7 @@ const createUser = (request, response) => {
 }
 
 /**
- * Authenticates a user as either a customer, waiter or kitchen staff member. 
+ * Authenticates a user as either a customer, waiter or kitchen staff member.
  * This makes use of an email and password. Also detrmines the role the user has.
  * @param {object} req used by the POST request that contains the email and password of the user
  * @param {object} res holds JSON data that holds the role of the user. Also holds messages stating errors.
@@ -377,10 +377,35 @@ const getItemCaloriesAndIngredients = (request, response) => {
     )
 }
 
+const checkout = (request, response) => {
+    const { tableNumber, items, paid } = request.body
+
+    // Insert the order into the database and return the order ID
+    pool.query('INSERT INTO orders (table_number, paid) VALUES ($1, $2) RETURNING id', [tableNumber, paid], (error, results) => {
+        if (error) {
+            throw error
+        }
+
+        const orderId = results.rows[0].id
+
+        // Insert the items for the order into the order_items table
+        items.forEach((item) => {
+            pool.query('INSERT INTO order_items (order_id, item_name) VALUES ($1, $2)', [orderId, item], (error, results) => {
+                if (error) {
+                    throw error
+                }
+            })
+        })
+
+        response.status(201).send(`Order added with ID: ${orderId}`)
+    })
+}
+
 module.exports = {
     getMenu,
     updateMenu,
     getMenuByType,
+    checkout,
     createUser,
     authenticate,
     getWaitOrders,

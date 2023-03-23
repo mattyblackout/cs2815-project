@@ -18,6 +18,33 @@ function Cart() {
         console.log(fOrder);
     }
 
+    const handleCheckout = (paid) => {
+        const orders = {
+            tableNumber: tableNumber,
+            items: order,
+            paid: paid
+        };
+        fetch('http://localhost:3000/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orders)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Order placed successfully!');
+            } else {
+                throw new Error('Error placing order');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Error placing order');
+        });
+    };
+
+
     return (
         <div className="User-Page">
             <header className="App-header">
@@ -46,11 +73,11 @@ function Cart() {
             <h2 className="text">ORDER TOTAL: {tPrice.toFixed(2)}</h2>
                 <hr className="underline"></hr>
                 <div className="place-order">
-                    <button className="place-order-button" onClick={() => console.log("PLACE ORDER NOW clicked")}>
-                        PLACE ORDER NOW
+                    <button className="place-order-button" onClick={() =>handleCheckout('TRUE')}>
+                        PAY NOW
                     </button>
-                    <button className="place-order-button" onClick={() => console.log("PLACE ORDER LATER clicked")}>
-                        PLACE ORDER LATER
+                    <button className="place-order-button" onClick={() =>handleCheckout('FALSE')}>
+                        PAY LATER
                     </button>
                 </div>
             </div>
