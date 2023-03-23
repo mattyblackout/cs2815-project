@@ -80,11 +80,13 @@ function Menu() {
             fetch('http://localhost:3000/menu/sides/vegan')
                 .then((response) => response.json())
                 .then((data) => {
+                    setSides([])
                     setSides(data);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
+            setExpanded('sides')
         }
         if (type === 'drinks') {
             fetch('http://localhost:3000/menu/drinks/vegan')
@@ -254,24 +256,23 @@ function Menu() {
             </div>
         </div>
         <div className="separate"/>
+
         {expanded === "mains" && (<div className='expanded-div'>
-            <div className="filters">
-                <button className="vegan-filter" onClick={() => handleVeganClick(expanded)}>Vegan</button>
-                <button className="vegetarian-filter">Vegetarian</button>
-                <button className="dairy-filter">Dairy Free</button>
-            </div>
+
             <div className='menu-items-container'>
                 {mains.map((item) => (<>
                     <div className='food-item-container'>
-                        <div className='menu-items' key={item.id}>{item.name} -
+                        <div className='menu-items' key={item.id}>
+                            {item.name} -
                             £{item.price}&nbsp;&nbsp;&nbsp;
-                            <div className='calories' key={item.id}>({item.calories} KCAL)</div>
+                            <div className='calories' >({item.calories} KCAL)</div>
                             <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
-                            <br/></div>
-                        <div className='description' key={item.id}>{item.description} <br/></div>
+                            <br/>
+                        <div className='description' >{item.description} <br/></div>
                         <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
                         </button>
                         <br/>
+                        </div>
                         <div>
                             <hr className="solid"></hr>
                         </div>
@@ -287,15 +288,16 @@ function Menu() {
             </div>
             <div className='menu-items-container'>
                 {sides.map((item) => (<>
-                    <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                        <div className='calories' key={item.id}>({item.calories} KCAL)</div>
+                    <div className='menu-items' key={item.id}>{item.name} - £{item.price}  &nbsp;&nbsp;&nbsp;
+                        <div className='calories'>({item.calories} KCAL)</div>
                         <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
-                        <br/></div>
-                    <div className='description' key={item.id}>{item.description} <br/></div>
+                        <br/>
+                    <div className='description'>{item.description} <br/></div>
                     <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
                     <br/>
                     <div>
                         <hr className="solid"></hr>
+                    </div>
                     </div>
                 </>))}
             </div>
@@ -311,12 +313,13 @@ function Menu() {
                     <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
                         <div className='calories' key={item.id}>({item.calories} KCAL)</div>
                         <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
-                        <br/></div>
+                        <br/>
                     <div className='description' key={item.id}>{item.description}<br/></div>
                     <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
                     <br/>
                     <div>
                         <hr className="solid"></hr>
+                    </div>
                     </div>
                 </>))}
             </div>
@@ -332,12 +335,13 @@ function Menu() {
                     <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
                         <div className='calories' key={item.id}>({item.calories} KCAL)</div>
                         <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
-                        <br/></div>
+                        <br/>
                     <div className='description' key={item.id}>{item.description} <br/></div>
                     <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
                     <br/>
                     <div>
                         <hr className="solid"></hr>
+                    </div>
                     </div>
                 </>))}
             </div>
