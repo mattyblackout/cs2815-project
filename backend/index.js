@@ -22,6 +22,7 @@ app.get('/menu/info/:id', db.getItemCaloriesAndIngredients)
 app.post('/login', db.authenticate)
 app.post('/register', db.createUser)
 app.get('/orders', db.getWaitOrders)
+app.get('/orders/:id', db.getSingleOrder)
 app.get('/ordersFiltered', db.getWaitOrdersFiltered)
 app.get('/kitchen-orders', db.getKitchenOrders)
 app.post('/orders/:id', db.updateWaitOrders)
@@ -34,7 +35,8 @@ app.post('/update/:id', db.updateMenu)
 app.get('/unpaid-orders', db.getUnpaidOrders)
 app.get('/unpaid-ordersFiltered', db.getUnpaidOrdersFiltered)
 app.post('/orders/paid/:id', db.payOrders)
-app.post('/requestHelp', db.requestHelp)
+app.post('/helpRequest/:id', db.helpRequest)
+app.get('/assistanceTable', db.getAssistanceTable)
 
 
 app.get('/', (request, response) => {

@@ -1,6 +1,6 @@
 // Code adapted from https://blog.logrocket.com/crud-rest-api-node-js-express-postgresql/#creating-routes-crud-operations
 
-const {request, response} = require("express");
+const { request, response } = require("express");
 const Pool = require('pg').Pool
 const pool = new Pool({
     user: 'aekkmejk',
@@ -51,7 +51,7 @@ const getMenuByType = (request, response) => {
  */
 const updateMenu = (request, response) => {
     const id = parseInt(request.params.id)
-    const {available} = request.body
+    const { available } = request.body
 
     pool.query(
         'UPDATE menu SET available = $1 WHERE id = $2',
@@ -81,6 +81,18 @@ const getWaitOrders = (request, response) => {
     })
 }
 
+const getSingleOrder = (request, response) => {
+    const id = parseInt(request.params.id)
+    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.order_number = $1",
+        [id], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
+
 /**
  * Gets order information for each item in an order that has not yet been confirmed, and orders them by the time ordered. 
  * Order information, for each item in every order, contains the overall order information as well as the information for each individual item under that order.
@@ -103,13 +115,13 @@ const getWaitOrdersFiltered = (request, response) => {
  * @param {object} res holds the mssage to tell the user their order has been confirmed
  * @throws {Error} SQL error
  */
-const updateWaitOrders =  (req, res) => {
+const updateWaitOrders = (req, res) => {
     const order_number = parseInt(req.params.id)
     pool.query(
         'UPDATE orders SET confirmed = TRUE WHERE order_number = $1',
         [order_number],
         (error) => {
-            if (error){
+            if (error) {
                 throw error
             }
             res.status(200).send(`Order number ${order_number} marked as confirmed`)
@@ -123,13 +135,13 @@ const updateWaitOrders =  (req, res) => {
  * @param {object} res contains a confirmation message stating which order (by order number) has been deleted
  * @throws {Error} the SQL error if it cannot be deleted
  */
-const deleteOrders =  (req, res) => {
+const deleteOrders = (req, res) => {
     const order_number = parseInt(req.params.id)
     pool.query(
         'DELETE FROM orders WHERE order_number = $1',
         [order_number],
         (error) => {
-            if (error){
+            if (error) {
                 throw error
             }
             res.status(200).send(`Order number ${order_number} deleted`)
@@ -149,7 +161,7 @@ const deliverOrders = (req, res) => {
         'UPDATE orders SET delivered = true WHERE order_number = $1',
         [order_number],
         (error) => {
-            if (error){
+            if (error) {
                 throw error
             }
             res.status(200).send(`Order number ${order_number} marked as delivered`)
@@ -178,13 +190,13 @@ const getKitchenOrders = (request, response) => {
  * @param {object} res contains the confirmation message to state if an order was marked as completed
  * @throws {Error} SQL error if it could not be marke as completed
  */
-const updateKitchenOrders =  (req, res) => {
+const updateKitchenOrders = (req, res) => {
     const order_number = parseInt(req.params.id)
     pool.query(
         'UPDATE orders SET complete = TRUE WHERE order_number = $1',
         [order_number],
         (error) => {
-            if (error){
+            if (error) {
                 throw error
             }
             res.status(200).send(`Order number ${order_number} marked as completed`)
@@ -259,7 +271,7 @@ const getUnpaidOrdersFiltered = (request, response) => {
  * @throws {Error} SQL error
  */
 const createUser = (request, response) => {
-    const {email, password, status} = request.body
+    const { email, password, status } = request.body
     pool.query('INSERT INTO users (email, password, status) VALUES ($1, $2, $3)',
         [email, password, status],
         (error, result) => {
@@ -277,7 +289,7 @@ const createUser = (request, response) => {
  * @param {object} res holds JSON data that holds the role of the user. Also holds messages stating errors.
  */
 const authenticate = (req, res) => {
-    const {email, password} = req.body;
+    const { email, password } = req.body;
     pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password], (err, result) => {
         if (err) {
             console.error(err);
@@ -309,7 +321,7 @@ const payOrders = (req, res) => {
         'UPDATE orders SET paid = true WHERE order_number = $1',
         [order_number],
         (error) => {
-            if (error){
+            if (error) {
                 throw error
             }
             res.status(200).send(`Order number ${order_number} marked as paid`)
@@ -323,16 +335,23 @@ const payOrders = (req, res) => {
  * @param {object} response holds the message that states that help has been requested to the user
  * @throws {Error} SQL error
  */
-const requestHelp = (request, response) => {
-    const tableNumber = request.body
-    pool.query('INSERT INTO assistance (tableNumber) VALUES ($1)',
-        [tableNumber],
-        (error, result) => {
-            if (error) {
-                throw error
-            }
-            response.status(201).send(`Help requested: ${result.insertId}`)
-        })
+const helpRequest = (req, res) => {
+    const  table_number  = parseInt(req.params.id);
+    pool.query('INSERT INTO assistance VALUES ($1)', [table_number], (error, result) => {
+        if (error) {
+            throw error
+        }
+        res.status(201).send('Table added: ${ result.insertId }')
+    })
+}
+
+const getAssistanceTable = (request, response) => {
+    pool.query('SELECT tablenumber FROM assistance', (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
 }
 
 /**
@@ -376,6 +395,8 @@ module.exports = {
     getFinishedOrdersFiltered,
     getUnpaidOrdersFiltered,
     getWaitOrdersFiltered,
+    getSingleOrder,
     getItemCaloriesAndIngredients,
-    requestHelp
+    helpRequest,
+    getAssistanceTable
 }

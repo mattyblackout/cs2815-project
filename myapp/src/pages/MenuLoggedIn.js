@@ -57,11 +57,15 @@ function Menu() {
         if (order.length === 0) {
             alert('Your basket is empty');
         } else {
+            console.log(order);
+            localStorage.setItem("order", JSON.stringify(order));
+            localStorage.setItem("tablenumber", JSON.stringify(tableNumber));
             setOrder([]);
             setCounter(counter + 1);
             alert('Your items are added to cart!');
         }
     };
+
 
     // Removes an item from the order
 
@@ -202,8 +206,11 @@ function Menu() {
                         <hr className="underline"></hr>
                         <h1 className="simple-text">TOTAL</h1>
                         <h2 className="money">£{totalMoney.toFixed(2)}</h2>
-                        <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
                         <div>
+                            <button className="invisible-button"></button>
+                            <Link to = "/cart">
+                                <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                            </Link>
                             <button class="help-button" onClick={sendHelpRequest}>Call Waiter</button>
                         </div>
                     </div>

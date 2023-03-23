@@ -57,6 +57,9 @@ function Menu() {
         if (order.length === 0) {
             alert('Your basket is empty');
         } else {
+            console.log(order);
+            localStorage.setItem("order", JSON.stringify(order));
+            localStorage.setItem("tablenumber", JSON.stringify(tableNumber));
             setOrder([]);
             setCounter(counter + 1);
             alert('Your items are added to cart!');
@@ -136,12 +139,13 @@ function Menu() {
     const sendHelpRequest = (event) => {
         window.alert("Help Requested!");
         // Send data to server to insert into database
-        fetch('http://localhost:3000/requestHelp', {
+        fetch(`http://localhost:3000/helpRequest/${tableNumber}`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(tableNumber),
+            body: JSON.stringify({tableNumber}),
         })
     }
+    
 
     // Prompts user to enter their table number
     useEffect(() => {
@@ -202,8 +206,12 @@ function Menu() {
                         <hr className="underline"></hr>
                         <h1 className="simple-text">TOTAL</h1>
                         <h2 className="money">£{totalMoney.toFixed(2)}</h2>
-                        <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                        <br/>
                         <div>
+                            <button className="invisible-button"></button>
+                            <Link to = "/cart">
+                                <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                            </Link>
                             <button class="help-button" onClick={sendHelpRequest}>Call Waiter</button>
                         </div>
                     </div>
@@ -221,8 +229,9 @@ function Menu() {
                                         <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                         <br/></div>
                                     <div className='description' key={item.id}>{item.description} <br/></div>
-                                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
-                                    </button>
+                                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                    <br/>
+                                    <div><hr class="solid"></hr></div>
                                 </div>
                             </>
                         ))}
@@ -240,6 +249,8 @@ function Menu() {
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <br/>
+                                <div><hr class="solid"></hr></div>
                             </>
                         ))}
                     </div>
@@ -256,6 +267,8 @@ function Menu() {
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description}<br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <br/>
+                                <div><hr class="solid"></hr></div>
                             </>
                         ))}
                     </div>
@@ -272,6 +285,8 @@ function Menu() {
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <br/>
+                                <div><hr class="solid"></hr></div>
                             </>
                         ))}
                     </div>
