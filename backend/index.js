@@ -18,7 +18,9 @@ app.use(
 
 app.get('/menu', db.getMenu)
 app.get('/menu/:category', db.getMenuByType)
-app.get('/menu/:category&:filter', db.getMenuFiltered)
+app.get('/menu/:category/vegan', db.getMenuVegan)
+app.get('/menu/:category/vegetarian', db.getMenuVegetarian)
+app.get('/menu/:category/dairy_free', db.getMenuDairy)
 app.get('/menu/info/:id', db.getItemCaloriesAndIngredients)
 app.post('/login', db.authenticate)
 app.post('/register', db.createUser)

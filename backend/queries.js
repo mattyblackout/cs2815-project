@@ -43,10 +43,29 @@ const getMenuByType = (request, response) => {
     })
 }
 
-const getMenuFiltered = (request, response) => {
+const getMenuVegan = (request, response) => {
     const category = request.params.category
-    const filter = request.params.filter
-    pool.query('SELECT * FROM menu WHERE category = $1 and $2 = true and available = true', [category, filter], (error, results) => {
+    pool.query('SELECT * FROM menu WHERE category = $1 and vegan = true and available = true', [category], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
+const getMenuVegetarian = (request, response) => {
+    const category = request.params.category
+    pool.query('SELECT * FROM menu WHERE category = $1 and vegetarian = true and available = true', [category], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
+const getMenuDairy = (request, response) => {
+    const category = request.params.category
+    pool.query('SELECT * FROM menu WHERE category = $1 and dairy_free = true and available = true', [category], (error, results) => {
         if (error) {
             throw error
         }
@@ -409,5 +428,7 @@ module.exports = {
     getItemCaloriesAndIngredients,
     helpRequest,
     getAssistanceTable,
-    getMenuFiltered
+    getMenuVegan,
+    getMenuVegetarian,
+    getMenuDairy
 }
