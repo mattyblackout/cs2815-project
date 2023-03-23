@@ -15,7 +15,7 @@
     position:absolute;
     top:30px;
     right: 200px;
-    border: 0px solid black;
+    border: 0 solid black;
 }
 .cart-button:hover {
     border: 5px solid black;
@@ -35,7 +35,7 @@
     display: inline-block;
     font-weight: 100;
     font-family: 'Bayon';
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 button {
@@ -145,13 +145,20 @@ button:hover {
     position:absolute;
     top:30px;
     right: 30px;
-    border: 0px solid black;
+    border: 0 solid black;
 }
 
 .login-button:hover {
     border: 5px solid black;
     background:#f8cb2e;
     color: black;
+}
+
+.vegan-filter{
+
+}
+.filters{
+
 }
 
 .table-number{
@@ -179,7 +186,7 @@ button:hover {
     float: left;
     font-weight: 100;
     margin-left: 20px;
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 20px;
 }
 
@@ -191,7 +198,7 @@ button:hover {
     font-family: "Bayon";
     font-size: 28px;
     margin-left: 10px;
-    margin-top: 0px;
+    margin-top: 0;
     float: left;
     white-space: nowrap;
     overflow: hidden;
@@ -211,7 +218,7 @@ button:hover {
     float: right;
     font-weight: 100;
     margin-right: 20px;
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .remove {
