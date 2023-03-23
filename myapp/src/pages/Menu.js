@@ -194,7 +194,9 @@ function Menu() {
                         <br/>
                         <div>
                             <button className="invisible-button"></button>
-                            <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                            <Link to = "/cart">
+                                <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                            </Link>
                             <button class="help-button" onClick={sendHelpRequest}>Call Waiter</button>
                         </div>
                     </div>

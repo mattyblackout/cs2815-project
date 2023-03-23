@@ -55,16 +55,6 @@ function Menu() {
         }
     };
 
-    // Checkout and cart system
-    const handleCheckout = () => {
-        if (order.length === 0) {
-            alert('Your basket is empty');
-        } else {
-            setOrder([]);
-            setCounter(counter + 1);
-            alert('Your items are added to cart!');
-        }
-    };
 
     // Removes an item from the order
     const handleRemove = (itemToRemove) => {
@@ -200,7 +190,13 @@ function Menu() {
                         <hr className="underline"></hr>
                         <h1 className="simple-text">TOTAL</h1>
                         <h2 className="money">£{totalMoney.toFixed(2)}</h2>
-                        <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                        <div>
+                            <button className="invisible-button"></button>
+                            <Link to = "/cart">
+                                <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                            </Link>
+                            <button class="help-button" onClick={sendHelpRequest}>Call Waiter</button>
+                        </div>
                         <div>
                             <button class="help-button" onClick={sendHelpRequest}>Call Waiter</button>
                         </div>
