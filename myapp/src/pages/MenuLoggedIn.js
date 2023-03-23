@@ -197,9 +197,6 @@ function Menu() {
                             </Link>
                             <button class="help-button" onClick={sendHelpRequest}>Call Waiter</button>
                         </div>
-                        <div>
-                            <button class="help-button" onClick={sendHelpRequest}>Call Waiter</button>
-                        </div>
                     </div>
                 </div>
             </div>
