@@ -47,6 +47,9 @@ function Menu() {
         if (order.length === 0) {
             alert('Your basket is empty');
         } else {
+            console.log(order);
+            localStorage.setItem("order", JSON.stringify(order));
+            localStorage.setItem("tablenumber", JSON.stringify(tableNumber));
             setOrder([]);
             setCounter(counter + 1);
             alert('Your items are added to cart!');
