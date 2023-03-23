@@ -68,12 +68,20 @@ function Menu() {
         if (order.length === 0) {
             alert('Your basket is empty');
         } else {
+            const itemsAdded = [];
+            let totalQuantity = 0;
+            order.forEach((item) => {
+                for (let i = 0; i < item.quantity; i++) {
+                    itemsAdded.push(item.name);
+                    totalQuantity++;
+                }
+            });
             console.log(order);
             localStorage.setItem("order", JSON.stringify(order));
             localStorage.setItem("tablenumber", JSON.stringify(tableNumber));
             setOrder([]);
-            setCounter(counter + 1);
-            alert('Your items are added to cart!');
+            setCounter(counter + totalQuantity);
+            alert(`The following items: ${itemsAdded.join(', ')}, are added to cart!`);
         }
     };
 
@@ -159,12 +167,20 @@ function Menu() {
     
 
     // Prompts user to enter their table number
+    // Will only take integers
     useEffect(() => {
-        if (show) {
-            setTableNumber(window.prompt('What is your table number?'));
-            show = false; //Stops the prompt from loading multiple times
+        let isPrompting = true;
+        
+        while (isPrompting) {
+          const input = window.prompt('What is your table number?');
+          const tableNumber = parseInt(input);
+          
+          if (!isNaN(tableNumber)) {
+            setTableNumber(tableNumber);
+            isPrompting = false;
+          }
         }
-    }, []);
+      }, []);      
 
     // Main front-end code for menu page
     return (
@@ -178,7 +194,7 @@ function Menu() {
                         <button className="login-button">Login</button>
                     </Link>
                     <Link to="/cart">
-                        <button className="cart-button">Cart</button>
+                        <button className="cart-button">Cart ({counter})</button>
                     </Link>
                 </div>
             </header>
@@ -326,7 +342,6 @@ function Menu() {
                             ))}
                         </div>
                     </div>
-                </div>
             )}
         </div>
     )
