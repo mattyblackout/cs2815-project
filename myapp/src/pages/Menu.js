@@ -5,7 +5,6 @@ import '../fonts/Bayon-Regular.ttf';
 import splash from '../splash-image.jpg';
 import {Link} from 'react-router-dom';
 
-let show = true;
 
 // Main menu function, containing the core code and functionality for the menu page
 function Menu() {
@@ -292,7 +291,6 @@ function Menu() {
         })
     }
 
-
     // Prompts user to enter their table number
     // Will only take integers
     useEffect(() => {
@@ -328,10 +326,6 @@ function Menu() {
             <div className="splash-image">
                 <img src={splash} alt="splash" className={"splash-image"} />
             </div>
-        </header>
-        <div className="splash-image">
-            <img src={splash} alt="splash" className={"splash-image"}/>
-        </div>
         <div className="menu-container">
             <div className="menu-categories-container">
                 <div className="menu-category-container">
