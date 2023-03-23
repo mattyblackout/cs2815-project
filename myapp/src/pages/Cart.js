@@ -46,7 +46,13 @@ function Cart() {
                     <h2 className="title-text">ORDER SUMMARY</h2>
                     <hr className="underline"></hr>
                     <div className="checkout-order-container">
-                        {/* Retrieve items that were added to order and checkouted from database */}
+                        {fOrder.map((item, index) => (
+                                <div className= "order-row">
+                                    <div key={index}>
+                                        <div className="item-name">{item}</div>
+                                    </div>
+                                </div>
+                                ))}
                     </div>
                     <hr className="underline"></hr>
                     <h2 className="text">TABLE NUMBER:</h2>
