@@ -7,20 +7,17 @@
     color: black;
 }
 
-.cart-button{
-    height: 50px;
-    line-height: 40px;
-    width: 150px;
-    background: #f8cb2e;
-    position:absolute;
-    top:30px;
-    right: 200px;
-    border: 0px solid black;
+.menu-items-container{
+    text-align: left;
+    justify-content: left;
 }
-.cart-button:hover {
-    border: 5px solid black;
-    background:#f8cb2e;
-    color: black;
+
+.menu-images{
+    margin-top: 1.5%;
+    margin-left: 5%;
+    height: 100px;
+    width: 100px;
+    border: 2px solid black;
 }
 
 .menu-items-container{
@@ -51,6 +48,9 @@ button {
 button:hover {
     background-color: black;
     color: #F8CB2D;
+}
+.underline{
+    width: 100%;
 }
 
 .splash-image{
@@ -117,12 +117,13 @@ button:hover {
 }
 
 .ordering-container {
+    position:-webkit-sticky;
+    position:sticky;
     top:0;
     border: 5px solid black;
     background-color: #f8cb2e;
     font-size: 32px;
-    width: 400px;
-    height: fit-content;
+    width: 27%;
     z-index: 1000;
     margin-right: 5px;
 }
@@ -232,10 +233,23 @@ button:hover {
     color:red;
 }
 
+.checkout {
+    float: center;
+    width: 150px;
+    height: 70px;
+    margin-top: 20%;
+    margin-bottom: 5%;
+}
+
+.show-image {
+    width: 10%;
+    height: 10%;
+}
+
 .expanded-div {
     justify-content: left;
     position: absolute;
-    top:60%;
+    top:440px;
     height: fit-content;
     width: 850px;
     border: 5px solid #f8cb2e;
