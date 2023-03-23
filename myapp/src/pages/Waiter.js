@@ -173,8 +173,24 @@ function Waiter() {
         setOrderID(id);
     }
 
-    const deleteNotifications = () => {
-        
+    const deleteNotifications = (number) => {
+        fetch('http://localhost:3000/assistance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                tableNumber: tableNumber,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data.message);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
     }
 
     const fetchNotifications = () => {
