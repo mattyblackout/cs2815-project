@@ -13,7 +13,7 @@ function Cart() {
 
     console.log(JSON.stringify(order[0].name));
     for (var i in order) {
-        fOrder.push(JSON.stringify(order[i].name).replaceAll("\"", " ") + "£" + JSON.stringify(order[i].price).replaceAll("\"", ""));
+        fOrder.push(JSON.stringify(order[i].quantity).replaceAll("\"", " ") +"x" +JSON.stringify(order[i].name).replaceAll("\"", " ") + "£" + JSON.stringify(order[i].price).replaceAll("\"", ""));
         tPrice += parseFloat(order[i].price);
         console.log(fOrder);
     }
