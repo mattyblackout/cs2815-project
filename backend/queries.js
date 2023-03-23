@@ -3,10 +3,10 @@
 const { request, response } = require("express");
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'zahrasyed',
-    host: 'localhost',
-    database: 'postgres',
-    password: 'postgres',
+    user: 'aekkmejk',
+    host: 'trumpet.db.elephantsql.com',
+    database: 'aekkmejk',
+    password: 't0tYetmAy50WtSeI_zAQBcyI_Fmkt6AE',
     port: 5432,
 })
 

@@ -12,6 +12,10 @@
     justify-content: left;
 }
 
+.toggle-item-name{
+    font-family: 'Bayon';
+}
+
 .menu-images{
     margin-top: 1.5%;
     margin-left: 5%;
@@ -150,6 +154,22 @@ button:hover {
 }
 
 .login-button:hover {
+    border: 5px solid black;
+    background:#f8cb2e;
+    color: black;
+}
+
+.cart-button{
+    height: 50px;
+    line-height: 40px;
+    width: 150px;
+    background: #f8cb2e;
+    position:absolute;
+    top:30px;
+    right: 200px;
+    border: 0px solid black;
+}
+.cart-button:hover {
     border: 5px solid black;
     background:#f8cb2e;
     color: black;
