@@ -65,8 +65,48 @@ function Menu() {
             alert('Your items are added to cart!');
         }
     };
-
-    // Removes an item from the order
+    const handleVeganClick = (type) => {
+        if (type === 'mains') {
+            fetch('http://localhost:3000/menu/mains/vegan')
+                .then((response) => response.json())
+                .then((data) => {
+                    setMains(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+        if (type === 'sides') {
+            fetch('http://localhost:3000/menu/sides/vegan')
+                .then((response) => response.json())
+                .then((data) => {
+                    setSides(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+        if (type === 'drinks') {
+            fetch('http://localhost:3000/menu/drinks/vegan')
+                .then((response) => response.json())
+                .then((data) => {
+                    setDrinks(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+        if (type === 'desserts') {
+            fetch('http://localhost:3000/menu/dessert/vegan')
+                .then((response) => response.json())
+                .then((data) => {
+                    setDesserts(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }
 
     /**
      * Removes an item from an order.
@@ -216,7 +256,7 @@ function Menu() {
         <div className="separate"/>
         {expanded === "mains" && (<div className='expanded-div'>
             <div className="filters">
-                <button className="vegan-filter">Vegan</button>
+                <button className="vegan-filter" onClick={() => handleVeganClick(expanded)}>Vegan</button>
                 <button className="vegetarian-filter">Vegetarian</button>
                 <button className="dairy-filter">Dairy Free</button>
             </div>
@@ -241,7 +281,7 @@ function Menu() {
         </div>)}
         {expanded === "sides" && (<div className='expanded-div'>
             <div className="filters">
-                <button className="vegan-filter">Vegan</button>
+                <button className="vegan-filter" onClick={() => handleVeganClick(expanded)}>Vegan</button>
                 <button className="vegetarian-filter">Vegetarian</button>
                 <button className="dairy-filter">Dairy Free</button>
             </div>
@@ -262,7 +302,7 @@ function Menu() {
         </div>)}
         {expanded === "desserts" && (<div className='expanded-div'>
             <div className="filters">
-                <button className="vegan-filter">Vegan</button>
+                <button className="vegan-filter" onClick={() => handleVeganClick(expanded)}>Vegan</button>
                 <button className="vegetarian-filter">Vegetarian</button>
                 <button className="dairy-filter">Dairy Free</button>
             </div>
@@ -283,7 +323,7 @@ function Menu() {
         </div>)}
         {expanded === "drinks" && (<div className='expanded-div'>
             <div className="filters">
-                <button className="vegan-filter">Vegan</button>
+                <button className="vegan-filter" onClick={() => handleVeganClick(expanded)}>Vegan</button>
                 <button className="vegetarian-filter">Vegetarian</button>
                 <button className="dairy-filter">Dairy Free</button>
             </div>
