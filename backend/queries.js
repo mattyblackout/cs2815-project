@@ -378,10 +378,10 @@ const getItemCaloriesAndIngredients = (request, response) => {
 }
 
 const checkout = (request, response) => {
-    const { tableNumber, items, paid } = request.body
+    const { tableNumber, items, paid, time } = request.body
 
     // Insert the order into the database and return the order ID
-    pool.query('INSERT INTO orders (table_number, paid) VALUES ($1, $2) RETURNING order_number', [tableNumber, paid], (error, results) => {
+    pool.query('INSERT INTO orders (time_ordered, paid, table_number) VALUES ($1, $2, $3) RETURNING order_number', [time, paid, tableNumber], (error, results) => {
         if (error) {
             throw error
         }
@@ -390,7 +390,7 @@ const checkout = (request, response) => {
 
         // Insert the items for the order into the order_items table
         items.forEach((item) => {
-            pool.query('INSERT INTO order_items (order_id, item_name) VALUES ($1, $2)', [orderId, item], (error, results) => {
+            pool.query('INSERT INTO order_items (order_number, item_id, item_quantity) VALUES ($1, $2, $3)', [orderId, item.id, item.quantity], (error, results) => {
                 if (error) {
                     throw error
                 }

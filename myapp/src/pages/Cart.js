@@ -19,30 +19,32 @@ function Cart() {
     }
 
     const handleCheckout = (paid) => {
-        const orders = {
-            tableNumber: tableNumber,
-            items: order,
-            paid: paid
-        };
+        const today = new Date();
+        const time = today.toLocaleTimeString();
+        console.log(time);
+        console.log(order);
+
         fetch('http://localhost:3000/orders', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(orders)
+            body: JSON.stringify({
+                tableNumber: tableNumber,
+                time:time,
+                items:order,
+                paid: paid
+            }),
         })
-        .then(response => {
-            if (response.ok) {
-                alert('Order placed successfully!');
-            } else {
-                throw new Error('Error placing order');
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            alert('Error placing order');
-        });
-    };
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data.message);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
 
 
     return (
