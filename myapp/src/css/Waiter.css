@@ -149,6 +149,14 @@
     margin-top: 10px;
 }
 
+.helpButton {
+    height: 45px;
+    text-align: center;
+    line-height: 35px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
 .underline {
     border: 2px solid black;
 }
@@ -163,6 +171,22 @@
     border: 0 solid black;
 }
 .edit-button:hover {
+    border: 5px solid black;
+    background:#f8cb2e;
+    color: black;
+}
+
+.notifications-button{
+    height: 50px;
+    line-height: 40px;
+    width: 200px;
+    background: #f8cb2e;
+    position:absolute;
+    top:30px;
+    border: 0 solid black;
+}
+
+.notifications-button:hover {
     border: 5px solid black;
     background:#f8cb2e;
     color: black;

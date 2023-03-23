@@ -3,10 +3,11 @@ import '../css/MenuLoggedIn.css';
 import logo from '../logo.png';
 import '../fonts/Bayon-Regular.ttf';
 import splash from '../splash-image.jpg';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 let show = true;
 
+// Main menu function, containing the core code and functionality for the menu page
 function Menu() {
     const [expanded, setExpanded] = useState("");
     const [tableNumber, setTableNumber] = useState("");
@@ -15,7 +16,21 @@ function Menu() {
     const [desserts, setDesserts] = useState([]);
     const [drinks, setDrinks] = useState([]);
     const [order, setOrder] = useState([]);
+    const [counter, setCounter] = useState(0);
 
+    // Responsible for obtaining calorie and ingredient/allergen information for a requested menu item by its id
+    const infoPopup = (id) => {
+        fetch(`http://localhost:3000/menu/info/${id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            alert(`------------------ Ingredients / Allergens ------------------\n\n${data[0].allingredients}`)
+          })
+          .catch((error) => {
+            console.log("Error: ", error);
+          });
+      };
+
+    // Adds an item to the order
     const addToOrder = (item) => {
         const existingItemIndex = order.findIndex(orderItem => orderItem.name === item.name);
         if (existingItemIndex !== -1) {
@@ -26,7 +41,22 @@ function Menu() {
             setOrder([...order, {...item, quantity: 1}]);
         }
     };
+    
+    const handleCheckout = () => {
+        if (order.length === 0) {
+            alert('Your basket is empty');
+        } else {
+            console.log(order);
+            localStorage.setItem("order", JSON.stringify(order));
+            localStorage.setItem("tablenumber", JSON.stringify(tableNumber));
+            setOrder([]);
+            setCounter(counter + 1);
+            alert('Your items are added to cart!');
+        }
+    };
 
+
+    // Removes an item from the order
     const handleRemove = (itemToRemove) => {
         const existingItemIndex = order.findIndex((item) => item.name === itemToRemove.name);
         if (existingItemIndex >= 0) {
@@ -40,10 +70,12 @@ function Menu() {
         }
     };
 
+    // Calculates the total price of the order
     const totalMoney = order.reduce((total, item) => {
         return total + item.price * item.quantity;
     }, 0);
 
+    // Responsible for obtaining the menu items of a requested category when button is clicked
     const handleButtonClick = (item) => {
         if (item === 'mains') {
             fetch('http://localhost:3000/menu/11')
@@ -65,18 +97,8 @@ function Menu() {
                     console.log(error);
                 });
         }
-        if (item === 'desserts') {
+        if (item === 'drinks') {
             fetch('http://localhost:3000/menu/31')
-                .then((response) => response.json())
-                .then((data) => {
-                    setDesserts(data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-        if (item === 'mains') {
-            fetch('http://localhost:3000/menu/41')
                 .then((response) => response.json())
                 .then((data) => {
                     setDrinks(data);
@@ -85,24 +107,53 @@ function Menu() {
                     console.log(error);
                 });
         }
+        if (item === 'desserts') {
+            fetch('http://localhost:3000/menu/41')
+                .then((response) => response.json())
+                .then((data) => {
+                    setDesserts(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
         setExpanded(item);
     };
 
+    // Responsible for sending a help request to the server
+    const sendHelpRequest = (event) => {
+        window.alert("Help Requested!");
+        // Send data to server to insert into database
+        fetch('http://localhost:3000/requestHelp', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(tableNumber),
+        })
+    }
+
+    // Prompts user to enter their table number
     useEffect(() => {
         if (show) {
             setTableNumber(window.prompt('What is your table number?'));
             show = false; //Stops the prompt from loading multiple times
         }
     }, []);
+
+    // Main front-end code for menu logged in page
     return (
         <div className="App">
             <header className="App-header">
                 <Link to="/">
                     <img src={logo} alt="the logo" className="header-image"/>
                 </Link>
-                <Link to="/user">
-                    <button className="user-button">User</button>
-                </Link>
+                <div>
+                    <Link to="/user">
+                        <button className="user-button">User</button>
+                    </Link>
+                    <Link to="/cart">
+                        <button className="cart-button">Cart</button>
+                    </Link>
+                </div>
             </header>
             <div className="splash-image">
                 <img src={splash} alt="splash" className={"splash-image"}/>
@@ -128,17 +179,24 @@ function Menu() {
                         <h1 className="simple-text">YOUR ORDER</h1>
                         <h4 className={"GAP"}/>
                         {order.map((item, index) => (
-                            <div className="order-row">
-                                <div key={index}>
-                                    <div className="item-name">{item.quantity} {item.name}</div>
-                                    <button className="remove" onClick={() => handleRemove(item)}>-</button>
-                                    <div className="money">£{(item.price * item.quantity).toFixed(2)}</div>
+                                <div className= "order-row">
+                                    <div key={index}>
+                                        <div className="item-name">{item.quantity} {item.name}</div>
+                                        <button className="remove" onClick={() => handleRemove(item)}>-</button>
+                                        <div className="money">£{(item.price * item.quantity).toFixed(2)}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                                ))}
                         <hr className="underline"></hr>
                         <h1 className="simple-text">TOTAL</h1>
                         <h2 className="money">£{totalMoney.toFixed(2)}</h2>
+                        <div>
+                            <button className="invisible-button"></button>
+                            <Link to = "/cart">
+                                <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                            </Link>
+                            <button class="help-button" onClick={sendHelpRequest}>Call Waiter</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -149,9 +207,9 @@ function Menu() {
                         {mains.map((item) => (
                             <>
                                 <div className='food-item-container'>
-                                    <div className='menu-items' key={item.id}>{item.name} -
-                                        £{item.price}&nbsp;&nbsp;&nbsp;
-                                        <div className='calories' key={item.id}>({item.calories}KCAL)</div>
+                                    <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
+                                        <div className='calories' key={item.id}>({item.calories} KCAL)</div>
+                                        <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                         <br/></div>
                                     <div className='description' key={item.id}>{item.description} <br/></div>
                                     <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
@@ -168,7 +226,8 @@ function Menu() {
                         {sides.map((item) => (
                             <>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                    <div className='calories' key={item.id}>({item.calories}KCAL)</div>
+                                    <div className='calories' key={item.id}>({item.calories} KCAL)</div>
+                                    <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
@@ -183,7 +242,8 @@ function Menu() {
                         {desserts.map((item) => (
                             <>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                    <div className='calories' key={item.id}>({item.calories}KCAL)</div>
+                                    <div className='calories' key={item.id}>({item.calories} KCAL)</div>
+                                    <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description}<br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
@@ -191,31 +251,25 @@ function Menu() {
                         ))}
                     </div>
                 </div>
-            )
-            }
-            {
-                expanded === "drinks" && (
-                    <div className='expanded-div'>
-                        <div className='menu-items-container'>
-                            {drinks.map((item) => (
-                                <>
-                                    <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                        <div className='calories' key={item.id}>({item.calories}KCAL)</div>
-                                        <br/></div>
-                                    <div className='description' key={item.id}>{item.description} <br/></div>
-                                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
-                                </>
-                            ))}
-                        </div>
+            )}
+            {expanded === "drinks" && (
+                <div className='expanded-div'>
+                    <div className='menu-items-container'>
+                        {drinks.map((item) => (
+                            <>
+                                <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
+                                    <div className='calories' key={item.id}>({item.calories} KCAL)</div>
+                                    <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
+                                    <br/></div>
+                                <div className='description' key={item.id}>{item.description} <br/></div>
+                                <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                            </>
+                        ))}
                     </div>
-                )
-            }
+                </div>
+            )}
         </div>
-
     )
-        ;
 }
 
 export default Menu;
-
-

@@ -4,12 +4,24 @@ import logo from '../logo.png';
 import '../fonts/Bayon-Regular.ttf';
 import { Link } from 'react-router-dom';
 
+// main cart function, containing core code for the cart functionality
 function Cart() {
-
     const [cardNumber, setCardNumber] = useState('');
     const [expiry, setExpiry] = useState('');
     const [cvv, setCvv] = useState('');
+    const order = JSON.parse(localStorage.getItem("order"));
+    var fOrder = [];
+    var tPrice = 0;
+    const tableNumber = JSON.parse(localStorage.getItem("tablenumber"))
 
+    console.log(JSON.stringify(order[0].name));
+    for (var i in order) {
+        fOrder.push(JSON.stringify(order[i].name).replaceAll("\"", " ") + "£" + JSON.stringify(order[i].price).replaceAll("\"", ""));
+        tPrice += parseFloat(order[i].price);
+        console.log(fOrder);
+    }
+
+    // function to handle the input of the card number
     const handleCardNumberInput = (event) => {
         let formattedValue = event.target.value.replace(/ /g, '');
         if (formattedValue.length > 0) {
@@ -18,6 +30,7 @@ function Cart() {
         setCardNumber(formattedValue);
     };
 
+    // function to handle the input of the expiry date
     const handleExpiryInput = (event) => {
         let formattedValue = event.target.value.replace(/[^0-9]/g, '').substring(0, 4);
         if (formattedValue.length > 2) {
@@ -26,11 +39,13 @@ function Cart() {
         setExpiry(formattedValue);
     };
 
+    // function to handle the input of the cvv
     const handleCvvInput = (event) => {
         let formattedValue = event.target.value.replace(/[^0-9]/g, '').substring(0, 3);
         setCvv(formattedValue);
     };
 
+    // front-end code for cart
     return (
             <div className="Cart-Page">
                 <header className="App-header">
@@ -42,11 +57,17 @@ function Cart() {
                     <h2 className="title-text">ORDER SUMMARY</h2>
                     <hr className="underline"></hr>
                     <div className="checkout-order-container">
-                        {/* Retrieve items that were added to order and checkouted from database */}
+                        {fOrder.map((item, index) => (
+                                <div className= "order-row">
+                                    <div key={index}>
+                                        <div className="item-name">{item}</div>
+                                    </div>
+                                </div>
+                                ))}
                     </div>
                     <hr className="underline"></hr>
-                    <h2 className="text">TABLE NUMBER:</h2>
-                    <h2 className="text">ORDER TOTAL:</h2>
+                    <h2 className="text">TABLE NUMBER: {JSON.stringify(tableNumber)}</h2>
+                    <h2 className="text">ORDER TOTAL: {tPrice.toFixed(2)}</h2>
                 </div>
 
                 <div className="payment-container">

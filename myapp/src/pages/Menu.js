@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 let show = true;
 
+// Main menu function, containing the core code and functionality for the menu page
 function Menu() {
     const [expanded, setExpanded] = useState("");
     const [tableNumber, setTableNumber] = useState("");
@@ -17,6 +18,19 @@ function Menu() {
     const [order, setOrder] = useState([]);
     const [counter, setCounter] = useState(0);
 
+    // Responsible for obtaining calorie and ingredient/allergen information for a requested menu item by its id
+    const infoPopup = (id) => {
+        fetch(`http://localhost:3000/menu/info/${id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            alert(`------------------ Ingredients / Allergens ------------------\n\n${data[0].allingredients}`)
+          })
+          .catch((error) => {
+            console.log("Error: ", error);
+          });
+      };
+
+    // Adds an item to the order
     const addToOrder = (item) => {
         const existingItemIndex = order.findIndex(orderItem => orderItem.name === item.name);
         if (existingItemIndex !== -1) {
@@ -27,17 +41,22 @@ function Menu() {
             setOrder([...order, {...item, quantity: 1}]);
         }
     };
+
+    // Checkout and cart system
     const handleCheckout = () => {
         if (order.length === 0) {
             alert('Your basket is empty');
         } else {
+            console.log(order);
+            localStorage.setItem("order", JSON.stringify(order));
+            localStorage.setItem("tablenumber", JSON.stringify(tableNumber));
             setOrder([]);
             setCounter(counter + 1);
             alert('Your items are added to cart!');
         }
     };
 
-
+    // Removes an item from the order
     const handleRemove = (itemToRemove) => {
         const existingItemIndex = order.findIndex((item) => item.name === itemToRemove.name);
         if (existingItemIndex >= 0) {
@@ -51,10 +70,12 @@ function Menu() {
         }
     };
 
+    // Calculates the total price of the order
     const totalMoney = order.reduce((total, item) => {
         return total + item.price * item.quantity;
     }, 0);
 
+    // Responsible for obtaining the menu items of a requested category when button is clicked
     const handleButtonClick = (item) => {
         if (item === 'mains') {
             fetch('http://localhost:3000/menu/11')
@@ -99,6 +120,19 @@ function Menu() {
         setExpanded(item);
     };
 
+    // Responsible for sending a help request to the server
+    const sendHelpRequest = (event) => {
+        window.alert("Help Requested!");
+        // Send data to server to insert into database
+        fetch(`http://localhost:3000/helpRequest/${tableNumber}`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({tableNumber}),
+        })
+    }
+    
+
+    // Prompts user to enter their table number
     useEffect(() => {
         if (show) {
             setTableNumber(window.prompt('What is your table number?'));
@@ -106,6 +140,7 @@ function Menu() {
         }
     }, []);
 
+    // Main front-end code for menu page
     return (
         <div className="App">
             <header className="App-header">
@@ -156,7 +191,14 @@ function Menu() {
                         <hr className="underline"></hr>
                         <h1 className="simple-text">TOTAL</h1>
                         <h2 className="money">£{totalMoney.toFixed(2)}</h2>
-                        <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                        <br/>
+                        <div>
+                            <button className="invisible-button"></button>
+                            <Link to = "/cart">
+                                <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                            </Link>
+                            <button class="help-button" onClick={sendHelpRequest}>Call Waiter</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -167,13 +209,14 @@ function Menu() {
                         {mains.map((item) => (
                             <>
                                 <div className='food-item-container'>
-                                    <div className='menu-items' key={item.id}>{item.name} -
-                                        £{item.price}&nbsp;&nbsp;&nbsp;
-                                        <div className='calories' key={item.id}>({item.calories}KCAL)</div>
+                                    <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
+                                        <div className='calories' key={item.id}>({item.calories} KCAL)</div>
+                                        <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                         <br/></div>
                                     <div className='description' key={item.id}>{item.description} <br/></div>
-                                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order
-                                    </button>
+                                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                    <br/>
+                                    <div><hr class="solid"></hr></div>
                                 </div>
                             </>
                         ))}
@@ -186,10 +229,13 @@ function Menu() {
                         {sides.map((item) => (
                             <>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                    <div className='calories' key={item.id}>({item.calories}KCAL)</div>
+                                    <div className='calories' key={item.id}>({item.calories} KCAL)</div>
+                                    <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description} <br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <br/>
+                                <div><hr class="solid"></hr></div>
                             </>
                         ))}
                     </div>
@@ -201,39 +247,38 @@ function Menu() {
                         {desserts.map((item) => (
                             <>
                                 <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                    <div className='calories' key={item.id}>({item.calories}KCAL)</div>
+                                    <div className='calories' key={item.id}>({item.calories} KCAL)</div>
+                                    <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
                                     <br/></div>
                                 <div className='description' key={item.id}>{item.description}<br/></div>
                                 <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <br/>
+                                <div><hr class="solid"></hr></div>
                             </>
                         ))}
                     </div>
                 </div>
-            )
-            }
-            {
-                expanded === "drinks" && (
-                    <div className='expanded-div'>
-                        <div className='menu-items-container'>
-                            {drinks.map((item) => (
-                                <>
-                                    <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
-                                        <div className='calories' key={item.id}>({item.calories}KCAL)</div>
-                                        <br/></div>
-                                    <div className='description' key={item.id}>{item.description} <br/></div>
-                                    <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
-                                </>
-                            ))}
-                        </div>
+            )}
+            {expanded === "drinks" && (
+                <div className='expanded-div'>
+                    <div className='menu-items-container'>
+                        {drinks.map((item) => (
+                            <>
+                                <div className='menu-items' key={item.id}>{item.name} - £{item.price}&nbsp;&nbsp;&nbsp;
+                                    <div className='calories' key={item.id}>({item.calories} KCAL)</div>
+                                    <button className='information' onClick={() => infoPopup(item.id)}>ⓘ</button>
+                                    <br/></div>
+                                <div className='description' key={item.id}>{item.description} <br/></div>
+                                <button className='add-button' onClick={() => addToOrder(item)}> Add To Order</button>
+                                <br/>
+                                <div><hr class="solid"></hr></div>
+                            </>
+                        ))}
                     </div>
-                )
-            }
+                </div>
+            )}
         </div>
-
     )
-        ;
 }
 
 export default Menu;
-
-
