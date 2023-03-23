@@ -8,6 +8,7 @@ function Waiter() {
     const [orders, setOrders] = useState([]);
     const [expanded, setExpanded] = useState('');
     const [selected, setSelected] = useState([]);
+    const [orderID, setOrderID] = useState('');
 
     // fetches all orders with given id from the database
     function ordersWithId(id) {
@@ -167,8 +168,6 @@ function Waiter() {
             });
     };
 
-    let orderID;
-
     function handleOrderClick(id) {
         fetch(`http://localhost:3000/orders/${id}`)
             .then((response) => response.json())
@@ -178,7 +177,8 @@ function Waiter() {
             .catch((error) => {
                 console.log(error);
             });
-        orderID = id;
+        console.log(id)
+        setOrderID(id);
     }
 
     const fetchNotifications = () => {
