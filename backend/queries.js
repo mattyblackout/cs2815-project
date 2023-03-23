@@ -44,8 +44,8 @@ const getMenuByType = (request, response) => {
 }
 
 const getMenuFiltered = (request, response) => {
-    const {category, filter} = request.body
-
+    const category = request.params.category
+    const filter = request.params.filter
     pool.query('SELECT * FROM menu WHERE category = $1 and $2 = true and available = true', [category, filter], (error, results) => {
         if (error) {
             throw error
