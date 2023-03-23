@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 let show = true;
 
+// Main menu function, containing the core code and functionality for the menu page
 function Menu() {
     const [expanded, setExpanded] = useState("");
     const [tableNumber, setTableNumber] = useState("");
@@ -28,6 +29,25 @@ function Menu() {
         }
     }
 
+    /**
+     * Responsible for obtaining calorie and ingredient/allergen information for a requested menu item by its id.
+     * @param {number} id the menu item id
+     */
+    const infoPopup = (id) => {
+        fetch(`http://localhost:3000/menu/info/${id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            alert(`------------------ Ingredients / Allergens ------------------\n\n${data[0].allingredients}`)
+          })
+          .catch((error) => {
+            console.log("Error: ", error);
+          });
+      };
+
+    /**
+     * Adds an item, specified by item id, to an order.
+     * @param {object} item the menu item object
+     */
     const addToOrder = (item) => {
         const existingItemIndex = order.findIndex(orderItem => orderItem.name === item.name);
         if (existingItemIndex !== -1) {
@@ -39,6 +59,11 @@ function Menu() {
         }
     };
 
+    /**
+     * Checkout and cart system that handles a checkout.
+     * If there are no items, an alert is sent stating the cart is empty.
+     * Else, the order is set and the user is alerted the items were added to the cart.
+     */
     const handleCheckout = () => {
         if (order.length === 0) {
             alert('Your basket is empty');
@@ -52,7 +77,12 @@ function Menu() {
         }
     };
 
+    // Removes an item from the order
 
+    /**
+     * Removes an item from an order.
+     * @param {object} itemToRemove the item object to remove
+     */
     const handleRemove = (itemToRemove) => {
         const existingItemIndex = order.findIndex((item) => item.name === itemToRemove.name);
         if (existingItemIndex >= 0) {
@@ -66,13 +96,15 @@ function Menu() {
         }
     };
 
+    // Calculates the total price of the order
     const totalMoney = order.reduce((total, item) => {
         return total + item.price * item.quantity;
     }, 0);
 
+    // Responsible for obtaining the menu items of a requested category when button is clicked
     const handleButtonClick = (item) => {
         if (item === 'mains') {
-            fetch('http://localhost:3000/menu/11')
+            fetch('http://localhost:3000/menu/mains')
                 .then((response) => response.json())
                 .then((data) => {
                     setMains(data);
@@ -82,7 +114,7 @@ function Menu() {
                 });
         }
         if (item === 'sides') {
-            fetch('http://localhost:3000/menu/21')
+            fetch('http://localhost:3000/menu/sides')
                 .then((response) => response.json())
                 .then((data) => {
                     setSides(data);
@@ -92,7 +124,7 @@ function Menu() {
                 });
         }
         if (item === 'drinks') {
-            fetch('http://localhost:3000/menu/31')
+            fetch('http://localhost:3000/menu/drinks')
                 .then((response) => response.json())
                 .then((data) => {
                     setDrinks(data);
@@ -102,7 +134,7 @@ function Menu() {
                 });
         }
         if (item === 'desserts') {
-            fetch('http://localhost:3000/menu/41')
+            fetch('http://localhost:3000/menu/dessert')
                 .then((response) => response.json())
                 .then((data) => {
                     setDesserts(data);
@@ -114,17 +146,19 @@ function Menu() {
         setExpanded(item);
     };
 
+    // Responsible for sending a help request to the server
     const sendHelpRequest = (event) => {
         window.alert("Help Requested!");
         // Send data to server to insert into database
-        fetch('http://localhost:3000/requestHelp', {
+        fetch(`http://localhost:3000/helpRequest/${tableNumber}`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(tableNumber),
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({tableNumber}),
         })
-
     }
+    
 
+    // Prompts user to enter their table number
     useEffect(() => {
         if (show) {
             setTableNumber(window.prompt('What is your table number?'));
@@ -132,6 +166,7 @@ function Menu() {
         }
     }, []);
 
+    // Main front-end code for menu page
     return (
         <div className="App">
             <header className="App-header">
@@ -182,8 +217,12 @@ function Menu() {
                         <hr className="underline"></hr>
                         <h1 className="simple-text">TOTAL</h1>
                         <h2 className="money">£{totalMoney.toFixed(2)}</h2>
-                        <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                        <br/>
                         <div>
+                            <button className="invisible-button"></button>
+                            <Link to = "/cart">
+                                <button className="checkout" onClick={handleCheckout}>CHECKOUT</button>
+                            </Link>
                             <button class="help-button" onClick={sendHelpRequest}>Call Waiter</button>
                         </div>
                     </div>
@@ -287,12 +326,10 @@ function Menu() {
                             ))}
                         </div>
                     </div>
-                )
-            }
+                </div>
+            )}
         </div>
-
     )
-        ;
 }
 
 export default Menu;
