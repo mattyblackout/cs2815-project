@@ -14,8 +14,6 @@ function Waiter() {
     function ordersWithId(id) {
         return orders.filter((order) => order.order_number === id);
     }
-
-
     let total = 0;
 
     const updateTotal = (price) => {
@@ -23,6 +21,7 @@ function Waiter() {
     }
 
     const handleButtonClick = (item) => {
+        console.log(selected);
         if (item === 'Active') {
             fetch('http://localhost:3000/orders')
                 .then((response) => response.json())
@@ -186,70 +185,67 @@ function Waiter() {
             });
     }
 
-    return (
-        <div className="App">
-            <header className="App-header">
-                <Link to="/">
-                    <img src={logo} alt="the logo" className="header-image" />
+    return (<div className="App">
+        <header className="App-header">
+            <Link to="/">
+                <img src={logo} alt="the logo" className="header-image"/>
+            </Link>
+            <div>
+                <Link to="/edit">
+                    <button className="edit-button">Edit Menu</button>
                 </Link>
-                <div>
-                    <Link to="/edit">
-                        <button className="edit-button">Edit Menu</button>
-                    </Link>
-                    <button className="notifications-button" onClick={fetchNotifications}>
-                        Notifications
-                    </button>
-                </div>
-            </header>
-            <div className="ordersContainer">
-                <button className="activeButton" onClick={() => handleButtonClick("Active")}>
-                    Active
+                <button className="notifications-button" onClick={fetchNotifications}>
+                    Notifications
                 </button>
-                <button className="completedButton" onClick={() => handleButtonClick("Completed")}>
-                    Completed
-                </button>
-                <button className="paidButton" onClick={() => handleButtonClick("Unpaid")}>
-                    Unpaid
-                </button>
-                <button className = "filterButton" onClick = {() => handleFilterClick(expanded)}>
-                    Sort by time ordered
-                </button>
-                <hr className="underline" />
-                {[...new Set(orders.map((order) => order.order_number))].map((id) => {
-                    const order_time = ordersWithId(id)[0].time_ordered;
-                    const table = ordersWithId(id)[0].table_number;
-                    return (
-                        <div
-                            className="orderContainer"
-                            onClick={() => handleOrderClick(id)}
-                        >
-                            <div
-                                className="order-left"
-                                onClick={() => handleOrderClick(id)}
-                            >
-                                Order #{id} <br />
-                                Table: {table}
-                            </div>
-                            <div className="order-right" onClick={() => handleOrderClick(id)}>
-                                <div className="order-right">
-                                    {order_time} <br />
-                                </div>
-                            </div>
-                            <br />
-                        </div>
-                    );
-                })}
             </div>
-            <div className="orderDisplay">
-
-            <h1 className="table">TABLE</h1>
-            <p className="table-number">7</p>
-            <hr className="underline"></hr>
+        </header>
+        <div className="ordersContainer">
+            <button className="activeButton" onClick={() => handleButtonClick("Active")}>
+                Active
+            </button>
+            <button className="completedButton" onClick={() => handleButtonClick("Completed")}>
+                Completed
+            </button>
+            <button className="paidButton" onClick={() => handleButtonClick("Unpaid")}>
+                Unpaid
+            </button>
+            <button className="filterButton" onClick={() => handleFilterClick(expanded)}>
+                Sort by time ordered
+            </button>
+            <hr className="underline"/>
+            {[...new Set(orders.map((order) => order.order_number))].map((id) => {
+                const order_time = ordersWithId(id)[0].time_ordered;
+                const table = ordersWithId(id)[0].table_number;
+                return (<div
+                    className="orderContainer"
+                    onClick={() => handleOrderClick(id)}
+                >
+                    <div
+                        className="order-left"
+                        onClick={() => handleOrderClick(id)}
+                    >
+                        Order #{id} <br/>
+                        Table: {table}
+                    </div>
+                    <div className="order-right" onClick={() => handleOrderClick(id)}>
+                        <div className="order-right">
+                            {order_time} <br/>
+                        </div>
+                    </div>
+                    <br/>
+                </div>);
+            })}
+        </div>
+        <div className="orderDisplay">
             <div>
                 {[...new Set(selected.map(order => order.order_number))].map(id => {
-                    return (<div key={id}>
+                    return (
+                        <div key={id}>
                         <div className='order-id'>Order #{id}</div>
                         {ordersWithId(id).map(order => (<>
+                            <h1 className="table">TABLE</h1>
+                            <p className="table-number">{order.table_number}</p>
+                            <hr className="underline"></hr>
                             <div className='order-items'>
                                 <div className='order-details'>Item: {order.name}
                                     <br/> Quantity: {order.item_quantity}</div>
