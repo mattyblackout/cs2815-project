@@ -153,6 +153,49 @@ function Menu() {
         }
     }
 
+    const handleDairyFreeClick = (type) => {
+        if (type === 'mains') {
+            fetch('http://localhost:3000/menu/mains/dairy_free')
+                .then((response) => response.json())
+                .then((data) => {
+                    setMains(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+        if (type === 'sides') {
+            fetch('http://localhost:3000/menu/sides/dairy_free')
+                .then((response) => response.json())
+                .then((data) => {
+                    setSides(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+        if (type === 'drinks') {
+            fetch('http://localhost:3000/menu/drinks/dairy_free')
+                .then((response) => response.json())
+                .then((data) => {
+                    setDrinks(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+        if (type === 'desserts') {
+            fetch('http://localhost:3000/menu/dessert/dairy_free')
+                .then((response) => response.json())
+                .then((data) => {
+                    setDesserts(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }
+
 
     /**
      * Removes an item from an order.
@@ -306,7 +349,7 @@ function Menu() {
                 <button className="vegan-filter" onClick={() => handleVeganClick(expanded)}>Vegan</button>
                 <button className="vegetarian-filter" onClick={() => handleVegetarianClick(expanded)}>Vegetarian
                 </button>
-                <button className="dairy-filter">Dairy Free</button>
+                <button className="dairy-filter" onClick={() => handleDairyFreeClick(expanded)}>Dairy Free</button>
             </div>
             <div className='menu-items-container'>
                 {mains.map((item) => (<>
@@ -334,7 +377,7 @@ function Menu() {
                 <button className="vegan-filter" onClick={() => handleVeganClick(expanded)}>Vegan</button>
                 <button className="vegetarian-filter" onClick={() => handleVegetarianClick(expanded)}>Vegetarian
                 </button>
-                <button className="dairy-filter">Dairy Free</button>
+                <button className="dairy-filter" onClick={() => handleDairyFreeClick(expanded)}>Dairy Free</button>
             </div>
             <div className='menu-items-container'>
                 {sides.map((item) => (<>
@@ -357,7 +400,7 @@ function Menu() {
                 <button className="vegan-filter" onClick={() => handleVeganClick(expanded)}>Vegan</button>
                 <button className="vegetarian-filter" onClick={() => handleVegetarianClick(expanded)}>Vegetarian
                 </button>
-                <button className="dairy-filter">Dairy Free</button>
+                <button className="dairy-filter" onClick={() => handleDairyFreeClick(expanded)}>Dairy Free</button>
             </div>
             <div className='menu-items-container'>
                 {desserts.map((item) => (<>
@@ -380,7 +423,7 @@ function Menu() {
                 <button className="vegan-filter" onClick={() => handleVeganClick(expanded)}>Vegan</button>
                 <button className="vegetarian-filter" onClick={() => handleVegetarianClick(expanded)}>Vegetarian
                 </button>
-                <button className="dairy-filter">Dairy Free</button>
+                <button className="dairy-filter" onClick={() => handleDairyFreeClick(expanded)}>Dairy Free</button>
             </div>
             <div className='menu-items-container'>
                 {drinks.map((item) => (<>
