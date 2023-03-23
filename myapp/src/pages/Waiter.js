@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import '../css/Waiter.css';
 import logo from '../logo.png';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 // main waiter function 
 function Waiter() {
@@ -14,6 +14,7 @@ function Waiter() {
     function ordersWithId(id) {
         return orders.filter((order) => order.order_number === id);
     }
+
 
     let total = 0;
 
@@ -88,11 +89,9 @@ function Waiter() {
     // handler for confirming order
     const handleConfirmOrder = (id) => {
         fetch(`http://localhost:3000/orders/${id}`, {
-            method: 'POST',
-            headers: {
+            method: 'POST', headers: {
                 'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+            }, body: JSON.stringify({
                 id: id,
             }),
         })
@@ -109,11 +108,9 @@ function Waiter() {
     // handler for deleting order
     const handleDeleteOrder = (id) => {
         fetch(`http://localhost:3000/orders/delete/${id}`, {
-            method: 'POST',
-            headers: {
+            method: 'POST', headers: {
                 'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+            }, body: JSON.stringify({
                 id: id,
             }),
         })
@@ -130,11 +127,9 @@ function Waiter() {
     // handler for marking order as delivered
     const handleDeliverOrder = (id) => {
         fetch(`http://localhost:3000/orders/delivered/${id}`, {
-            method: 'POST',
-            headers: {
+            method: 'POST', headers: {
                 'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+            }, body: JSON.stringify({
                 id: id,
             }),
         })
@@ -151,11 +146,9 @@ function Waiter() {
     // handler for marking order as paid
     const handleMarkAsPaid = (id) => {
         fetch(`http://localhost:3000/orders/paid/${id}`, {
-            method: 'POST',
-            headers: {
+            method: 'POST', headers: {
                 'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+            }, body: JSON.stringify({
                 id: id,
             }),
         })
@@ -224,6 +217,7 @@ function Waiter() {
                 <hr className="underline" />
                 {[...new Set(orders.map((order) => order.order_number))].map((id) => {
                     const order_time = ordersWithId(id)[0].time_ordered;
+                    const table = ordersWithId(id)[0].table_number;
                     return (
                         <div
                             className="orderContainer"
@@ -234,12 +228,11 @@ function Waiter() {
                                 onClick={() => handleOrderClick(id)}
                             >
                                 Order #{id} <br />
-                                Table: 7
+                                Table: {table}
                             </div>
                             <div className="order-right" onClick={() => handleOrderClick(id)}>
                                 <div className="order-right">
                                     {order_time} <br />
-                                    4 Minute(s) ago
                                 </div>
                             </div>
                             <br />
@@ -249,75 +242,66 @@ function Waiter() {
             </div>
             <div className="orderDisplay">
 
-                <h1 className="table">TABLE</h1>
-                <p className="table-number">7</p>
-                <hr className="underline"></hr>
-                <div>
-                    { [...new Set(selected.map(order => order.order_number))].map(id => {
-                        return (
-                            <div  key={id}>
-                                <div className='order-id'>Order #{id}</div>
-                                {ordersWithId(id).map(order => (
-                                    <>
-                                        <div className='order-items'>
-                                            <div className='order-details'>Item: {order.name} <br/> Quantity: {order.item_quantity}</div>
-                                            <div className='order-details'>Price: £{updateTotal((order.price  * order.item_quantity).toFixed(2))}{(order.price  * order.item_quantity).toFixed(2)}</div>
-                                        </div>
-                                    </>
-                                ))}
-                                <hr className="underline"></hr>
-                                <h1 className="simple-text">TOTAL: £{total} </h1>
+            <h1 className="table">TABLE</h1>
+            <p className="table-number">7</p>
+            <hr className="underline"></hr>
+            <div>
+                {[...new Set(selected.map(order => order.order_number))].map(id => {
+                    return (<div key={id}>
+                        <div className='order-id'>Order #{id}</div>
+                        {ordersWithId(id).map(order => (<>
+                            <div className='order-items'>
+                                <div className='order-details'>Item: {order.name}
+                                    <br/> Quantity: {order.item_quantity}</div>
+                                <div className='order-details'>Price:
+                                    £{updateTotal((order.price * order.item_quantity).toFixed(2))}{(order.price * order.item_quantity).toFixed(2)}</div>
                             </div>
-                        )
-                    })}
-                </div>
-                {expanded === "Active" && (
-                    <>
-                        <div
-                            className="confirm-order"
-                            onClick={() => handleConfirmOrder(orderID)}
-                        >
-                            Confirm Order
-                        </div>
-                        <div
-                            className="delete-order"
-                            onClick={() => handleDeleteOrder(orderID)}
-                        >
-                            Delete Order
-                        </div>
-                    </>
-                )}
-                {expanded === "Completed" && (
-                    <>
-                        <div
-                            className="deliver-order"
-                            onClick={() => handleDeliverOrder(orderID)}
-                        >
-                            Delivered
-                        </div>
-                        <div
-                            className="pay-order"
-                            onClick={() => handleMarkAsPaid(orderID)}
-                        >
-                            Mark as Paid
-                        </div>
-                    </>
-                )}
-                {expanded === "Unpaid" && (
-                    <>
-                        <div
-                            className="pay-order"
-                            onClick={() => handleMarkAsPaid(orderID)}
-                        >
-                            Mark as Paid
-                        </div>
-                    </>
-                )}
-
-
+                        </>))}
+                        <hr className="underline"></hr>
+                        <h1 className="simple-text">TOTAL: £{total} </h1>
+                    </div>)
+                })}
             </div>
+            {expanded === "Active" && (<>
+                <div
+                    className="confirm-order"
+                    onClick={() => handleConfirmOrder(orderID)}
+                >
+                    Confirm Order
+                </div>
+                <div
+                    className="delete-order"
+                    onClick={() => handleDeleteOrder(orderID)}
+                >
+                    Delete Order
+                </div>
+            </>)}
+            {expanded === "Completed" && (<>
+                <div
+                    className="deliver-order"
+                    onClick={() => handleDeliverOrder(orderID)}
+                >
+                    Delivered
+                </div>
+                <div
+                    className="pay-order"
+                    onClick={() => handleMarkAsPaid(orderID)}
+                >
+                    Mark as Paid
+                </div>
+            </>)}
+            {expanded === "Unpaid" && (<>
+                <div
+                    className="pay-order"
+                    onClick={() => handleMarkAsPaid(orderID)}
+                >
+                    Mark as Paid
+                </div>
+            </>)}
+
+
         </div>
-    );
+    </div>);
 }
 
 export default Waiter;

@@ -102,7 +102,7 @@ const updateMenu = (request, response) => {
  * @throws {Error} SQL error
  */
 const getWaitOrders = (request, response) => {
-    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = false;", (error, results) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, orders.table_number, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = false;", (error, results) => {
         if (error) {
             throw error
         }
@@ -112,7 +112,7 @@ const getWaitOrders = (request, response) => {
 
 const getSingleOrder = (request, response) => {
     const id = parseInt(request.params.id)
-    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.order_number = $1",
+    pool.query("SELECT orders.order_number, orders.time_ordered, orders.table_number, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.order_number = $1",
         [id], (error, results) => {
         if (error) {
             throw error
@@ -130,7 +130,7 @@ const getSingleOrder = (request, response) => {
  * @throws {Error} SQL error
  */
 const getWaitOrdersFiltered = (request, response) => {
-    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = false ORDER BY time_ordered;", (error, results) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, orders.table_number, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = false ORDER BY time_ordered;", (error, results) => {
         if (error) {
             throw error
         }
@@ -205,7 +205,7 @@ const deliverOrders = (req, res) => {
  * @throws {Error} SQL error
  */
 const getKitchenOrders = (request, response) => {
-    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = true AND orders.complete = false;", (error, results) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, orders.table_number, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.confirmed = true AND orders.complete = false;", (error, results) => {
         if (error) {
             throw error
         }
@@ -240,7 +240,7 @@ const updateKitchenOrders = (req, res) => {
  * @throws {Error} SQL error
  */
 const getFinishedOrders = (request, response) => {
-    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.complete = true and orders.delivered = false;", (error, results) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, orders.table_number, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.complete = true and orders.delivered = false;", (error, results) => {
         if (error) {
             throw error
         }
@@ -255,7 +255,7 @@ const getFinishedOrders = (request, response) => {
  * @throws {Error} SQL error
  */
 const getFinishedOrdersFiltered = (request, response) => {
-    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.complete = true and orders.delivered = false ORDER BY time_ordered;", (error, results) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, orders.table_number, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.complete = true and orders.delivered = false ORDER BY time_ordered;", (error, results) => {
         if (error) {
             throw error
         }
@@ -270,7 +270,7 @@ const getFinishedOrdersFiltered = (request, response) => {
  * @throws {Error} SQL error
  */
 const getUnpaidOrders = (request, response) => {
-    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.delivered = true and orders.paid = false;", (error, results) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, orders.table_number, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.delivered = true and orders.paid = false;", (error, results) => {
         if (error) {
             throw error
         }
@@ -281,10 +281,10 @@ const getUnpaidOrders = (request, response) => {
 /**
  * Gets the rows of orders that have not yet been paid, have been delivered and ordered by the time they were ordered.
  * @param {*} request an empty request
- * @param {*} response contains the rows of unpaid, delivered and ordred orders in JSON format
+ * @param {*} response contains the rows of unpaid, delivered and active orders in JSON format
  */
 const getUnpaidOrdersFiltered = (request, response) => {
-    pool.query("SELECT orders.order_number, orders.time_ordered, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.delivered = true and orders.paid = false ORDER BY time_ordered;", (error, results) => {
+    pool.query("SELECT orders.order_number, orders.time_ordered, orders.table_number, menu.name, order_items.item_quantity, menu.price FROM orders JOIN order_items ON orders.order_number = order_items.order_number JOIN menu ON order_items.item_id = menu.id WHERE orders.delivered = true and orders.paid = false ORDER BY time_ordered;", (error, results) => {
         if (error) {
             throw error
         }
@@ -415,7 +415,7 @@ const checkout = (request, response) => {
             throw error
         }
 
-        const orderId = results.rows[0].id
+        const orderId = results.rows[0].order_number;
 
         // Insert the items for the order into the order_items table
         items.forEach((item) => {
