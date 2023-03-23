@@ -173,12 +173,16 @@ function Waiter() {
         setOrderID(id);
     }
 
+    const deleteNotifications = () => {
+        
+    }
+
     const fetchNotifications = () => {
         fetch('http://localhost:3000/assistanceTable')
             .then((response) => response.json())
             .then((data) => {
                 const notifications = data.map((record) => `Table ${record.tablenumber} needs assistance`).join('\n');
-                alert(notifications);
+                deleteNotification(prompt(notifications));
             })
             .catch((error) => {
                 console.log(error);
