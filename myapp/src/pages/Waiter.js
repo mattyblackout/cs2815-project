@@ -180,7 +180,7 @@ function Waiter() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                tableNumber: tableNumber,
+                tableNumber: number,
             }),
         })
             .then((response) => response.json())
