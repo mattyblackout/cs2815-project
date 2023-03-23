@@ -66,8 +66,8 @@ function Cart() {
                                 ))}
                     </div>
                     <hr className="underline"></hr>
-                    <h2 className="text">TABLE NUMBER:</h2>
-                    <h2 className="text">ORDER TOTAL:</h2>
+                    <h2 className="text">TABLE NUMBER: {JSON.stringify(tableNumber)}</h2>
+                    <h2 className="text">ORDER TOTAL: {tPrice.toFixed(2)}</h2>
                 </div>
 
                 <div className="payment-container">
