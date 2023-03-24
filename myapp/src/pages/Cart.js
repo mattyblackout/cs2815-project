@@ -13,10 +13,39 @@ function Cart() {
 
     console.log(JSON.stringify(order[0].name));
     for (var i in order) {
-        fOrder.push(JSON.stringify(order[i].name).replaceAll("\"", " ") + "£" + JSON.stringify(order[i].price).replaceAll("\"", ""));
-        tPrice += parseFloat(order[i].price);
+        fOrder.push(JSON.stringify(order[i].quantity).replaceAll("\"", " ") +"x" +JSON.stringify(order[i].name).replaceAll("\"", " ") + "£" + JSON.stringify(order[i].price).replaceAll("\"", ""));
+        tPrice += parseFloat(order[i].price * order[i].quantity);
         console.log(fOrder);
     }
+
+    const handleCheckout = (paid) => {
+        const today = new Date();
+        const time = today.toLocaleTimeString();
+        console.log(time);
+        console.log(order);
+
+        fetch('http://localhost:3000/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                tableNumber: tableNumber,
+                time:time,
+                items:order,
+                paid: paid
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data.message);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+
 
     return (
         <div className="User-Page">
@@ -46,11 +75,11 @@ function Cart() {
             <h2 className="text">ORDER TOTAL: {tPrice.toFixed(2)}</h2>
                 <hr className="underline"></hr>
                 <div className="place-order">
-                    <button className="place-order-button" onClick={() => console.log("PLACE ORDER NOW clicked")}>
-                        PLACE ORDER NOW
+                    <button className="place-order-button" onClick={() =>handleCheckout('TRUE')}>
+                        PAY NOW
                     </button>
-                    <button className="place-order-button" onClick={() => console.log("PLACE ORDER LATER clicked")}>
-                        PLACE ORDER LATER
+                    <button className="place-order-button" onClick={() =>handleCheckout('FALSE')}>
+                        PAY LATER
                     </button>
                 </div>
             </div>

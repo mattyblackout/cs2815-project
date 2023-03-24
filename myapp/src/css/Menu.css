@@ -6,6 +6,26 @@
     font-family: 'Bayon', serif;
     color: black;
 }
+.vegan-filter{
+    height: 40px;
+    border: 3px solid black;
+    width: 103px;
+    font-size: 20px;
+}
+.vegetarian-filter{
+    height: 40px;
+    border: 3px solid black;
+    margin-left: 20px;
+    width: fit-content;
+    font-size: 20px;
+}
+.dairy-filter{
+    height: 40px;
+    border: 3px solid black;
+    margin-left: 20px;
+    width: fit-content;
+    font-size: 20px;
+}
 
 .cart-button{
     height: 50px;
@@ -223,7 +243,6 @@ button:hover {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 15ch;
 }
 
 .order-row {
