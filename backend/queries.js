@@ -431,15 +431,15 @@ const checkout = (request, response) => {
 }
 
 const deleteAssistance = (req, res) => {
-    const tablenumber = parseInt(req.params.id);
+    const tableNumber = parseInt(req.params.tablenumber)
     pool.query(
         'DELETE FROM assistance WHERE tablenumber = $1',
-        [tablenumber],
+        [tableNumber],
         (error) => {
             if (error) {
                 throw error
             }
-            res.status(200).send(`Assistance record for table number ${tablenumber} deleted`)
+            res.status(200).send(`Assistance record for table number ${tableNumber} deleted`)
         }
     )
 }
