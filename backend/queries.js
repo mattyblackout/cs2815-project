@@ -430,6 +430,21 @@ const checkout = (request, response) => {
     })
 }
 
+const deleteAssistance = (req, res) => {
+    const tablenumber = parseInt(req.params.id);
+    pool.query(
+        'DELETE FROM assistance WHERE tablenumber = $1',
+        [tablenumber],
+        (error) => {
+            if (error) {
+                throw error
+            }
+            res.status(200).send(`Assistance record for table number ${tablenumber} deleted`)
+        }
+    )
+}
+
+
 module.exports = {
     getMenu,
     updateMenu,
@@ -455,5 +470,6 @@ module.exports = {
     getAssistanceTable,
     getMenuVegan,
     getMenuVegetarian,
-    getMenuDairy
+    getMenuDairy,
+    deleteAssistance
 }

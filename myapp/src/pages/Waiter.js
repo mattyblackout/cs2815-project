@@ -174,7 +174,7 @@ function Waiter() {
     }
 
     const deleteNotifications = (number) => {
-        fetch('http://localhost:3000/assistance', {
+        fetch(`http://localhost:3000/deleteAssistance/${number}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -198,7 +198,7 @@ function Waiter() {
             .then((response) => response.json())
             .then((data) => {
                 const notifications = data.map((record) => `Table ${record.tablenumber} needs assistance`).join('\n');
-                deleteNotification(prompt(notifications));
+                deleteNotifications(prompt(notifications));
             })
             .catch((error) => {
                 console.log(error);

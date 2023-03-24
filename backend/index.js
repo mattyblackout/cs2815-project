@@ -41,6 +41,7 @@ app.get('/unpaid-ordersFiltered', db.getUnpaidOrdersFiltered)
 app.post('/orders/paid/:id', db.payOrders)
 app.post('/helpRequest/:id', db.helpRequest)
 app.get('/assistanceTable', db.getAssistanceTable)
+app.post('/deleteAssistance/:tablenumber', db.deleteAssistance)
 
 
 app.get('/', (request, response) => {
